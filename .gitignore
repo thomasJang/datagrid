@@ -1,0 +1,8 @@
+build/
+lib/
+dist/
+node_modules/
+.next/
+.idea/
+.DS_Store
+package-lock.json
