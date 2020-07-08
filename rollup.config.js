@@ -20,9 +20,6 @@ export default {
         resolve({
             extensions,
         }),
-        commonjs({
-            include: /node_modules/,
-        }),
         babel({
             extensions,
             exclude: /node_modules/,

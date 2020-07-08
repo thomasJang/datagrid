@@ -1,0 +1,44 @@
+
+@acgrid-base-color: #fff;
+@acgrid-border-width: 1px;
+@acgrid-border-style: solid;
+@acgrid-border-color: #d9d9d9;
+
+@acgrid-txt-static: #222;
+@acgrid-txt-default: #222;
+@acgrid-txt-hover: #222;
+@acgrid-txt-active: #222;
+@acgrid-txt-disabled: #222;
+@acgrid-txt-label: #222;
+@acgrid-txt-point: #222;
+@acgrid-txt-link: #222;
+@acgrid-txt-desc: #222;
+
+@acgrid-font-size: 12px;
+
+.ac_datagrid {
+  --border-width: @acgrid-border-width;
+  --border-style: @acgrid-border-style;
+  --border-color: @acgrid-border-color;
+  --border: var(--border-width) var(--border-style) var(--border-color);
+  --txt-color: @acgrid-txt-static;
+  --txt-default-color: @acgrid-txt-default;
+  --txt-hover-color: @acgrid-txt-hover;
+  --txt-hover-active: @acgrid-txt-active;
+  --txt-hover-disabled: @acgrid-txt-disabled;
+  --txt-hover-label: @acgrid-txt-label;
+  --txt-hover-point: @acgrid-txt-point;
+  --txt-hover-link: @acgrid-txt-link;
+  --txt-hover-desc: @acgrid-txt-desc;
+
+  --bg: @acgrid-base-color;
+  --font-size: @acgrid-font-size;
+  --column-border: @acgrid-border-width @acgrid-border-style
+    @acgrid-border-color;
+}
+
+.ac_datagrid {
+  border: var(--border);
+}
+
+@import './header';
