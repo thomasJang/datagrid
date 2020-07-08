@@ -1,5 +1,10 @@
 import React from 'react';
 
-export default function App() {
-    return <p>Rollup + TypeScript + React = ❤️</p>;
+interface IProps {}
+const Datagrid: React.FC<IProps> = () => {
+    return <div>
+        a component Datagrid
+    </div>
 }
+
+export default Datagrid;
