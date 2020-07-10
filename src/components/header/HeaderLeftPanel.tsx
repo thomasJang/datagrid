@@ -7,17 +7,18 @@ interface IProps {
 }
 const HeaderLeftPanel: React.FC<IProps> = ({ containerHeight }) => {
   const [context] = useContext(DatagridContext);
-  const { _leftColGroup } = context;
 
-  if (!_leftColGroup || _leftColGroup.length < 1) {
+  if (!context._leftColGroup || context._leftColGroup.length < 1) {
     return null;
   }
 
   return (
-    <div className="ac_datagrid--header--left_panel">
-      <HeaderTable columns={_leftColGroup} height={containerHeight} />
+    <div className="ac_datagrid--header--left_panel"
+         style={{height: containerHeight}}
+    >
+      <HeaderTable columns={context._leftColGroup} height={containerHeight} />
     </div>
   );
 };
 
-export default HeaderLeftPanel;
+export default React.memo(HeaderLeftPanel);

@@ -8,7 +8,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const extensions = ['.js', '.ts', '.tsx'];
 
 export default {
-    input: 'src/index.tsx',
+    input: 'src/Index.tsx',
     output: {
         file: 'public/index.js',
         format: 'iife',

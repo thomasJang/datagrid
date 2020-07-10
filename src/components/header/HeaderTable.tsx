@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import DatagridContext from '../../context/DatagridContext';
-import { IColumn } from '../../common/@interface';
+import { IColumn } from '../../lib/@interface';
 
 interface IProps {
   height: number;
@@ -27,4 +27,4 @@ const HeaderTable: React.FC<IProps> = ({ height, columns }) => {
   );
 };
 
-export default HeaderTable;
+export default React.memo(HeaderTable);

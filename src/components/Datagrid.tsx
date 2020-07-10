@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { IDatagridProps, IDatagridContext } from '../common/@interface';
+import { IDatagridProps, IDatagridContext } from '../lib/@interface';
 import DataContext from '../context/DatagridContext';
-import getCTXDataByColumns from '../common/getCTXDataByColumns';
+import getCTXDataByColumns from '../lib/getCTXDataByColumns';
 
 const Datagrid: React.FC<IDatagridProps> = props => {
   const [ctx, setCtx] = useState<IDatagridContext>({});

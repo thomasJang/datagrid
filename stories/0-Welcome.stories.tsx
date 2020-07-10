@@ -6,8 +6,8 @@ export default {
 };
 
 export const ToStorybook = () => <div>
-  <h1>Welcome to ac-datagrid storybook</h1>
-  <p>Go to <a onClick={linkTo('Datagrid')}>Stories</a></p>
+  <h1>Welcome to @ac/datagrid storybook</h1>
+  <p>Go to <button onClick={linkTo('Datagrid')}>Stories</button></p>
 </div>;
 
 ToStorybook.story = {
