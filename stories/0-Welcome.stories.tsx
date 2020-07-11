@@ -7,7 +7,7 @@ export default {
 
 export const ToStorybook = () => <div>
   <h1>Welcome to @ac/datagrid storybook</h1>
-  <p>Go to <button onClick={linkTo('Datagrid')}>Stories</button></p>
+  <p>Go to <button onClick={linkTo('@ac/datagrid')}>Stories</button></p>
 </div>;
 
 ToStorybook.story = {

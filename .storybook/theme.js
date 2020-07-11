@@ -2,5 +2,5 @@ import { create } from '@storybook/theming/create';
 
 export default create({
     base: 'light',
-    brandTitle: '@ac/datagrid',
+    brandTitle: '@a-c/datagrid',
 });
