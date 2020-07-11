@@ -45,13 +45,13 @@ export const basic: React.FC = () => {
             <DatagridHeader />
             <DatagridBody />
         </Datagrid>
-        <div style={{padding: 10}}>
+        <section>
             <button onClick={setColumnA}>
                 setColumn A
             </button>
             <button onClick={setColumnB}>
                 setColumn B
             </button>
-        </div>
+        </section>
     </div>
 }

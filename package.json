@@ -1,8 +1,12 @@
 {
-  "name": "@ac/datagrid",
-  "version": "0.0.1",
+  "name": "@a-c/datagrid",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
+  "np": {
+    "yarn": false,
+    "contents": "dist"
+  },
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
