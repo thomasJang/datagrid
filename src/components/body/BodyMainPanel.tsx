@@ -1,23 +1,23 @@
 import React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { useDatagridLayoutContext } from "../../context/LayoutContext";
-import HeaderTable from "./HeaderTable";
+import BodyTable from "./BodyTable";
 
 interface IProps {}
-const HeaderMainPanel: React.FC<IProps> = () => {
+const BodyMainPanel: React.FC<IProps> = ({}) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
+  const { _bodyHeight: height } = layoutContext;
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
   }
-  const { _headerHeight: height = 0 } = layoutContext;
 
   return (
-    <div className="ac_datagrid--header--main__panel" style={{ height }}>
-      <HeaderTable columns={context._colGroup} />
+    <div className="ac_datagrid--body--main__panel" style={{ height }}>
+      <BodyTable columns={context._colGroup} />
     </div>
   );
 };
 
-export default React.memo(HeaderMainPanel);
+export default React.memo(BodyMainPanel);

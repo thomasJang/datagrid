@@ -1,8 +1,8 @@
-
 @acgrid-base-color: #fff;
 @acgrid-border-width: 1px;
 @acgrid-border-style: solid;
 @acgrid-border-color: #d9d9d9;
+@acgrid-header-bg: #eee;
 
 @acgrid-txt-static: #222;
 @acgrid-txt-default: #222;
@@ -15,6 +15,7 @@
 @acgrid-txt-desc: #222;
 
 @acgrid-font-size: 12px;
+@acgrid-padding-base: 0 5px;
 
 .ac_datagrid {
   --border-width: @acgrid-border-width;
@@ -35,12 +36,21 @@
   --font-size: @acgrid-font-size;
   --column-border: @acgrid-border-width @acgrid-border-style
     @acgrid-border-color;
+
+  --header-bg: @acgrid-header-bg;
+  --padding-base: @acgrid-padding-base;
 }
 
 .ac_datagrid {
-  border: var(--border);
   background-color: var(--bg);
+  border: var(--border);
   font-size: var(--font-size);
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
 }
 
-@import './header';
+@import "./header";
+@import "./body";

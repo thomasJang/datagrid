@@ -3,14 +3,14 @@ import { useDatagridContext } from "../../context/DatagridContext";
 import { useDatagridLayoutContext } from "../../context/LayoutContext";
 
 interface IProps {}
-const HeaderAsidePanel: React.FC<IProps> = () => {
+const BodyAsidePanel: React.FC<IProps> = () => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
+  const { _bodyHeight: height } = layoutContext;
 
   if (!context.enableLineNumber) {
     return null;
   }
-  const { _headerHeight: height } = layoutContext;
 
   return (
     <div
@@ -22,4 +22,4 @@ const HeaderAsidePanel: React.FC<IProps> = () => {
   );
 };
 
-export default React.memo(HeaderAsidePanel);
+export default React.memo(BodyAsidePanel);

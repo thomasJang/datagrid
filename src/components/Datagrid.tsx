@@ -1,64 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { IDatagridProps, IDatagridContext } from '../lib/@interface';
-import DataContext from '../context/DatagridContext';
-import getCTXDataByColumns from '../lib/getCTXDataByColumns';
+import React, { useEffect } from "react";
+import { IDatagridProps, IDatagridContext } from "../@interface";
+import getCTXDataByColumns from "../lib/getCTXDataByColumns";
+import {
+  useDatagridDispatch,
+  useDatagridContext
+} from "../context/DatagridContext";
+import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
 
 const Datagrid: React.FC<IDatagridProps> = props => {
-  const [ctx, setCtx] = useState<IDatagridContext>({});
-  const { cssClassName = 'ac_datagrid' } = ctx;
+  const state = useDatagridContext();
+  const dispatch = useDatagridDispatch();
+
+  const { cssClassName = "ac_datagrid" } = state;
   const styles: React.CSSProperties = {
     ...props.style,
     width: props.width,
-    height: props.height,
+    height: props.height
   };
 
-  // componnent didUpdate
+  // component didUpdate
   useEffect(() => {
     // make new context
-    const nextCtx: IDatagridContext = {
-      ...ctx,
-      ...props,
-      _scrollLeft: 0,
-      _scrollTop: 0,
+    const nextState: IDatagridContext = {
+      ...state,
+      ...props
     };
 
     if (
-      ctx.columns !== nextCtx.columns ||
-      ctx.enableFrozenCell !== nextCtx.enableFrozenCell ||
-      ctx.frozenColumnIndex !== nextCtx.frozenColumnIndex
+      state.columns !== nextState.columns ||
+      state.enableFrozenCell !== nextState.enableFrozenCell ||
+      state.frozenColumnIndex !== nextState.frozenColumnIndex
     ) {
       const {
         _leftColGroup,
         _colGroup,
-        _totalWidthOfColumns,
-      } = getCTXDataByColumns(nextCtx.columns, {
-        containerWidth: nextCtx.width || 0,
-        enableFrozenCell: nextCtx.enableFrozenCell,
-        frozenColumnIndex: nextCtx.frozenColumnIndex,
+        _totalWidthOfColumns
+      } = getCTXDataByColumns(nextState.columns, {
+        containerWidth: nextState.width || 0,
+        enableFrozenCell: nextState.enableFrozenCell,
+        frozenColumnIndex: nextState.frozenColumnIndex
       });
-      nextCtx._leftColGroup = _leftColGroup;
-      nextCtx._colGroup = _colGroup;
-      nextCtx._totalWidthOfColumns = _totalWidthOfColumns;
-      console.log(
-        'getCTXData by columns',
-        _leftColGroup,
-        _colGroup,
-        _totalWidthOfColumns,
-      );
+      nextState._leftColGroup = _leftColGroup;
+      nextState._colGroup = _colGroup;
+      nextState._totalWidthOfColumns = _totalWidthOfColumns;
+      // console.log(
+      //     'getCTXData by columns',
+      //     _leftColGroup,
+      //     _colGroup,
+      //     _totalWidthOfColumns,
+      // );
     }
-    if (ctx.data !== nextCtx.data) {
-      console.log('changed or init data');
+    if (state.data !== nextState.data) {
+      // console.log('changed or init data');
     }
 
-    setCtx(nextCtx);
-  }, [props.width, props.columns, props.enableFrozenCell, props.frozenColumnIndex]);
+    dispatch({ type: "SET_STATE", state: nextState });
+  }, [
+    props.width,
+    props.columns,
+    props.enableFrozenCell,
+    props.frozenColumnIndex
+  ]);
 
   return (
-    <DataContext.Provider value={[ctx, setCtx]}>
-      <div className={cssClassName} style={styles}>
-        {props.children}
-      </div>
-    </DataContext.Provider>
+    <div className={cssClassName} style={styles}>
+      {props.children}
+    </div>
   );
 };
 

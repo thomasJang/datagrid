@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
-import DatagridContext from '../../context/DatagridContext';
-import { IColumn } from '../../lib/@interface';
+import React from "react";
+import { IColumn } from "../../@interface";
+import { useDatagridLayoutContext } from "../../context/LayoutContext";
 
 interface IProps {
-  height: number;
   columns: IColumn[];
 }
-const HeaderTable: React.FC<IProps> = ({ height, columns }) => {
+const HeaderTable: React.FC<IProps> = ({ columns }) => {
+  const layoutContext = useDatagridLayoutContext();
+  const { _headerHeight: height } = layoutContext;
   return (
     <table>
       <colgroup>
@@ -18,7 +19,7 @@ const HeaderTable: React.FC<IProps> = ({ height, columns }) => {
         <tr>
           {columns.map((col, ci) => (
             <td key={ci} style={{ height }}>
-              {col.label}
+              <span>{col.label}</span>
             </td>
           ))}
         </tr>
