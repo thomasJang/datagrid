@@ -40,12 +40,12 @@ export function DatagridProvider({ children }: { children: React.ReactNode }) {
 
 export function useDatagridContext() {
   const state = useContext(DatagridContext);
-  if (!state) throw new Error("Cannot find DatagridContextProvider"); // 유효하지 않을땐 에러를 발생
+  if (!state) throw new Error("Cannot find DatagridContextProvider");
   return state;
 }
 
 export function useDatagridDispatch() {
   const dispatch = useContext(DatagridDispatchContext);
-  if (!dispatch) throw new Error("Cannot find DatagridContextProvider"); // 유효하지 않을땐 에러를 발생
+  if (!dispatch) throw new Error("Cannot find DatagridContextProvider");
   return dispatch;
 }

@@ -50,12 +50,12 @@ export function DatagridLayoutProvider({
 
 export function useDatagridLayoutContext() {
   const state = useContext(DatagridLayoutContext);
-  if (!state) throw new Error("Cannot find DatagridLayoutContextProvider"); // 유효하지 않을땐 에러를 발생
+  if (!state) throw new Error("Cannot find DatagridLayoutContextProvider");
   return state;
 }
 
 export function useDatagridLayoutDispatch() {
   const dispatch = useContext(DatagridLayoutDispatchContext);
-  if (!dispatch) throw new Error("Cannot find DatagridLayoutContextProvider"); // 유효하지 않을땐 에러를 발생
+  if (!dispatch) throw new Error("Cannot find DatagridLayoutContextProvider");
   return dispatch;
 }
