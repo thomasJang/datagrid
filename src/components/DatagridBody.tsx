@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { IDatagridBody } from "@interface";
 import BodyAsidePanel from "./body/BodyAsidePanel";
 import BodyLeftPanel from "./body/BodyLeftPanel";
@@ -8,13 +8,29 @@ import { useDatagridContext } from "../context/DatagridContext";
 import {
   useDatagridLayoutContext,
   useDatagridLayoutDispatch
-} from "../context/LayoutContext";
+} from "../context/DatagridLayoutContext";
 
 const DatagridBody: React.FC<IDatagridBody> = props => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { bodyRowHeight = 20, dataLength } = context;
+  const { _bodyHeight = 20, _scrollTop } = layoutContext;
+
+  const { startRowIndex, endRowIndex } = React.useMemo(() => {
+    const displayRowCount = Math.floor(_bodyHeight / bodyRowHeight);
+    const startRowIndex = Math.floor(_scrollTop / bodyRowHeight);
+    const endRowIndex =
+      startRowIndex + displayRowCount > dataLength
+        ? dataLength
+        : startRowIndex + displayRowCount;
+    return {
+      startRowIndex,
+      endRowIndex
+    };
+  }, [_bodyHeight, bodyRowHeight, dataLength, _scrollTop]);
 
   useIsomorphicLayoutEffect(() => {
     if (!containerRef.current) {
@@ -24,18 +40,14 @@ const DatagridBody: React.FC<IDatagridBody> = props => {
       type: "SET_BODY_HEIGHT",
       bodyHeight: containerRef.current.clientHeight
     });
-  }, [
-    props.style,
-    context.height,
-    context.headerHeight,
-    layoutContext._headerHeight
-  ]);
+  }, [props.style, context.height, context.headerHeight]);
 
   return (
     <div ref={containerRef} style={props.style} className="ac_datagrid--body">
       <BodyAsidePanel />
       <BodyLeftPanel />
-      <BodyMainPanel />
+      <BodyMainPanel startRowIndex={startRowIndex} endRowIndex={endRowIndex} />
+      {props.children}
     </div>
   );
 };

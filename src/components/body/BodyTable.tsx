@@ -3,20 +3,28 @@ import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn } from "../../@interface";
 import BodyTableRow from "./BodyTableRow";
 import { arrayFromRange, getDataItem } from "../../lib";
+import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 
 interface IProps {
   columns: IColumn[];
+  startRowIndex: number;
+  endRowIndex: number;
 }
-const BodyTable: React.FC<IProps> = ({ columns }) => {
+const BodyTable: React.FC<IProps> = ({
+  columns,
+  startRowIndex,
+  endRowIndex
+}) => {
   const context = useDatagridContext();
-  const startRowIndex = 0;
-  const endRowIndex = context.dataLength || 0;
+  const layoutContext = useDatagridLayoutContext();
+
   return (
     <table>
       <colgroup>
         {columns.map((col, ci) => (
           <col key={ci} style={{ width: col._width }} />
         ))}
+        <col />
       </colgroup>
       <tbody>
         {arrayFromRange(startRowIndex, endRowIndex).map(rowIndex => {

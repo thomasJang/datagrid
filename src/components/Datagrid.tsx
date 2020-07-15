@@ -5,13 +5,18 @@ import {
   useDatagridDispatch,
   useDatagridContext
 } from "../context/DatagridContext";
-import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
+import {
+  useDatagridLayoutContext,
+  useDatagridLayoutDispatch
+} from "../context/DatagridLayoutContext";
 
 const Datagrid: React.FC<IDatagridProps> = props => {
-  const state = useDatagridContext();
+  const context = useDatagridContext();
+  const layoutContext = useDatagridLayoutContext();
   const dispatch = useDatagridDispatch();
+  const layoutDispatch = useDatagridLayoutDispatch();
 
-  const { cssClassName = "ac_datagrid" } = state;
+  const { cssClassName = "ac_datagrid" } = context;
   const styles: React.CSSProperties = {
     ...props.style,
     width: props.width,
@@ -22,14 +27,14 @@ const Datagrid: React.FC<IDatagridProps> = props => {
   useEffect(() => {
     // make new context
     const nextState: IDatagridContext = {
-      ...state,
+      ...context,
       ...props
     };
 
     if (
-      state.columns !== nextState.columns ||
-      state.enableFrozenCell !== nextState.enableFrozenCell ||
-      state.frozenColumnIndex !== nextState.frozenColumnIndex
+      context.columns !== nextState.columns ||
+      context.enableFrozenCell !== nextState.enableFrozenCell ||
+      context.frozenColumnIndex !== nextState.frozenColumnIndex
     ) {
       const {
         _leftColGroup,
@@ -50,7 +55,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
       //     _totalWidthOfColumns,
       // );
     }
-    if (state.data !== nextState.data) {
+    if (context.data !== nextState.data) {
       // console.log('changed or init data');
     }
 
@@ -61,6 +66,30 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     props.enableFrozenCell,
     props.frozenColumnIndex
   ]);
+
+  useEffect(() => {
+    if (
+      layoutContext._scrollTop !== props.scrollTop ||
+      layoutContext._scrollLeft !== props.scrollLeft
+    ) {
+      const {
+        scrollTop = layoutContext._scrollTop,
+        scrollLeft = layoutContext._scrollLeft
+      } = props;
+      layoutDispatch({ type: "SET_SCROLL", scrollTop, scrollLeft });
+    }
+  }, [props.scrollTop, props.scrollLeft]);
+
+  // useEffect(() => {
+  //   // changed state
+  //   if (context._ready) {
+  //     console.log("need to change display colGroup");
+  //   }
+  // }, [context._ready, layoutContext._scrollLeft, context.width]);
+
+  if (!context._ready) {
+    return null;
+  }
 
   return (
     <div className={cssClassName} style={styles}>

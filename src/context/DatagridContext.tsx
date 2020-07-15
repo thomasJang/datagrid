@@ -18,7 +18,8 @@ const DatagridContextReducer = (
     case "SET_STATE":
       return {
         ...state,
-        ...action.state
+        ...action.state,
+        _ready: true
       };
     default:
       throw new Error("Unhandled action");
@@ -27,7 +28,16 @@ const DatagridContextReducer = (
 
 // Provider
 export function DatagridProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(DatagridContextReducer, {});
+  const [state, dispatch] = useReducer(DatagridContextReducer, {
+    _ready: false,
+    width: 0,
+    height: 0,
+    columns: [],
+    data: [],
+    dataLength: 0,
+    bodyRowHeight: 20,
+    headerHeight: 20
+  });
 
   return (
     <DatagridContext.Provider value={state}>

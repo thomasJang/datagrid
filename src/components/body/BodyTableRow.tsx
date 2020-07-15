@@ -21,6 +21,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
           </span>
         </td>
       ))}
+      <td />
     </tr>
   );
 };

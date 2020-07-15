@@ -1,18 +1,6 @@
 .ac_datagrid--body {
   flex: 1;
   position: relative;
-
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
-  td {
-    padding: 0;
-    border-right: var(--border);
-    > span {
-      padding: var(--padding-base);
-    }
-  }
 }
 
 .ac_datagrid--body--aside__panel {
@@ -27,4 +15,8 @@
   left: 0;
   top: 0;
   overflow: hidden;
+}
+
+[data-panel="scroll-content"] {
+  position: relative;
 }

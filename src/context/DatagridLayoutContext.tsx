@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, createContext, Dispatch } from "react";
 import { IDatagridLayoutContext } from "../@interface";
 export type DatagridLayoutContextAction =
+  | { type: "SET_SCROLL"; scrollTop: number; scrollLeft: number }
   | { type: "SET_BODY_HEIGHT"; bodyHeight: number }
   | { type: "SET_HEADER_HEIGHT"; headerHeight: number };
 
@@ -26,6 +27,12 @@ const DatagridLayoutontextReducer = (
         ...state,
         _headerHeight: action.headerHeight
       };
+    case "SET_SCROLL":
+      return {
+        ...state,
+        _scrollLeft: action.scrollLeft,
+        _scrollTop: action.scrollTop
+      };
     default:
       throw new Error("Unhandled action");
   }
@@ -37,7 +44,10 @@ export function DatagridLayoutProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [state, dispatch] = useReducer(DatagridLayoutontextReducer, {});
+  const [state, dispatch] = useReducer(DatagridLayoutontextReducer, {
+    _scrollTop: 0,
+    _scrollLeft: 0
+  });
 
   return (
     <DatagridLayoutContext.Provider value={state}>

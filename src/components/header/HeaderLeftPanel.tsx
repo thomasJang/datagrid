@@ -1,6 +1,6 @@
 import React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
-import { useDatagridLayoutContext } from "../../context/LayoutContext";
+import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 import HeaderTable from "./HeaderTable";
 
 interface IProps {}

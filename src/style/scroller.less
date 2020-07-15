@@ -1,0 +1,34 @@
+.ac_datagrid--scroller {
+  position: absolute;
+  box-sizing: border-box;
+  &[data-scroller="vertical"] {
+    right: 0;
+    top: 0;
+  }
+  &[data-scroller="horizontal"] {
+    right: 0;
+    top: 0;
+  }
+
+  [data-scroll-bar="vertical"] {
+    position: relative;
+    padding: 2px;
+    &:before{
+      transition: opacity 0.3s;
+      display: block;
+      position: relative;
+      content: '';
+      background: var(--scroll-bar-color);
+      height: 100%;
+      width: 100%;
+      border-radius: 5px;
+      opacity: 0.3;
+    }
+  }
+
+  &:hover, .hover{
+    [data-scroll-bar]:before{
+      opacity: 1;
+    }
+  }
+}

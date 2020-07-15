@@ -1,6 +1,6 @@
 import React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
-import { useDatagridLayoutContext } from "../../context/LayoutContext";
+import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 import BodyTable from "./BodyTable";
 
 interface IProps {}
@@ -14,9 +14,7 @@ const BodyLeftPanel: React.FC<IProps> = () => {
   }
 
   return (
-    <div className="ac_datagrid--header--left_panel" style={{ height }}>
-      <BodyTable columns={context._leftColGroup} />
-    </div>
+    <div className="ac_datagrid--header--left_panel" style={{ height }}></div>
   );
 };
 
