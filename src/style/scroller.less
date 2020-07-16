@@ -12,6 +12,7 @@
 
   [data-scroll-bar="vertical"] {
     position: relative;
+    box-sizing: border-box;
     padding: 2px;
     &:before{
       transition: opacity 0.3s;
@@ -24,11 +25,12 @@
       border-radius: 5px;
       opacity: 0.3;
     }
-  }
 
-  &:hover, .hover{
-    [data-scroll-bar]:before{
-      opacity: 1;
+    &:hover, &.active{
+      &:before{
+        opacity: 1;
+      }
     }
   }
+
 }

@@ -17,9 +17,11 @@ const BodyMainPanel: React.FC<IProps> = ({ startRowIndex, endRowIndex }) => {
     return null;
   }
 
+  const top = -(layoutContext._scrollTop % (context.bodyRowHeight || 1));
+
   return (
     <div className="ac_datagrid--body--main__panel" style={{ width, height }}>
-      <div data-panel={"scroll-content"}>
+      <div data-panel={"scroll-content"} style={{ top }}>
         <BodyTable
           columns={context._colGroup}
           startRowIndex={startRowIndex}
