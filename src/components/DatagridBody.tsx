@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
 import { IDatagridBody } from "@interface";
 import BodyAsidePanel from "./body/BodyAsidePanel";
 import BodyLeftPanel from "./body/BodyLeftPanel";
@@ -19,16 +19,19 @@ const DatagridBody: React.FC<IDatagridBody> = props => {
   const { bodyRowHeight = 20, dataLength } = context;
   const { _bodyHeight = 20, _scrollTop } = layoutContext;
 
-  const { startRowIndex, endRowIndex } = React.useMemo(() => {
+  const { startRowIndex, endRowIndex, styleTop } = React.useMemo(() => {
     const displayRowCount = Math.floor(_bodyHeight / bodyRowHeight);
     const startRowIndex = Math.floor(_scrollTop / bodyRowHeight);
     const endRowIndex =
       startRowIndex + displayRowCount > dataLength
         ? dataLength
         : startRowIndex + displayRowCount;
+    const styleTop = -(_scrollTop % bodyRowHeight);
+
     return {
       startRowIndex,
-      endRowIndex
+      endRowIndex,
+      styleTop
     };
   }, [_bodyHeight, bodyRowHeight, dataLength, _scrollTop]);
 
@@ -46,7 +49,11 @@ const DatagridBody: React.FC<IDatagridBody> = props => {
     <div ref={containerRef} style={props.style} className="ac_datagrid--body">
       <BodyAsidePanel />
       <BodyLeftPanel />
-      <BodyMainPanel startRowIndex={startRowIndex} endRowIndex={endRowIndex} />
+      <BodyMainPanel
+        startRowIndex={startRowIndex}
+        endRowIndex={endRowIndex}
+        styleTop={styleTop}
+      />
       {props.children}
     </div>
   );

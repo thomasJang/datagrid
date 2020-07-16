@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 import BodyTable from "./BodyTable";
@@ -6,8 +6,13 @@ import BodyTable from "./BodyTable";
 interface IProps {
   startRowIndex: number;
   endRowIndex: number;
+  styleTop: number;
 }
-const BodyMainPanel: React.FC<IProps> = ({ startRowIndex, endRowIndex }) => {
+const BodyMainPanel: React.FC<IProps> = ({
+  startRowIndex,
+  endRowIndex,
+  styleTop
+}) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const { _bodyHeight: height } = layoutContext;
@@ -17,11 +22,9 @@ const BodyMainPanel: React.FC<IProps> = ({ startRowIndex, endRowIndex }) => {
     return null;
   }
 
-  const top = -(layoutContext._scrollTop % (context.bodyRowHeight || 1));
-
   return (
     <div className="ac_datagrid--body--main__panel" style={{ width, height }}>
-      <div data-panel={"scroll-content"} style={{ top }}>
+      <div data-panel={"scroll-content"} style={{ top: styleTop }}>
         <BodyTable
           columns={context._colGroup}
           startRowIndex={startRowIndex}
