@@ -4,7 +4,8 @@ import {
   Datagrid,
   DatagridHeader,
   DatagridBody,
-  DatagridVerticalScroller
+  DatagridVerticalScroller,
+  DatagridHorizontalScroller
 } from "../src";
 import "../src/style/index.less";
 import { IColumn, IDataItem } from "../src/@interface";
@@ -76,6 +77,7 @@ export const basic: React.FC = () => {
         <DatagridHeader />
         <DatagridBody>
           <DatagridVerticalScroller size={12} />
+          <DatagridHorizontalScroller size={12} />
         </DatagridBody>
       </Datagrid>
       <section>

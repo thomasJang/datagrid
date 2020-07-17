@@ -1,8 +1,13 @@
 import React, { useReducer, useContext, createContext, Dispatch } from "react";
 import { IDatagridLayoutContext } from "../@interface";
 export type DatagridLayoutContextAction =
+  | { type: "SET_HOVER"; hover: boolean }
   | { type: "SET_SCROLL"; scrollTop: number; scrollLeft: number }
-  | { type: "SET_BODY_HEIGHT"; bodyHeight: number }
+  | {
+      type: "SET_BODY_DIMENSION";
+      bodyHeight: number;
+      contentScrollContainerWidth?: number;
+    }
   | { type: "SET_HEADER_HEIGHT"; headerHeight: number };
 
 const DatagridLayoutContext = createContext<IDatagridLayoutContext | null>(
@@ -17,10 +22,18 @@ const DatagridLayoutontextReducer = (
   action: DatagridLayoutContextAction
 ): IDatagridLayoutContext => {
   switch (action.type) {
-    case "SET_BODY_HEIGHT":
+    case "SET_HOVER":
       return {
         ...state,
-        _bodyHeight: action.bodyHeight
+        _hover: action.hover
+      };
+    case "SET_BODY_DIMENSION":
+      return {
+        ...state,
+        _bodyHeight: action.bodyHeight,
+        _contentScrollContainerWidth:
+          action.contentScrollContainerWidth ??
+          state._contentScrollContainerWidth
       };
     case "SET_HEADER_HEIGHT":
       return {
@@ -46,7 +59,8 @@ export function DatagridLayoutProvider({
 }) {
   const [state, dispatch] = useReducer(DatagridLayoutontextReducer, {
     _scrollTop: 0,
-    _scrollLeft: 0
+    _scrollLeft: 0,
+    _hover: false
   });
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { IDatagridProps, IDatagridContext } from "../@interface";
 import getCTXDataByColumns from "../lib/getCTXDataByColumns";
 import {
@@ -6,9 +6,11 @@ import {
   useDatagridContext
 } from "../context/DatagridContext";
 import {
+  DatagridLayoutContextAction,
   useDatagridLayoutContext,
   useDatagridLayoutDispatch
 } from "../context/DatagridLayoutContext";
+import debounce from "lodash.debounce";
 
 const Datagrid: React.FC<IDatagridProps> = props => {
   const context = useDatagridContext();
@@ -21,6 +23,19 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     ...props.style,
     width: props.width,
     height: props.height
+  };
+
+  const debouncedLayoutDispatch = useRef(
+    debounce<(action: DatagridLayoutContextAction) => void>(action => {
+      layoutDispatch(action);
+    }, 300)
+  );
+
+  const handleMouseEnter: React.MouseEventHandler = () => {
+    debouncedLayoutDispatch.current({ type: "SET_HOVER", hover: true });
+  };
+  const handleMouseLeave: React.MouseEventHandler = () => {
+    debouncedLayoutDispatch.current({ type: "SET_HOVER", hover: false });
   };
 
   // component didUpdate
@@ -80,19 +95,17 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     }
   }, [props.scrollTop, props.scrollLeft]);
 
-  // useEffect(() => {
-  //   // changed state
-  //   if (context._ready) {
-  //     console.log("need to change display colGroup");
-  //   }
-  // }, [context._ready, layoutContext._scrollLeft, context.width]);
-
   if (!context._ready) {
     return null;
   }
 
   return (
-    <div className={cssClassName} style={styles}>
+    <div
+      className={cssClassName}
+      style={styles}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {props.children}
     </div>
   );

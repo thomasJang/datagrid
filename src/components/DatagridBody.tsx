@@ -11,10 +11,10 @@ import {
 } from "../context/DatagridLayoutContext";
 
 const DatagridBody: React.FC<IDatagridBody> = props => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const { bodyRowHeight = 20, dataLength } = context;
   const { _bodyHeight = 20, _scrollTop } = layoutContext;
@@ -39,9 +39,17 @@ const DatagridBody: React.FC<IDatagridBody> = props => {
     if (!containerRef.current) {
       return;
     }
+
+    const { _lineNumberColumnWidth = 50, enableLineNumber } = context;
+    const bodyHeight = containerRef.current.clientHeight;
+    const bodyWidth = containerRef.current.clientWidth;
+    const lineNumberColumnWidth = enableLineNumber ? _lineNumberColumnWidth : 0;
+    const contentScrollContainerWidth = bodyWidth - lineNumberColumnWidth;
+
     layoutDispatch({
-      type: "SET_BODY_HEIGHT",
-      bodyHeight: containerRef.current.clientHeight
+      type: "SET_BODY_DIMENSION",
+      bodyHeight,
+      contentScrollContainerWidth
     });
   }, [props.style, context.height, context.headerHeight]);
 

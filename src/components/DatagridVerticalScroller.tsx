@@ -5,7 +5,7 @@ import {
   useDatagridLayoutDispatch
 } from "../context/DatagridLayoutContext";
 import { useDatagridContext } from "../context/DatagridContext";
-import { debounce } from "../lib/utils";
+import debounce from "lodash.debounce";
 
 const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   style,
@@ -17,11 +17,9 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   const layoutDispatch = useDatagridLayoutDispatch();
   const { _bodyHeight: scrollContainerHeight, _scrollTop } = layoutContext;
 
-  const [containerHeight, setContainerHeight] = React.useState<
-    number | undefined
-  >(undefined);
   const [barY, setBarY] = React.useState(0);
   const [barHeight, setBarHeight] = React.useState(0);
+  const [display, setDisplay] = React.useState(false);
   const [scrollActive, setScrollActive] = React.useState(false);
 
   const bodyContentHeight = useMemo(() => {
@@ -76,26 +74,29 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   };
 
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerHeight(containerRef.current.clientHeight);
+    if (!containerRef.current) return;
+    const _containerHeight = containerRef.current.clientHeight;
+    if (bodyContentHeight) {
+      let _barHeight =
+        (_containerHeight * _containerHeight) / bodyContentHeight;
+      if (_barHeight < 10) {
+        _barHeight = 10;
+      }
+      setDisplay(_barHeight < _containerHeight);
+      setBarHeight(_barHeight);
     }
-  }, [scrollContainerHeight]);
+  }, [scrollContainerHeight, bodyContentHeight]);
 
   useEffect(() => {
-    if (scrollContainerHeight) {
-      const _barHeight =
-        (scrollContainerHeight * scrollContainerHeight) / bodyContentHeight;
-      setBarHeight(_barHeight > 10 ? _barHeight : 10);
-    }
-  }, [containerHeight]);
+    if (!containerRef.current) return;
+    const _containerHeight = containerRef.current.clientHeight;
+    const barScrollableHeight = _containerHeight - barHeight;
+    const contentScrollableHeight =
+      bodyContentHeight - (layoutContext._bodyHeight || 0);
 
-  useEffect(() => {
-    if (scrollContainerHeight) {
-      const barScrollableHeight = scrollContainerHeight - barHeight;
-      const contentScrollableHeight =
-        bodyContentHeight - (layoutContext._bodyHeight || 0);
-      setBarY((barScrollableHeight * _scrollTop) / contentScrollableHeight);
-    }
+    setBarY(
+      (barScrollableHeight * _scrollTop) / (contentScrollableHeight || 1)
+    );
   }, [_scrollTop, barHeight]);
 
   return (
@@ -105,12 +106,14 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
       data-scroller={"vertical"}
       style={styles}
     >
-      <div
-        data-scroll-bar={"vertical"}
-        className={scrollActive ? "active" : ""}
-        style={{ height: barHeight, top: barY }}
-        onMouseDown={handleActiveScrollBar}
-      />
+      {display && (
+        <div
+          data-scroll-bar={"vertical"}
+          className={layoutContext._hover || scrollActive ? "active" : ""}
+          style={{ height: barHeight, top: barY }}
+          onMouseDown={handleActiveScrollBar}
+        />
+      )}
     </div>
   );
 };
