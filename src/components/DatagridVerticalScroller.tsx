@@ -89,14 +89,22 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
 
   useEffect(() => {
     if (!containerRef.current) return;
+    if (!scrollContainerHeight) return;
     const _containerHeight = containerRef.current.clientHeight;
     const barScrollableHeight = _containerHeight - barHeight;
     const contentScrollableHeight =
       bodyContentHeight - (layoutContext._bodyHeight || 0);
 
-    setBarY(
-      (barScrollableHeight * _scrollTop) / (contentScrollableHeight || 1)
-    );
+    let newBarY =
+      (barScrollableHeight * _scrollTop) / (contentScrollableHeight || 1);
+    // check limit
+    if (newBarY < 0) {
+      newBarY = 0;
+    } else if (newBarY + barHeight > scrollContainerHeight) {
+      newBarY = scrollContainerHeight - barHeight;
+    }
+
+    setBarY(newBarY);
   }, [_scrollTop, barHeight]);
 
   return (

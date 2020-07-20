@@ -3,8 +3,10 @@ import { useDatagridContext } from "../../context/DatagridContext";
 import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 import HeaderTable from "./HeaderTable";
 
-interface IProps {}
-const HeaderMainPanel: React.FC<IProps> = () => {
+interface IProps {
+  styleLeft: number;
+}
+const HeaderMainPanel: React.FC<IProps> = ({ styleLeft }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
 
@@ -15,7 +17,9 @@ const HeaderMainPanel: React.FC<IProps> = () => {
 
   return (
     <div className="ac_datagrid--header--main__panel" style={{ height }}>
-      <HeaderTable columns={context._colGroup} />
+      <div data-panel={"scroll-content"} style={{ left: styleLeft }}>
+        <HeaderTable columns={context._colGroup} />
+      </div>
     </div>
   );
 };

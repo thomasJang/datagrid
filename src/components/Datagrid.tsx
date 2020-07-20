@@ -87,10 +87,22 @@ const Datagrid: React.FC<IDatagridProps> = props => {
       layoutContext._scrollTop !== props.scrollTop ||
       layoutContext._scrollLeft !== props.scrollLeft
     ) {
-      const {
+      let {
         scrollTop = layoutContext._scrollTop,
         scrollLeft = layoutContext._scrollLeft
       } = props;
+
+      if (scrollTop < 0) {
+        scrollTop = 0;
+      } else if (
+        context.dataLength * (context.bodyRowHeight || 0) - scrollTop <
+        (layoutContext._bodyHeight || 0)
+      ) {
+        scrollTop =
+          context.dataLength * (context.bodyRowHeight || 0) -
+          (layoutContext._bodyHeight || 0);
+      }
+
       layoutDispatch({ type: "SET_SCROLL", scrollTop, scrollLeft });
     }
   }, [props.scrollTop, props.scrollLeft]);

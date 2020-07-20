@@ -7,11 +7,13 @@ interface IProps {
   startRowIndex: number;
   endRowIndex: number;
   styleTop: number;
+  styleLeft: number;
 }
 const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
-  styleTop
+  styleTop,
+  styleLeft
 }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
@@ -24,7 +26,10 @@ const BodyMainPanel: React.FC<IProps> = ({
 
   return (
     <div className="ac_datagrid--body--main__panel" style={{ width, height }}>
-      <div data-panel={"scroll-content"} style={{ top: styleTop }}>
+      <div
+        data-panel={"scroll-content"}
+        style={{ top: styleTop, left: styleLeft }}
+      >
         <BodyTable
           columns={context._colGroup}
           startRowIndex={startRowIndex}

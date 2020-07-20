@@ -1,19 +1,32 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { useDatagridContext } from "../context/DatagridContext";
 import { IDatagridHeader } from "../@interface";
 import HeaderAsidePanel from "./header/HeaderAsidePanel";
 import HeaderLeftPanel from "./header/HeaderLeftPanel";
 import HeaderMainPanel from "./header/HeaderMainPanel";
 import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
-import { useDatagridLayoutDispatch } from "../context/DatagridLayoutContext";
+import {
+  useDatagridLayoutContext,
+  useDatagridLayoutDispatch
+} from "../context/DatagridLayoutContext";
 
 const DatagridHeader: React.FC<IDatagridHeader> = props => {
   const context = useDatagridContext();
+  const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
   const styles = React.useMemo(() => {
     return { ...props.style, height: context.headerHeight };
   }, [props.style, context.headerHeight]);
+
+  const { _contentScrollContainerWidth = 1, _scrollLeft } = layoutContext;
+
+  const { styleLeft } = useMemo(() => {
+    const styleLeft = -_scrollLeft;
+    return {
+      styleLeft
+    };
+  }, [_contentScrollContainerWidth, _scrollLeft, context._totalWidthOfColumns]);
 
   useIsomorphicLayoutEffect(() => {
     if (!containerRef.current) {
@@ -29,7 +42,7 @@ const DatagridHeader: React.FC<IDatagridHeader> = props => {
     <div ref={containerRef} style={styles} className="ac_datagrid--header">
       <HeaderAsidePanel />
       <HeaderLeftPanel />
-      <HeaderMainPanel />
+      <HeaderMainPanel styleLeft={styleLeft} />
       {props.children}
     </div>
   );
