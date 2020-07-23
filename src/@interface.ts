@@ -79,14 +79,14 @@ export interface IDatagridContext extends IDatagridProps {
   _colGroup?: IColumn[];
   _totalWidthOfColumns?: number; // 계산된 컬럼들의 너비 합
   _frozenPanelWidth?: number;
-  _lineNumberColumnWidth?: number;
 }
 
 export interface IDatagridLayoutContext {
   _hover: boolean;
   _scrollLeft: number;
   _scrollTop: number;
+  _bodyWidth?: number;
   _bodyHeight?: number;
-  _contentScrollContainerWidth?: number;
   _headerHeight?: number;
+  _lineNumberColumnWidth?: number;
 }

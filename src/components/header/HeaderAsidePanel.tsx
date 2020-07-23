@@ -15,7 +15,7 @@ const HeaderAsidePanel: React.FC<IProps> = () => {
   return (
     <div
       className="ac_datagrid--header--aside__panel"
-      style={{ width: context.lineNumberColumnWidth, height }}
+      style={{ width: layoutContext._lineNumberColumnWidth, height }}
     >
       &nbsp;
     </div>

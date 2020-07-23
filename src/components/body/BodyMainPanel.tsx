@@ -17,15 +17,27 @@ const BodyMainPanel: React.FC<IProps> = ({
 }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
-  const { _bodyHeight: height } = layoutContext;
-  const { width: width } = context;
+  const { _bodyWidth = 1, _bodyHeight = 1 } = layoutContext;
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
   }
 
+  const lineNumberColumnWidth = React.useMemo(() => {
+    return context.enableLineNumber
+      ? layoutContext._lineNumberColumnWidth || 50
+      : 0;
+  }, [context.enableLineNumber, layoutContext._lineNumberColumnWidth]);
+
   return (
-    <div className="ac_datagrid--body--main__panel" style={{ width, height }}>
+    <div
+      className="ac_datagrid--body--main__panel"
+      style={{
+        left: lineNumberColumnWidth,
+        width: _bodyWidth - lineNumberColumnWidth,
+        height: _bodyHeight
+      }}
+    >
       <div
         data-panel={"scroll-content"}
         style={{ top: styleTop, left: styleLeft }}

@@ -13,10 +13,21 @@ const HeaderMainPanel: React.FC<IProps> = ({ styleLeft }) => {
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
   }
-  const { _headerHeight: height = 0 } = layoutContext;
+
+  const lineNumberColumnWidth = React.useMemo(() => {
+    return context.enableLineNumber
+      ? layoutContext._lineNumberColumnWidth || 50
+      : 0;
+  }, [context.enableLineNumber, layoutContext._lineNumberColumnWidth]);
 
   return (
-    <div className="ac_datagrid--header--main__panel" style={{ height }}>
+    <div
+      className="ac_datagrid--header--main__panel"
+      style={{
+        left: lineNumberColumnWidth,
+        height: layoutContext._headerHeight
+      }}
+    >
       <div data-panel={"scroll-content"} style={{ left: styleLeft }}>
         <HeaderTable columns={context._colGroup} />
       </div>

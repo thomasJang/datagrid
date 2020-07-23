@@ -54,9 +54,8 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
         (contentScrollableHeight * newBarY) / barScrollableHeight;
 
       layoutDispatch({
-        type: "SET_SCROLL",
-        scrollTop,
-        scrollLeft: layoutContext._scrollLeft
+        type: "SET_SCROLL_TOP",
+        scrollTop
       });
     });
     const mouseMoveEnd = () => {

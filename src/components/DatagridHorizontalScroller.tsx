@@ -24,6 +24,18 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   const [enable, setEnable] = React.useState(false);
   const [scrollActive, setScrollActive] = React.useState(false);
 
+  const contentScrollContainerWidth = useMemo(() => {
+    return (
+      (layoutContext._bodyWidth || 1) -
+      (context.enableLineNumber
+        ? layoutContext._lineNumberColumnWidth || 50
+        : 0)
+    );
+  }, [
+    layoutContext._bodyWidth,
+    layoutContext._lineNumberColumnWidth,
+    context.enableLineNumber
+  ]);
   const bodyContentWidth = useMemo(() => {
     return (context._colGroup || [])
       .map(n => n._width || 0)
@@ -54,14 +66,13 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
       // convertScrollY
       const barScrollableWidth = containerWidth - barWidth;
       const contentScrollableWidth =
-        bodyContentWidth - (layoutContext._contentScrollContainerWidth || 0);
+        bodyContentWidth - contentScrollContainerWidth;
 
       const scrollLeft =
         (contentScrollableWidth * newBarX) / barScrollableWidth;
 
       layoutDispatch({
-        type: "SET_SCROLL",
-        scrollTop: layoutContext._scrollTop,
+        type: "SET_SCROLL_LEFT",
         scrollLeft: scrollLeft
       });
     });
@@ -84,8 +95,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
     const _containerWidth = containerRef.current.clientWidth;
 
     let _barWidth =
-      ((layoutContext._contentScrollContainerWidth || 0) * _containerWidth) /
-      bodyContentWidth;
+      (contentScrollContainerWidth * _containerWidth) / bodyContentWidth;
 
     if (_barWidth < 10) {
       _barWidth = 10;
@@ -100,7 +110,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
     const _containerWidth = containerRef.current.clientWidth;
     const barScrollableWidth = _containerWidth - barWidth;
     const contentScrollableWidth =
-      bodyContentWidth - (layoutContext._contentScrollContainerWidth || 0);
+      bodyContentWidth - contentScrollContainerWidth;
 
     setBarX((barScrollableWidth * _scrollLeft) / (contentScrollableWidth || 1));
   }, [_scrollLeft, barWidth]);

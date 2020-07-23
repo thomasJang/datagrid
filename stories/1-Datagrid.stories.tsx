@@ -73,6 +73,7 @@ export const basic: React.FC = () => {
         dataLength={data.length}
         scrollTop={scrollTop}
         scrollLeft={scrollLeft}
+        enableLineNumber={true}
       >
         <DatagridHeader />
         <DatagridBody>

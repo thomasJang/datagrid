@@ -19,14 +19,16 @@ const DatagridHeader: React.FC<IDatagridHeader> = props => {
     return { ...props.style, height: context.headerHeight };
   }, [props.style, context.headerHeight]);
 
-  const { _contentScrollContainerWidth = 1, _scrollLeft } = layoutContext;
-
   const { styleLeft } = useMemo(() => {
-    const styleLeft = -_scrollLeft;
+    const styleLeft = -layoutContext._scrollLeft;
     return {
       styleLeft
     };
-  }, [_contentScrollContainerWidth, _scrollLeft, context._totalWidthOfColumns]);
+  }, [
+    layoutContext._contentScrollContainerWidth,
+    layoutContext._scrollLeft,
+    context._totalWidthOfColumns
+  ]);
 
   useIsomorphicLayoutEffect(() => {
     if (!containerRef.current) {

@@ -19,8 +19,8 @@ const DatagridBody: React.FC<IDatagridBody> = props => {
   const { bodyRowHeight = 20, dataLength } = context;
   const {
     _bodyHeight = 1,
+    _bodyWidth = 1,
     _scrollTop,
-    _contentScrollContainerWidth = 1,
     _scrollLeft
   } = layoutContext;
 
@@ -44,29 +44,30 @@ const DatagridBody: React.FC<IDatagridBody> = props => {
     return {
       styleLeft
     };
-  }, [_contentScrollContainerWidth, _scrollLeft, context._totalWidthOfColumns]);
+  }, [_bodyWidth, _scrollLeft, context._totalWidthOfColumns]);
 
   useIsomorphicLayoutEffect(() => {
     if (!containerRef.current) {
       return;
     }
 
-    const { _lineNumberColumnWidth = 50, enableLineNumber } = context;
     const bodyHeight = containerRef.current.clientHeight;
     const bodyWidth = containerRef.current.clientWidth;
-    const lineNumberColumnWidth = enableLineNumber ? _lineNumberColumnWidth : 0;
-    const contentScrollContainerWidth = bodyWidth - lineNumberColumnWidth;
 
     layoutDispatch({
       type: "SET_BODY_DIMENSION",
       bodyHeight,
-      contentScrollContainerWidth
+      bodyWidth
     });
   }, [props.style, context.height, context.headerHeight]);
 
   return (
     <div ref={containerRef} style={props.style} className="ac_datagrid--body">
-      <BodyAsidePanel />
+      <BodyAsidePanel
+        startRowIndex={startRowIndex}
+        endRowIndex={endRowIndex}
+        styleTop={styleTop}
+      />
       <BodyLeftPanel />
       <BodyMainPanel
         startRowIndex={startRowIndex}

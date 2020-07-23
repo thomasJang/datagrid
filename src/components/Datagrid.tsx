@@ -25,6 +25,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     height: props.height
   };
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const debouncedLayoutDispatch = useRef(
     debounce<(action: DatagridLayoutContextAction) => void>(action => {
       layoutDispatch(action);
@@ -83,6 +84,19 @@ const Datagrid: React.FC<IDatagridProps> = props => {
   ]);
 
   useEffect(() => {
+    if (!canvasRef.current) return;
+    const canvasContext = canvasRef.current.getContext("2d");
+    if (canvasContext) {
+      const lineNumberColumnWidth =
+        canvasContext.measureText("" + (props.dataLength || 0)).width + 14;
+      layoutDispatch({
+        type: "SET_LINE_NUMBER_WIDTH",
+        lineNumberColumnWidth: Math.max(lineNumberColumnWidth, 50)
+      });
+    }
+  }, [props.dataLength]);
+
+  useEffect(() => {
     if (
       layoutContext._scrollTop !== props.scrollTop ||
       layoutContext._scrollLeft !== props.scrollLeft
@@ -103,6 +117,17 @@ const Datagrid: React.FC<IDatagridProps> = props => {
           (layoutContext._bodyHeight || 0);
       }
 
+      if (scrollLeft < 0) {
+        scrollLeft = 0;
+      } else if (
+        (context._totalWidthOfColumns || 0) - scrollLeft <
+        (layoutContext._contentScrollContainerWidth || 0)
+      ) {
+        scrollLeft =
+          (context._totalWidthOfColumns || 0) -
+          (layoutContext._contentScrollContainerWidth || 0);
+      }
+
       layoutDispatch({ type: "SET_SCROLL", scrollTop, scrollLeft });
     }
   }, [props.scrollTop, props.scrollLeft]);
@@ -118,6 +143,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      <canvas className={"ac_datagrid--canvas"} ref={canvasRef} />
       {props.children}
     </div>
   );
