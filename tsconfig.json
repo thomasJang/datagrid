@@ -17,7 +17,7 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "rootDirs": ["src", "stories"],
-    "baseUrl": "src"
+    "baseUrl": "./src/"
   },
   "include": ["src/**/*"],
   "exclude": [

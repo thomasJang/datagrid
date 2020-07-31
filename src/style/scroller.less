@@ -14,11 +14,11 @@
     position: relative;
     box-sizing: border-box;
     padding: 2px;
-    &:before{
+    &:before {
       transition: opacity 0.3s;
       display: block;
       position: relative;
-      content: '';
+      content: "";
       background: var(--scroll-bar-color);
       height: 100%;
       width: 100%;
@@ -26,18 +26,17 @@
       opacity: 0.1;
     }
 
-    &:hover, &.active{
-      &:before{
+    &:hover,
+    &.active {
+      &:before {
         opacity: 1;
       }
     }
   }
   [data-scroll-bar="vertical"] {
-
   }
 
   [data-scroll-bar="horizontal"] {
     height: 100%;
   }
-
 }

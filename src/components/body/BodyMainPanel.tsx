@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 import BodyTable from "./BodyTable";
@@ -13,7 +13,7 @@ const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
   styleTop,
-  styleLeft
+  styleLeft,
 }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
@@ -29,19 +29,26 @@ const BodyMainPanel: React.FC<IProps> = ({
       : 0;
   }, [context.enableLineNumber, layoutContext._lineNumberColumnWidth]);
 
+  const containerStyle = React.useMemo(
+    () => ({
+      left: lineNumberColumnWidth,
+      width: _bodyWidth - lineNumberColumnWidth,
+      height: _bodyHeight,
+    }),
+    [_bodyWidth, _bodyHeight, lineNumberColumnWidth]
+  );
+
+  const contentContainerStyle = React.useMemo(
+    () => ({
+      top: styleTop,
+      left: styleLeft,
+    }),
+    [styleTop, styleLeft]
+  );
+
   return (
-    <div
-      className="ac_datagrid--body--main__panel"
-      style={{
-        left: lineNumberColumnWidth,
-        width: _bodyWidth - lineNumberColumnWidth,
-        height: _bodyHeight
-      }}
-    >
-      <div
-        data-panel={"scroll-content"}
-        style={{ top: styleTop, left: styleLeft }}
-      >
+    <div className="ac_datagrid--body--main__panel" style={containerStyle}>
+      <div data-panel={"scroll-content"} style={contentContainerStyle}>
         <BodyTable
           columns={context._colGroup}
           startRowIndex={startRowIndex}

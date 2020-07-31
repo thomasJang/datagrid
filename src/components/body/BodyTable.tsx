@@ -1,9 +1,8 @@
-import React from "react";
+import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn } from "../../@interface";
 import BodyTableRow from "./BodyTableRow";
 import { arrayFromRange, getDataItem } from "../../lib";
-import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 
 interface IProps {
   columns: IColumn[];
@@ -13,10 +12,9 @@ interface IProps {
 const BodyTable: React.FC<IProps> = ({
   columns,
   startRowIndex,
-  endRowIndex
+  endRowIndex,
 }) => {
   const context = useDatagridContext();
-  const layoutContext = useDatagridLayoutContext();
 
   return (
     <table>
@@ -27,7 +25,7 @@ const BodyTable: React.FC<IProps> = ({
         <col />
       </colgroup>
       <tbody>
-        {arrayFromRange(startRowIndex, endRowIndex).map(rowIndex => {
+        {arrayFromRange(startRowIndex, endRowIndex).map((rowIndex) => {
           if (context.data) {
             const rowItem = getDataItem(context.data, rowIndex);
             if (rowItem) {

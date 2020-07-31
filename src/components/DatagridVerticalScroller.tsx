@@ -1,17 +1,18 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import * as React from "react";
 import { IDatagridVerticalScroller } from "@interface";
 import {
+  SET_SCROLL_TOP,
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch
+  useDatagridLayoutDispatch,
 } from "../context/DatagridLayoutContext";
 import { useDatagridContext } from "../context/DatagridContext";
 import debounce from "lodash.debounce";
 
 const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   style,
-  size = 12
+  size = 12,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
@@ -22,19 +23,24 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   const [display, setDisplay] = React.useState(false);
   const [scrollActive, setScrollActive] = React.useState(false);
 
-  const bodyContentHeight = useMemo(() => {
+  const bodyContentHeight = React.useMemo(() => {
     return context.dataLength * (context.bodyRowHeight || 1);
   }, [context.dataLength, context.bodyRowHeight]);
+
   const styles: React.CSSProperties = {
     ...style,
     width: size,
-    height: scrollContainerHeight
+    height: scrollContainerHeight,
   };
 
-  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = ev => {
+  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = (
+    ev
+  ) => {
     ev.preventDefault();
+
     const _scrollTop = layoutContext._scrollTop;
     const startClientY = ev.clientY;
+
     const mouseMove = debounce((evt: MouseEvent) => {
       if (!scrollContainerHeight) return;
       let newBarY = _scrollTop + evt.clientY - startClientY;
@@ -54,10 +60,11 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
         (contentScrollableHeight * newBarY) / barScrollableHeight;
 
       layoutDispatch({
-        type: "SET_SCROLL_TOP",
-        scrollTop
+        type: SET_SCROLL_TOP,
+        scrollTop,
       });
     });
+
     const mouseMoveEnd = () => {
       document.removeEventListener("mousemove", mouseMove);
       document.removeEventListener("mouseup", mouseMoveEnd);
@@ -65,6 +72,7 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
 
       setScrollActive(false);
     };
+
     document.addEventListener("mousemove", mouseMove);
     document.addEventListener("mouseup", mouseMoveEnd);
     document.addEventListener("mouseleave", mouseMoveEnd);
@@ -72,8 +80,9 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
     setScrollActive(true);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!containerRef.current) return;
+
     const _containerHeight = containerRef.current.clientHeight;
     if (bodyContentHeight) {
       let _barHeight =
@@ -86,25 +95,39 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
     }
   }, [scrollContainerHeight, bodyContentHeight]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!containerRef.current) return;
     if (!scrollContainerHeight) return;
+
     const _containerHeight = containerRef.current.clientHeight;
     const barScrollableHeight = _containerHeight - barHeight;
     const contentScrollableHeight =
       bodyContentHeight - (layoutContext._bodyHeight || 0);
 
-    let newBarY =
-      (barScrollableHeight * _scrollTop) / (contentScrollableHeight || 1);
+    let newBarY = Math.max(
+      0,
+      (barScrollableHeight * _scrollTop) / (contentScrollableHeight || 1)
+    );
     // check limit
-    if (newBarY < 0) {
-      newBarY = 0;
-    } else if (newBarY + barHeight > scrollContainerHeight) {
+    if (newBarY + barHeight > scrollContainerHeight) {
       newBarY = scrollContainerHeight - barHeight;
     }
 
     setBarY(newBarY);
   }, [_scrollTop, barHeight]);
+
+  const scrollBarStyle = React.useMemo(
+    () => ({
+      height: barHeight,
+      top: barY,
+    }),
+    [barHeight, barY]
+  );
+
+  const scrollBarClassName = React.useMemo(
+    () => (layoutContext._hover || scrollActive ? "active" : ""),
+    [layoutContext._hover, scrollActive]
+  );
 
   return (
     <div
@@ -116,8 +139,8 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
       {display && (
         <div
           data-scroll-bar={"vertical"}
-          className={layoutContext._hover || scrollActive ? "active" : ""}
-          style={{ height: barHeight, top: barY }}
+          className={scrollBarClassName}
+          style={scrollBarStyle}
           onMouseDown={handleActiveScrollBar}
         />
       )}
