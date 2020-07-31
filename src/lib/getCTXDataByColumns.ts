@@ -64,20 +64,22 @@ function getCTXDataByColumns(
 
     // calculate frozen colGroup
     if (enableFrozenCell && frozenColumnIndex > 0) {
-      _columns.slice(0, frozenColumnIndex).forEach(column => {
+      _columns.slice(0, frozenColumnIndex).forEach((column) => {
         _leftColGroup.push({ ...column });
       });
     }
 
-    _columns.slice(enableFrozenCell ? frozenColumnIndex : 0).forEach(column => {
-      _colGroup.push({ ...column });
-    });
+    _columns
+      .slice(enableFrozenCell ? frozenColumnIndex : 0)
+      .forEach((column) => {
+        _colGroup.push({ ...column });
+      });
   }
 
   return {
     _totalWidthOfColumns,
     _leftColGroup,
-    _colGroup
+    _colGroup,
   };
 }
 

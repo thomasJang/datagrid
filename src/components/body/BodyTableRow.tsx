@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn, IDataItem } from "../../@interface";
 
@@ -10,17 +10,32 @@ interface IProps {
 
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
-  return (
-    <tr style={{ height: context.bodyRowHeight }}>
-      {columns.map((col, ci) => (
+
+  const containerStyle = React.useMemo(
+    () => ({
+      height: context.bodyRowHeight,
+    }),
+    [context.bodyRowHeight]
+  );
+
+  const renderItem = React.useCallback(
+    (col: IColumn, ci: number) => {
+      const item = Array.isArray(rowItem.value)
+        ? rowItem.value[Number(col.key)]
+        : rowItem.value[String(col.key)];
+
+      return (
         <td key={ci}>
-          <span>
-            {Array.isArray(rowItem.value)
-              ? rowItem.value[Number(col.key)]
-              : rowItem.value[col.key + ""]}
-          </span>
+          <span>{item}</span>
         </td>
-      ))}
+      );
+    },
+    [rowItem.value]
+  );
+
+  return (
+    <tr style={containerStyle}>
+      {columns.map(renderItem)}
       <td />
     </tr>
   );

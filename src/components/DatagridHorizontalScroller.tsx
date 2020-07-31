@@ -1,18 +1,19 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import * as React from "react";
 import { IDatagridHorizontalScroller } from "@interface";
 import { useDatagridContext } from "../context/DatagridContext";
 import {
+  SET_SCROLL_LEFT,
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch
+  useDatagridLayoutDispatch,
 } from "../context/DatagridLayoutContext";
 import debounce from "lodash.debounce";
 
 const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   style,
   width,
-  size = 12
+  size = 12,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
@@ -24,7 +25,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   const [enable, setEnable] = React.useState(false);
   const [scrollActive, setScrollActive] = React.useState(false);
 
-  const contentScrollContainerWidth = useMemo(() => {
+  const contentScrollContainerWidth = React.useMemo(() => {
     return (
       (layoutContext._bodyWidth || 1) -
       (context.enableLineNumber
@@ -34,25 +35,34 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   }, [
     layoutContext._bodyWidth,
     layoutContext._lineNumberColumnWidth,
-    context.enableLineNumber
+    context.enableLineNumber,
   ]);
-  const bodyContentWidth = useMemo(() => {
+
+  const bodyContentWidth = React.useMemo(() => {
     return (context._colGroup || [])
-      .map(n => n._width || 0)
+      .map((n) => n._width || 0)
       .reduce((acc, cur) => {
         return acc + cur;
       }, 0);
   }, [context._totalWidthOfColumns]);
-  const styles: React.CSSProperties = {
-    ...style,
-    width: "100%",
-    height: size
-  };
 
-  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = ev => {
+  const styles: React.CSSProperties = React.useMemo(
+    () => ({
+      ...style,
+      width: "100%",
+      height: size,
+    }),
+    [style, size]
+  );
+
+  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = (
+    ev
+  ) => {
     ev.preventDefault();
+
     const _scrollLeft = layoutContext._scrollLeft;
     const startClientX = ev.clientX;
+
     const mouseMove = debounce((evt: MouseEvent) => {
       let newBarX = _scrollLeft + evt.clientX - startClientX;
 
@@ -72,10 +82,11 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
         (contentScrollableWidth * newBarX) / barScrollableWidth;
 
       layoutDispatch({
-        type: "SET_SCROLL_LEFT",
-        scrollLeft: scrollLeft
+        type: SET_SCROLL_LEFT,
+        scrollLeft: scrollLeft,
       });
     });
+
     const mouseMoveEnd = () => {
       document.removeEventListener("mousemove", mouseMove);
       document.removeEventListener("mouseup", mouseMoveEnd);
@@ -83,6 +94,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
 
       setScrollActive(false);
     };
+
     document.addEventListener("mousemove", mouseMove);
     document.addEventListener("mouseup", mouseMoveEnd);
     document.addEventListener("mouseleave", mouseMoveEnd);
@@ -90,8 +102,9 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
     setScrollActive(true);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!containerRef.current) return;
+
     const _containerWidth = containerRef.current.clientWidth;
 
     let _barWidth =
@@ -105,15 +118,25 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
     setBarWidth(_barWidth);
   }, [containerWidth, bodyContentWidth]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!containerRef.current) return;
+
     const _containerWidth = containerRef.current.clientWidth;
+
     const barScrollableWidth = _containerWidth - barWidth;
     const contentScrollableWidth =
       bodyContentWidth - contentScrollContainerWidth;
 
     setBarX((barScrollableWidth * _scrollLeft) / (contentScrollableWidth || 1));
   }, [_scrollLeft, barWidth]);
+
+  const scrollBarStyle = React.useMemo(
+    () => ({
+      width: barWidth,
+      left: barX,
+    }),
+    [barWidth, barX]
+  );
 
   return (
     <div
@@ -126,7 +149,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
         <div
           data-scroll-bar={"horizontal"}
           className={layoutContext._hover || scrollActive ? "active" : ""}
-          style={{ width: barWidth, left: barX }}
+          style={scrollBarStyle}
           onMouseDown={handleActiveScrollBar}
         />
       )}

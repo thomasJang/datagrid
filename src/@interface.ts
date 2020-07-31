@@ -1,21 +1,26 @@
+import * as React from "react";
+
+type DataItemType = "C" | "U" | "D";
+
 export interface IDataItem {
-  type?: "C" | "U" | "D";
-  value: [] | { [key: string]: any };
-  changed?: { [key: string]: any };
+  type?: DataItemType;
+  value: [] | Record<string, any>;
+  changed?: Record<string, any>;
   selected?: boolean;
 }
 
 type DataMap = Map<number, IDataItem>;
-interface DataObj {
-  [key: number]: IDataItem;
-}
+type DataObj = Record<number, IDataItem>;
+
 export type IData = DataMap | DataObj;
+
+type Direction = "left" | "center" | "right";
 
 export interface IColumn {
   key?: string;
   label?: string;
   width?: number | string;
-  align?: "left" | "center" | "right" | string;
+  align?: Direction | string;
   colSpan?: number;
   rowSpan?: number;
   colIndex?: number;
@@ -47,9 +52,9 @@ export interface IDatagridProps extends IDatagridCommonProps {
   scrollLeft?: number;
   scrollTop?: number;
   headerHeight?: number;
-  headerAlign?: "left" | "center" | "right";
+  headerAlign?: Direction;
   bodyRowHeight?: number;
-  bodyAlign?: "left" | "center" | "right";
+  bodyAlign?: Direction;
 
   enableLineNumber?: boolean;
   lineNumberStartAt?: number;
@@ -89,4 +94,5 @@ export interface IDatagridLayoutContext {
   _bodyHeight?: number;
   _headerHeight?: number;
   _lineNumberColumnWidth?: number;
+  _contentScrollContainerWidth?: number;
 }

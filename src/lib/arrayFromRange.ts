@@ -1,8 +1,10 @@
-function arrayFromRange(start: number, end: number, step?: number): number[] {
+function arrayFromRange(
+  start: number,
+  end: number,
+  step: number = 1
+): number[] {
   const range = [];
-  if (typeof step === "undefined") {
-    step = 1;
-  }
+
   if (end < start) {
     step = -step;
   }

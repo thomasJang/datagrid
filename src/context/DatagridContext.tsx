@@ -1,25 +1,30 @@
-import React, { useReducer, useContext, createContext, Dispatch } from "react";
+import * as React from "react";
 import { IDatagridContext } from "../@interface";
-export type DatagridContextAction =
-  | { type: "SET_BODY_HEIGHT"; bodyHeight: number }
-  | { type: "SET_HEADER_HEIGHT"; headerHeight: number }
-  | { type: "SET_STATE"; state: IDatagridContext };
 
-const DatagridContext = createContext<IDatagridContext | null>(null);
-const DatagridDispatchContext = createContext<Dispatch<
+export type DatagridContextAction =
+  | { type: typeof SET_BODY_HEIGHT; bodyHeight: number }
+  | { type: typeof SET_HEADER_HEIGHT; headerHeight: number }
+  | { type: typeof SET_STATE; state: IDatagridContext };
+
+const DatagridContext = React.createContext<IDatagridContext | null>(null);
+const DatagridDispatchContext = React.createContext<React.Dispatch<
   DatagridContextAction
 > | null>(null);
+
+export const SET_BODY_HEIGHT = "SET_BODY_HEIGHT" as const;
+export const SET_HEADER_HEIGHT = "SET_HEADER_HEIGHT" as const;
+export const SET_STATE = "SET_STATE" as const;
 
 const DatagridContextReducer = (
   state: IDatagridContext,
   action: DatagridContextAction
 ): IDatagridContext => {
   switch (action.type) {
-    case "SET_STATE":
+    case SET_STATE:
       return {
         ...state,
         ...action.state,
-        _ready: true
+        _ready: true,
       };
     default:
       throw new Error("Unhandled action");
@@ -28,7 +33,7 @@ const DatagridContextReducer = (
 
 // Provider
 export function DatagridProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(DatagridContextReducer, {
+  const [state, dispatch] = React.useReducer(DatagridContextReducer, {
     _ready: false,
     width: 0,
     height: 0,
@@ -36,7 +41,7 @@ export function DatagridProvider({ children }: { children: React.ReactNode }) {
     data: [],
     dataLength: 0,
     bodyRowHeight: 20,
-    headerHeight: 20
+    headerHeight: 20,
   });
 
   return (
@@ -49,13 +54,13 @@ export function DatagridProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useDatagridContext() {
-  const state = useContext(DatagridContext);
+  const state = React.useContext(DatagridContext);
   if (!state) throw new Error("Cannot find DatagridContextProvider");
   return state;
 }
 
 export function useDatagridDispatch() {
-  const dispatch = useContext(DatagridDispatchContext);
+  const dispatch = React.useContext(DatagridDispatchContext);
   if (!dispatch) throw new Error("Cannot find DatagridContextProvider");
   return dispatch;
 }

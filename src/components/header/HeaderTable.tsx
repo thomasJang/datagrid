@@ -1,30 +1,45 @@
-import React from "react";
+import * as React from "react";
 import { IColumn } from "../../@interface";
 import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
-import { useDatagridContext } from "../../context/DatagridContext";
 
 interface IProps {
   columns: IColumn[];
 }
 const HeaderTable: React.FC<IProps> = ({ columns }) => {
   const layoutContext = useDatagridLayoutContext();
-  const context = useDatagridContext();
   const { _headerHeight: height } = layoutContext;
+
+  const columnStyle = React.useMemo(
+    () => ({
+      height,
+    }),
+    [height]
+  );
+
+  const renderColumn = React.useCallback((col: IColumn, ci: number) => {
+    return <col key={ci} style={{ width: col._width }} />;
+  }, []);
+
+  const renderTd = React.useCallback(
+    (col: IColumn, ci: number) => {
+      return (
+        <td key={ci} style={columnStyle}>
+          <span>{col.label}</span>
+        </td>
+      );
+    },
+    [columnStyle]
+  );
+
   return (
     <table>
       <colgroup>
-        {columns.map((col, ci) => (
-          <col key={ci} style={{ width: col._width }} />
-        ))}
+        {columns.map(renderColumn)}
         <col />
       </colgroup>
       <tbody>
         <tr>
-          {columns.map((col, ci) => (
-            <td key={ci} style={{ height }}>
-              <span>{col.label}</span>
-            </td>
-          ))}
+          {columns.map(renderTd)}
           <td />
         </tr>
       </tbody>
