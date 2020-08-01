@@ -1,16 +1,18 @@
 import * as React from "react";
-import { IDatagridVerticalScroller } from "@interface";
 import {
-  SET_SCROLL_TOP,
+  IDatagridVerticalScroller,
+  LayoutContextActionTypes
+} from "../@interface";
+import {
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch,
+  useDatagridLayoutDispatch
 } from "../context/DatagridLayoutContext";
 import { useDatagridContext } from "../context/DatagridContext";
 import debounce from "lodash.debounce";
 
 const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   style,
-  size = 12,
+  size = 12
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
@@ -30,12 +32,10 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   const styles: React.CSSProperties = {
     ...style,
     width: size,
-    height: scrollContainerHeight,
+    height: scrollContainerHeight
   };
 
-  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = (
-    ev
-  ) => {
+  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = ev => {
     ev.preventDefault();
 
     const _scrollTop = layoutContext._scrollTop;
@@ -60,8 +60,8 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
         (contentScrollableHeight * newBarY) / barScrollableHeight;
 
       layoutDispatch({
-        type: SET_SCROLL_TOP,
-        scrollTop,
+        type: LayoutContextActionTypes.SET_SCROLL_TOP,
+        scrollTop
       });
     });
 
@@ -119,7 +119,7 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   const scrollBarStyle = React.useMemo(
     () => ({
       height: barHeight,
-      top: barY,
+      top: barY
     }),
     [barHeight, barY]
   );

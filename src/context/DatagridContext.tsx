@@ -1,30 +1,26 @@
 import * as React from "react";
-import { IDatagridContext } from "../@interface";
+import { ContextActionTypes, IDatagridContext } from "../@interface";
 
-export type DatagridContextAction =
-  | { type: typeof SET_BODY_HEIGHT; bodyHeight: number }
-  | { type: typeof SET_HEADER_HEIGHT; headerHeight: number }
-  | { type: typeof SET_STATE; state: IDatagridContext };
+export type DatagridContextAction = {
+  type: ContextActionTypes.SET_STATE;
+  state: IDatagridContext;
+};
 
 const DatagridContext = React.createContext<IDatagridContext | null>(null);
 const DatagridDispatchContext = React.createContext<React.Dispatch<
   DatagridContextAction
 > | null>(null);
 
-export const SET_BODY_HEIGHT = "SET_BODY_HEIGHT" as const;
-export const SET_HEADER_HEIGHT = "SET_HEADER_HEIGHT" as const;
-export const SET_STATE = "SET_STATE" as const;
-
 const DatagridContextReducer = (
   state: IDatagridContext,
   action: DatagridContextAction
 ): IDatagridContext => {
   switch (action.type) {
-    case SET_STATE:
+    case ContextActionTypes.SET_STATE:
       return {
         ...state,
         ...action.state,
-        _ready: true,
+        _ready: true
       };
     default:
       throw new Error("Unhandled action");
@@ -41,7 +37,7 @@ export function DatagridProvider({ children }: { children: React.ReactNode }) {
     data: [],
     dataLength: 0,
     bodyRowHeight: 20,
-    headerHeight: 20,
+    headerHeight: 20
   });
 
   return (

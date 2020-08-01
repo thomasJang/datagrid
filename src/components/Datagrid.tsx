@@ -1,22 +1,23 @@
 import * as React from "react";
-import { IDatagridContext, IDatagridProps } from "../@interface";
+import {
+  ContextActionTypes,
+  IDatagridContext,
+  IDatagridProps,
+  LayoutContextActionTypes
+} from "../@interface";
 import getCTXDataByColumns from "../lib/getCTXDataByColumns";
 import {
-  SET_STATE,
   useDatagridContext,
-  useDatagridDispatch,
+  useDatagridDispatch
 } from "../context/DatagridContext";
 import {
   DatagridLayoutContextAction,
-  SET_HOVER,
-  SET_LINE_NUMBER_WIDTH,
-  SET_SCROLL,
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch,
+  useDatagridLayoutDispatch
 } from "../context/DatagridLayoutContext";
 import debounce from "lodash.debounce";
 
-const Datagrid: React.FC<IDatagridProps> = (props) => {
+const Datagrid: React.FC<IDatagridProps> = props => {
   const {
     children,
     height,
@@ -27,7 +28,7 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
     style,
     width,
     enableFrozenCell,
-    frozenColumnIndex,
+    frozenColumnIndex
   } = props;
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
@@ -38,24 +39,30 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
   const styles: React.CSSProperties = {
     ...style,
     width,
-    height,
+    height
   };
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   const { current: debouncedLayoutDispatch } = React.useRef(
-    debounce<(action: DatagridLayoutContextAction) => void>((action) => {
+    debounce<(action: DatagridLayoutContextAction) => void>(action => {
       layoutDispatch(action);
     }, 300)
   );
 
   const handleMouseEnter: React.MouseEventHandler = () => {
     debouncedLayoutDispatch.cancel?.();
-    debouncedLayoutDispatch({ type: SET_HOVER, hover: true });
+    debouncedLayoutDispatch({
+      type: LayoutContextActionTypes.SET_HOVER,
+      hover: true
+    });
   };
   const handleMouseLeave: React.MouseEventHandler = () => {
     debouncedLayoutDispatch.cancel?.();
-    debouncedLayoutDispatch({ type: SET_HOVER, hover: false });
+    debouncedLayoutDispatch({
+      type: LayoutContextActionTypes.SET_HOVER,
+      hover: false
+    });
   };
 
   // component didUpdate
@@ -63,7 +70,7 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
     // make new context
     const nextState: IDatagridContext = {
       ...context,
-      ...props,
+      ...props
     };
 
     if (
@@ -74,11 +81,11 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
       const {
         _leftColGroup,
         _colGroup,
-        _totalWidthOfColumns,
+        _totalWidthOfColumns
       } = getCTXDataByColumns(nextState.columns, {
         containerWidth: nextState.width || 0,
         enableFrozenCell: nextState.enableFrozenCell,
-        frozenColumnIndex: nextState.frozenColumnIndex,
+        frozenColumnIndex: nextState.frozenColumnIndex
       });
       nextState._leftColGroup = _leftColGroup;
       nextState._colGroup = _colGroup;
@@ -94,7 +101,7 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
       // console.log('changed or init data');
     }
 
-    dispatch({ type: SET_STATE, state: nextState });
+    dispatch({ type: ContextActionTypes.SET_STATE, state: nextState });
   }, [width, columns, enableFrozenCell, frozenColumnIndex]);
 
   React.useEffect(() => {
@@ -104,8 +111,8 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
       const lineNumberColumnWidth =
         canvasContext.measureText("" + (dataLength || 0)).width + 14;
       layoutDispatch({
-        type: SET_LINE_NUMBER_WIDTH,
-        lineNumberColumnWidth: Math.max(lineNumberColumnWidth, 50),
+        type: LayoutContextActionTypes.SET_LINE_NUMBER_WIDTH,
+        lineNumberColumnWidth: Math.max(lineNumberColumnWidth, 50)
       });
     }
   }, [dataLength]);
@@ -117,7 +124,7 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
     ) {
       let {
         scrollTop = layoutContext._scrollTop,
-        scrollLeft = layoutContext._scrollLeft,
+        scrollLeft = layoutContext._scrollLeft
       } = props;
 
       if (scrollTop < 0) {
@@ -142,7 +149,11 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
           (layoutContext._contentScrollContainerWidth || 0);
       }
 
-      layoutDispatch({ type: SET_SCROLL, scrollTop, scrollLeft });
+      layoutDispatch({
+        type: LayoutContextActionTypes.SET_SCROLL,
+        scrollTop,
+        scrollLeft
+      });
     }
   }, [scrollTop, scrollLeft]);
 

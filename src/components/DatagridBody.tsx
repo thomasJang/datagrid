@@ -1,17 +1,16 @@
 import * as React from "react";
-import { IDatagridBody } from "@interface";
+import { IDatagridBody, LayoutContextActionTypes } from "../@interface";
 import BodyAsidePanel from "./body/BodyAsidePanel";
 import BodyLeftPanel from "./body/BodyLeftPanel";
 import BodyMainPanel from "./body/BodyMainPanel";
 import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
 import { useDatagridContext } from "../context/DatagridContext";
 import {
-  SET_BODY_DIMENSION,
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch,
+  useDatagridLayoutDispatch
 } from "../context/DatagridLayoutContext";
 
-const DatagridBody: React.FC<IDatagridBody> = (props) => {
+const DatagridBody: React.FC<IDatagridBody> = props => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
@@ -22,7 +21,7 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
     _bodyHeight = 1,
     _bodyWidth = 1,
     _scrollTop,
-    _scrollLeft,
+    _scrollLeft
   } = layoutContext;
 
   const { startRowIndex, endRowIndex, styleTop } = React.useMemo(() => {
@@ -36,7 +35,7 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
     return {
       startRowIndex,
       endRowIndex,
-      styleTop: -(_scrollTop % bodyRowHeight),
+      styleTop: -(_scrollTop % bodyRowHeight)
     };
   }, [_bodyHeight, bodyRowHeight, dataLength, _scrollTop]);
 
@@ -50,9 +49,9 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
       const bodyWidth = containerRef.current.clientWidth;
 
       layoutDispatch({
-        type: SET_BODY_DIMENSION,
+        type: LayoutContextActionTypes.SET_BODY_DIMENSION,
         bodyHeight,
-        bodyWidth,
+        bodyWidth
       });
     }
   }, [props.style, context.height, context.headerHeight]);

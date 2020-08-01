@@ -1,17 +1,16 @@
 import * as React from "react";
 import { useDatagridContext } from "../context/DatagridContext";
-import { IDatagridHeader } from "../@interface";
+import { IDatagridHeader, LayoutContextActionTypes } from "../@interface";
 import HeaderAsidePanel from "./header/HeaderAsidePanel";
 import HeaderLeftPanel from "./header/HeaderLeftPanel";
 import HeaderMainPanel from "./header/HeaderMainPanel";
 import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
 import {
-  SET_HEADER_HEIGHT,
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch,
+  useDatagridLayoutDispatch
 } from "../context/DatagridLayoutContext";
 
-const DatagridHeader: React.FC<IDatagridHeader> = (props) => {
+const DatagridHeader: React.FC<IDatagridHeader> = props => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
@@ -29,8 +28,8 @@ const DatagridHeader: React.FC<IDatagridHeader> = (props) => {
   useIsomorphicLayoutEffect(() => {
     if (containerRef.current) {
       layoutDispatch({
-        type: SET_HEADER_HEIGHT,
-        headerHeight: containerRef.current.clientHeight,
+        type: LayoutContextActionTypes.SET_HEADER_HEIGHT,
+        headerHeight: containerRef.current.clientHeight
       });
     }
   }, [props.style, context.headerHeight]);

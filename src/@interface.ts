@@ -1,5 +1,20 @@
 import * as React from "react";
 
+export enum ContextActionTypes {
+  SET_STATE = "SET_STATE"
+}
+
+export enum LayoutContextActionTypes {
+  SET_HOVER = "SET_HOVER",
+  SET_SCROLL = "SET_SCROLL",
+  SET_SCROLL_TOP = "SET_SCROLL_TOP",
+  SET_SCROLL_LEFT = "SET_SCROLL_LEFT",
+  SET_LINE_NUMBER_WIDTH = "SET_LINE_NUMBER_WIDTH",
+  SET_BODY_DIMENSION = "SET_BODY_DIMENSION",
+  SET_HEADER_HEIGHT = "SET_HEADER_HEIGHT",
+  SET_BODY_HEIGHT = "SET_BODY_HEIGHT"
+}
+
 type DataItemType = "C" | "U" | "D";
 
 export interface IDataItem {

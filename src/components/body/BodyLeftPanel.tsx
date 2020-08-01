@@ -10,7 +10,7 @@ const BodyLeftPanel: React.FC<IProps> = () => {
 
   const containerStyle = React.useMemo(
     () => ({
-      height,
+      height
     }),
     [height]
   );
@@ -20,10 +20,7 @@ const BodyLeftPanel: React.FC<IProps> = () => {
   }
 
   return (
-    <div
-      className="ac_datagrid--header--left_panel"
-      style={containerStyle}
-    ></div>
+    <div className="ac_datagrid--header--left_panel" style={containerStyle} />
   );
 };
 

@@ -1,26 +1,28 @@
 import * as React from "react";
-import { IDatagridLayoutContext } from "../@interface";
+import {
+  IDatagridLayoutContext,
+  LayoutContextActionTypes
+} from "../@interface";
 
 export type DatagridLayoutContextAction =
-  | { type: typeof SET_HOVER; hover: boolean }
-  | { type: typeof SET_SCROLL; scrollTop: number; scrollLeft: number }
-  | { type: typeof SET_SCROLL_TOP; scrollTop: number }
-  | { type: typeof SET_SCROLL_LEFT; scrollLeft: number }
-  | { type: typeof SET_LINE_NUMBER_WIDTH; lineNumberColumnWidth: number }
+  | { type: LayoutContextActionTypes.SET_HOVER; hover: boolean }
   | {
-      type: typeof SET_BODY_DIMENSION;
+      type: LayoutContextActionTypes.SET_SCROLL;
+      scrollTop: number;
+      scrollLeft: number;
+    }
+  | { type: LayoutContextActionTypes.SET_SCROLL_TOP; scrollTop: number }
+  | { type: LayoutContextActionTypes.SET_SCROLL_LEFT; scrollLeft: number }
+  | {
+      type: LayoutContextActionTypes.SET_LINE_NUMBER_WIDTH;
+      lineNumberColumnWidth: number;
+    }
+  | {
+      type: LayoutContextActionTypes.SET_BODY_DIMENSION;
       bodyHeight: number;
       bodyWidth: number;
     }
-  | { type: typeof SET_HEADER_HEIGHT; headerHeight: number };
-
-export const SET_HOVER = "SET_HOVER" as const;
-export const SET_SCROLL = "SET_SCROLL" as const;
-export const SET_SCROLL_TOP = "SET_SCROLL_TOP" as const;
-export const SET_SCROLL_LEFT = "SET_SCROLL_LEFT" as const;
-export const SET_LINE_NUMBER_WIDTH = "SET_LINE_NUMBER_WIDTH" as const;
-export const SET_BODY_DIMENSION = "SET_BODY_DIMENSION" as const;
-export const SET_HEADER_HEIGHT = "SET_HEADER_HEIGHT" as const;
+  | { type: LayoutContextActionTypes.SET_HEADER_HEIGHT; headerHeight: number };
 
 const DatagridLayoutContext = React.createContext<IDatagridLayoutContext | null>(
   null
@@ -34,42 +36,42 @@ const DatagridLayoutontextReducer = (
   action: DatagridLayoutContextAction
 ): IDatagridLayoutContext => {
   switch (action.type) {
-    case SET_HOVER:
+    case LayoutContextActionTypes.SET_HOVER:
       return {
         ...state,
-        _hover: action.hover,
+        _hover: action.hover
       };
-    case SET_BODY_DIMENSION:
+    case LayoutContextActionTypes.SET_BODY_DIMENSION:
       return {
         ...state,
         _bodyWidth: action.bodyWidth,
-        _bodyHeight: action.bodyHeight,
+        _bodyHeight: action.bodyHeight
       };
-    case SET_HEADER_HEIGHT:
+    case LayoutContextActionTypes.SET_HEADER_HEIGHT:
       return {
         ...state,
-        _headerHeight: action.headerHeight,
+        _headerHeight: action.headerHeight
       };
-    case SET_SCROLL:
-      return {
-        ...state,
-        _scrollLeft: action.scrollLeft,
-        _scrollTop: action.scrollTop,
-      };
-    case SET_SCROLL_TOP:
-      return {
-        ...state,
-        _scrollTop: action.scrollTop,
-      };
-    case SET_SCROLL_LEFT:
+    case LayoutContextActionTypes.SET_SCROLL:
       return {
         ...state,
         _scrollLeft: action.scrollLeft,
+        _scrollTop: action.scrollTop
       };
-    case SET_LINE_NUMBER_WIDTH:
+    case LayoutContextActionTypes.SET_SCROLL_TOP:
       return {
         ...state,
-        _lineNumberColumnWidth: action.lineNumberColumnWidth,
+        _scrollTop: action.scrollTop
+      };
+    case LayoutContextActionTypes.SET_SCROLL_LEFT:
+      return {
+        ...state,
+        _scrollLeft: action.scrollLeft
+      };
+    case LayoutContextActionTypes.SET_LINE_NUMBER_WIDTH:
+      return {
+        ...state,
+        _lineNumberColumnWidth: action.lineNumberColumnWidth
       };
     default:
       throw new Error("Unhandled action");
@@ -78,14 +80,14 @@ const DatagridLayoutontextReducer = (
 
 // Provider
 export function DatagridLayoutProvider({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
   const [state, dispatch] = React.useReducer(DatagridLayoutontextReducer, {
     _scrollTop: 0,
     _scrollLeft: 0,
-    _hover: false,
+    _hover: false
   });
 
   return (
