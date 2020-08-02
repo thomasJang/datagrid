@@ -16,6 +16,7 @@ import {
   useDatagridLayoutDispatch
 } from "../context/DatagridLayoutContext";
 import debounce from "lodash.debounce";
+import CanvasContext from "../lib/CanvasContext";
 
 const Datagrid: React.FC<IDatagridProps> = props => {
   const {
@@ -106,15 +107,17 @@ const Datagrid: React.FC<IDatagridProps> = props => {
 
   React.useEffect(() => {
     if (!canvasRef.current) return;
-    const canvasContext = canvasRef.current.getContext("2d");
-    if (canvasContext) {
-      const lineNumberColumnWidth =
-        canvasContext.measureText("" + (dataLength || 0)).width + 14;
-      layoutDispatch({
-        type: LayoutContextActionTypes.SET_LINE_NUMBER_WIDTH,
-        lineNumberColumnWidth: Math.max(lineNumberColumnWidth, 50)
-      });
-    }
+    CanvasContext.setCanvas(canvasRef.current);
+
+    const lineNumberColumnWidth = Math.max(
+      CanvasContext.measureText("" + (dataLength || 0)) + 14,
+      50
+    );
+
+    layoutDispatch({
+      type: LayoutContextActionTypes.SET_LINE_NUMBER_WIDTH,
+      lineNumberColumnWidth
+    });
   }, [dataLength]);
 
   React.useEffect(() => {

@@ -13,15 +13,11 @@ const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
   styleTop,
-  styleLeft,
+  styleLeft
 }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const { _bodyWidth = 1, _bodyHeight = 1 } = layoutContext;
-
-  if (!context._colGroup || context._colGroup.length < 1) {
-    return null;
-  }
 
   const lineNumberColumnWidth = React.useMemo(() => {
     return context.enableLineNumber
@@ -33,7 +29,7 @@ const BodyMainPanel: React.FC<IProps> = ({
     () => ({
       left: lineNumberColumnWidth,
       width: _bodyWidth - lineNumberColumnWidth,
-      height: _bodyHeight,
+      height: _bodyHeight
     }),
     [_bodyWidth, _bodyHeight, lineNumberColumnWidth]
   );
@@ -41,10 +37,14 @@ const BodyMainPanel: React.FC<IProps> = ({
   const contentContainerStyle = React.useMemo(
     () => ({
       top: styleTop,
-      left: styleLeft,
+      left: styleLeft
     }),
     [styleTop, styleLeft]
   );
+
+  if (!context._colGroup || context._colGroup.length < 1) {
+    return null;
+  }
 
   return (
     <div className="ac_datagrid--body--main__panel" style={containerStyle}>
