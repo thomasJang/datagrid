@@ -91,6 +91,7 @@ export interface IDatagridHorizontalScroller extends IDatagridCommonProps {
   width?: number;
   size?: number;
 }
+export interface IDatagridStatusBar extends IDatagridCommonProps {}
 
 // local variables
 export interface IDatagridContext extends IDatagridProps {
