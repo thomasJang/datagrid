@@ -43,8 +43,6 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     height
   };
 
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
-
   const { current: debouncedLayoutDispatch } = React.useRef(
     debounce<(action: DatagridLayoutContextAction) => void>(action => {
       layoutDispatch(action);
@@ -106,9 +104,6 @@ const Datagrid: React.FC<IDatagridProps> = props => {
   }, [width, columns, enableFrozenCell, frozenColumnIndex]);
 
   React.useEffect(() => {
-    if (!canvasRef.current) return;
-    CanvasContext.setCanvas(canvasRef.current);
-
     const lineNumberColumnWidth = Math.max(
       CanvasContext.measureText("" + (dataLength || 0)) + 14,
       50
@@ -171,7 +166,6 @@ const Datagrid: React.FC<IDatagridProps> = props => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <canvas className={"ac-datagrid--canvas"} ref={canvasRef} />
       {children}
     </div>
   );

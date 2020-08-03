@@ -40,7 +40,8 @@ export const UseStatusBar: React.FC = () => {
     { value: { id: "14", name: "seowoo" } },
     { value: { id: "15", name: "seowoo" } },
     { value: { id: "16", name: "seowoo" } },
-    { value: { id: "17", name: "seowoo" } }
+    { value: { id: "17", name: "seowoo" } },
+    { value: { id: "18", name: "seowoo" } },
   ];
 
   return (

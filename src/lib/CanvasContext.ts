@@ -3,16 +3,22 @@ class CanvasContext {
   context: CanvasRenderingContext2D | undefined | null;
   constructor() {}
 
-  public setCanvas(canvas: HTMLCanvasElement) {
-    this.canvas = canvas;
+  public initCanvas() {
+    this.canvas = document.createElement('canvas');
+    this.canvas.className = "ac-datagrid--canvas";
     this.context = this.canvas.getContext("2d");
   }
 
   public measureText(text: string): number {
     if (!this.context) {
-      throw 'Canvas not found. Set the canvas using "CanvasContext.setCanvas()".';
+      this.initCanvas();
     }
-    return this.context.measureText(text).width || 0;
+    try {
+      return this.context?.measureText(text).width || 0;
+    } catch (err) {
+
+    }
+    return 0;
   }
 }
 
