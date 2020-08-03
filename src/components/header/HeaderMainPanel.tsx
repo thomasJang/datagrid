@@ -36,7 +36,7 @@ const HeaderMainPanel: React.FC<IProps> = ({ styleLeft }) => {
   }
 
   return (
-    <div className="ac_datagrid--header--main__panel" style={containerStyle}>
+    <div className="ac-datagrid--header--main__panel" style={containerStyle}>
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
         <HeaderTable columns={context._colGroup} />
       </div>

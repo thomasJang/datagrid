@@ -47,7 +47,7 @@ const BodyMainPanel: React.FC<IProps> = ({
   }
 
   return (
-    <div className="ac_datagrid--body--main__panel" style={containerStyle}>
+    <div className="ac-datagrid--body--main__panel" style={containerStyle}>
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
         <BodyTable
           columns={context._colGroup}

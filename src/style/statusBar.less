@@ -1,0 +1,53 @@
+.ac-datagrid--status-bar {
+  flex: none;
+  user-select: none;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  border: 0 none;
+  color: var(--txt-color);
+  z-index: 10;
+  background: var(--status-bg);
+  border-top: var(--border);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-base);
+}
+
+.ac-datagrid--status-bar--holder {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.ac-datagrid--status-bar--scroller {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  .ac-datagrid--scroller[data-scroller="horizontal"] {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    background-color: var(--status-scroll-bar-bg);
+    border-radius: 5px;
+  }
+
+  [data-scroll-bar] {
+    &:before {
+      opacity: 1;
+    }
+  }
+}
+
+.ac-datagrid--status-bar--holder + .ac-datagrid--status-bar--scroller {
+  margin-left: var(--padding-base-lr);
+}

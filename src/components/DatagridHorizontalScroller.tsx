@@ -141,8 +141,8 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   return (
     <div
       ref={containerRef}
-      className={"ac_datagrid--scroller"}
       data-scroller={"horizontal"}
+      className={"ac-datagrid--scroller"}
       style={styles}
     >
       {enable && (

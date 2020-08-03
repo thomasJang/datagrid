@@ -132,8 +132,8 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   return (
     <div
       ref={containerRef}
-      className={"ac_datagrid--scroller"}
       data-scroller={"vertical"}
+      className={"ac-datagrid--scroller"}
       style={styles}
     >
       {display && (

@@ -70,6 +70,7 @@ export interface IDatagridProps extends IDatagridCommonProps {
   headerAlign?: Direction;
   bodyRowHeight?: number;
   bodyAlign?: Direction;
+  statusBarHeight?: number;
 
   enableLineNumber?: boolean;
   lineNumberStartAt?: number;
@@ -91,7 +92,10 @@ export interface IDatagridHorizontalScroller extends IDatagridCommonProps {
   width?: number;
   size?: number;
 }
-export interface IDatagridStatusBar extends IDatagridCommonProps {}
+export interface IDatagridStatusBar extends IDatagridCommonProps {
+  showScroller?: boolean;
+  scrollerSize?: number;
+}
 
 // local variables
 export interface IDatagridContext extends IDatagridProps {

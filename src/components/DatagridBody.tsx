@@ -57,7 +57,7 @@ const DatagridBody: React.FC<IDatagridBody> = props => {
   }, [props.style, context.height, context.headerHeight]);
 
   return (
-    <div ref={containerRef} style={props.style} className="ac_datagrid--body">
+    <div ref={containerRef} className="ac-datagrid--body" style={props.style}>
       <BodyAsidePanel
         startRowIndex={startRowIndex}
         endRowIndex={endRowIndex}

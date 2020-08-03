@@ -20,7 +20,7 @@ const BodyLeftPanel: React.FC<IProps> = () => {
   }
 
   return (
-    <div className="ac_datagrid--header--left_panel" style={containerStyle} />
+    <div className="ac-datagrid--header--left_panel" style={containerStyle} />
   );
 };
 

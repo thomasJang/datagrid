@@ -7,7 +7,8 @@ import {
   DatagridBody,
   DatagridHeader,
   DatagridHorizontalScroller,
-  DatagridVerticalScroller
+  DatagridVerticalScroller,
+  DatagridStatusBar,
 } from "../src";
 
 export default {
@@ -17,7 +18,10 @@ export default {
 export const UseStatusBar: React.FC = () => {
   const columns = [
     { key: "id", label: "ID" },
-    { key: "name", label: "Name" }
+    { key: "name", label: "Name" },
+    { key: "name", label: "Name" },
+    { key: "name", label: "Name" },
+    { key: "name", label: "Name" },
   ];
   const dataSource = [
     { value: { id: "1", name: "tom" } },
@@ -46,6 +50,7 @@ export const UseStatusBar: React.FC = () => {
         height={400}
         headerHeight={28}
         bodyRowHeight={28}
+        statusBarHeight={24}
         columns={columns}
         data={dataSource}
         dataLength={dataSource.length}
@@ -54,8 +59,10 @@ export const UseStatusBar: React.FC = () => {
         <DatagridHeader />
         <DatagridBody>
           <DatagridVerticalScroller size={12} />
-          <DatagridHorizontalScroller size={12} />
         </DatagridBody>
+        <DatagridStatusBar showScroller={true} scrollerSize={12}>
+          <div>a-component/datagrid</div>
+        </DatagridStatusBar>
       </Datagrid>
     </div>
   );

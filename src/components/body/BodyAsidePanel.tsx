@@ -40,7 +40,7 @@ const BodyAsidePanel: React.FC<IProps> = ({
   }
 
   return (
-    <div className="ac_datagrid--body--aside__panel" style={containerStyle}>
+    <div className="ac-datagrid--body--aside__panel" style={containerStyle}>
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
         <table>
           <tbody>

@@ -36,7 +36,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
   const dispatch = useDatagridDispatch();
   const layoutDispatch = useDatagridLayoutDispatch();
 
-  const { cssClassName = "ac_datagrid" } = context;
+  const { cssClassName = "ac-datagrid" } = context;
   const styles: React.CSSProperties = {
     ...style,
     width,
@@ -171,7 +171,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <canvas className={"ac_datagrid--canvas"} ref={canvasRef} />
+      <canvas className={"ac-datagrid--canvas"} ref={canvasRef} />
       {children}
     </div>
   );

@@ -37,7 +37,8 @@ export function DatagridProvider({ children }: { children: React.ReactNode }) {
     data: [],
     dataLength: 0,
     bodyRowHeight: 20,
-    headerHeight: 20
+    headerHeight: 20,
+    statusBarHeight: 20,
   });
 
   return (

@@ -11,11 +11,10 @@ import {
 } from "../context/DatagridLayoutContext";
 
 const DatagridHeader: React.FC<IDatagridHeader> = props => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
-
-  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const styles = React.useMemo(() => {
     return { ...props.style, height: context.headerHeight };
@@ -35,7 +34,7 @@ const DatagridHeader: React.FC<IDatagridHeader> = props => {
   }, [props.style, context.headerHeight]);
 
   return (
-    <div ref={containerRef} style={styles} className="ac_datagrid--header">
+    <div ref={containerRef} className="ac-datagrid--header" style={styles}>
       <HeaderAsidePanel />
       <HeaderLeftPanel />
       <HeaderMainPanel styleLeft={styleLeft} />

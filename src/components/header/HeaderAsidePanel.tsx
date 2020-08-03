@@ -22,7 +22,7 @@ const HeaderAsidePanel: React.FC<IProps> = () => {
   }
 
   return (
-    <div className="ac_datagrid--header--aside__panel" style={containerStyle}>
+    <div className="ac-datagrid--header--aside__panel" style={containerStyle}>
       &nbsp;
     </div>
   );
