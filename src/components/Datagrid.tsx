@@ -161,6 +161,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
 
   return (
     <div
+      tabIndex={-1}
       className={cssClassName}
       style={styles}
       onMouseEnter={handleMouseEnter}

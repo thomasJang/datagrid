@@ -5,6 +5,7 @@ import {
 } from "../@interface";
 
 export type DatagridLayoutContextAction =
+  | { type: LayoutContextActionTypes.SET_STATE; state: IDatagridLayoutContext }
   | { type: LayoutContextActionTypes.SET_HOVER; hover: boolean }
   | {
       type: LayoutContextActionTypes.SET_SCROLL;
@@ -72,6 +73,11 @@ const DatagridLayoutontextReducer = (
       return {
         ...state,
         _lineNumberColumnWidth: action.lineNumberColumnWidth
+      };
+    case LayoutContextActionTypes.SET_STATE:
+      return {
+        ...state,
+        ...action.state
       };
     default:
       throw new Error("Unhandled action");

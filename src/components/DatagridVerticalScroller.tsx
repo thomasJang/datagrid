@@ -18,44 +18,43 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
-  const { _bodyHeight: scrollContainerHeight, _scrollTop } = layoutContext;
 
   const [barY, setBarY] = React.useState(0);
   const [barHeight, setBarHeight] = React.useState(0);
   const [display, setDisplay] = React.useState(false);
   const [scrollActive, setScrollActive] = React.useState(false);
 
-  const bodyContentHeight = React.useMemo(() => {
-    return context.dataLength * (context.bodyRowHeight || 1);
-  }, [context.dataLength, context.bodyRowHeight]);
-
+  const { dataLength, bodyRowHeight = 1 } = context;
+  const { _bodyHeight = 1, _scrollTop, _hover } = layoutContext;
   const styles: React.CSSProperties = {
     ...style,
     width: size,
-    height: scrollContainerHeight
+    height: _bodyHeight
   };
 
-  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = ev => {
-    ev.preventDefault();
+  const bodyContentHeight = React.useMemo(() => {
+    return dataLength * bodyRowHeight;
+  }, [dataLength, bodyRowHeight]);
 
-    const _scrollTop = layoutContext._scrollTop;
-    const startClientY = ev.clientY;
+  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = evt => {
+    evt.preventDefault();
+
+    const startClientY = evt.clientY;
 
     const mouseMove = debounce((evt: MouseEvent) => {
-      if (!scrollContainerHeight) return;
-      let newBarY = _scrollTop + evt.clientY - startClientY;
+      if (!_bodyHeight) return;
+      let newBarY = barY + (evt.clientY - startClientY);
 
       // check limit
       if (newBarY < 0) {
         newBarY = 0;
-      } else if (newBarY + barHeight > scrollContainerHeight) {
-        newBarY = scrollContainerHeight - barHeight;
+      } else if (newBarY + barHeight > _bodyHeight) {
+        newBarY = _bodyHeight - barHeight;
       }
 
       // convertScrollY
-      const barScrollableHeight = scrollContainerHeight - barHeight;
-      const contentScrollableHeight =
-        bodyContentHeight - (layoutContext._bodyHeight || 0);
+      const barScrollableHeight = _bodyHeight - barHeight;
+      const contentScrollableHeight = bodyContentHeight - _bodyHeight;
       const scrollTop =
         (contentScrollableHeight * newBarY) / barScrollableHeight;
 
@@ -93,24 +92,23 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
       setDisplay(_barHeight < _containerHeight);
       setBarHeight(_barHeight);
     }
-  }, [scrollContainerHeight, bodyContentHeight]);
+  }, [_bodyHeight, bodyContentHeight]);
 
   React.useEffect(() => {
     if (!containerRef.current) return;
-    if (!scrollContainerHeight) return;
+    if (!_bodyHeight) return;
 
     const _containerHeight = containerRef.current.clientHeight;
     const barScrollableHeight = _containerHeight - barHeight;
-    const contentScrollableHeight =
-      bodyContentHeight - (layoutContext._bodyHeight || 0);
+    const contentScrollableHeight = bodyContentHeight - _bodyHeight;
 
     let newBarY = Math.max(
       0,
       (barScrollableHeight * _scrollTop) / (contentScrollableHeight || 1)
     );
     // check limit
-    if (newBarY + barHeight > scrollContainerHeight) {
-      newBarY = scrollContainerHeight - barHeight;
+    if (newBarY + barHeight > _bodyHeight) {
+      newBarY = _bodyHeight - barHeight;
     }
 
     setBarY(newBarY);
@@ -125,8 +123,8 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   );
 
   const scrollBarClassName = React.useMemo(
-    () => (layoutContext._hover || scrollActive ? "active" : ""),
-    [layoutContext._hover, scrollActive]
+    () => (_hover || scrollActive ? "active" : ""),
+    [_hover, scrollActive]
   );
 
   return (
