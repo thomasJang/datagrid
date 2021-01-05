@@ -12,7 +12,7 @@ import {
 } from "../src";
 
 export default {
-  title: "datagrid"
+  title: "datagrid/use-status",
 };
 
 export const UseStatusBar: React.FC = () => {

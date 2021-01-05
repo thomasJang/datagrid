@@ -7,11 +7,11 @@ import {
   DatagridBody,
   DatagridHeader,
   DatagridHorizontalScroller,
-  DatagridVerticalScroller
+  DatagridVerticalScroller,
 } from "../src";
 
 export default {
-  title: "datagrid"
+  title: "datagrid/basic",
 };
 
 export const Basic: React.FC = () => {
@@ -24,21 +24,21 @@ export const Basic: React.FC = () => {
     setColumns([
       { key: "name", label: "네임", width: 200 },
       { key: "date", label: "date" },
-      { key: "writer", label: "writer", width: 300 }
+      { key: "writer", label: "writer", width: 300 },
     ]);
   };
 
   const setColumnB = () => {
     setColumns([
       { key: "id", label: "ID" },
-      { key: "name", label: "Name" }
+      { key: "name", label: "Name" },
     ]);
   };
 
   React.useEffect(() => {
     setColumns([
       { key: "id", label: "ID" },
-      { key: "name", label: "Name" }
+      { key: "name", label: "Name" },
     ]);
     setData([
       { value: { id: "1", name: "tom" } },
@@ -57,7 +57,7 @@ export const Basic: React.FC = () => {
       { value: { id: "14", name: "seowoo" } },
       { value: { id: "15", name: "seowoo" } },
       { value: { id: "16", name: "seowoo" } },
-      { value: { id: "17", name: "seowoo" } }
+      { value: { id: "17", name: "seowoo" } },
     ]);
   }, []);
 
@@ -90,13 +90,13 @@ export const Basic: React.FC = () => {
         <input
           type={"number"}
           value={scrollTop}
-          onChange={e => setScrollTop(Number(e.target.value))}
+          onChange={(e) => setScrollTop(Number(e.target.value))}
         />
         &nbsp; scrollLeft :
         <input
           type={"number"}
           value={scrollLeft}
-          onChange={e => setScrollLeft(Number(e.target.value))}
+          onChange={(e) => setScrollLeft(Number(e.target.value))}
         />
       </section>
     </div>

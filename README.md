@@ -1,11 +1,11 @@
-# @ac/datagrid
+# @a-component/datagrid
 
 ##  Install
 ```
 npm i @ac/datagrid
 ```
 
-## Develpoment
+## Development
 ```
 npm i
 npm run storybook

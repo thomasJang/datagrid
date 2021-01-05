@@ -2,21 +2,21 @@ import * as React from "react";
 import "../src/style/index.less";
 import {
   ContextActionTypes,
-  LayoutContextActionTypes
+  LayoutContextActionTypes,
 } from "../src/@interface";
 import { DatagridVerticalScroller } from "../src";
 import {
   DatagridProvider,
   useDatagridContext,
-  useDatagridDispatch
+  useDatagridDispatch,
 } from "../src/context/DatagridContext";
 import {
   DatagridLayoutProvider,
-  useDatagridLayoutDispatch
+  useDatagridLayoutDispatch,
 } from "../src/context/DatagridLayoutContext";
 
 export default {
-  title: "datagrid"
+  title: "datagrid/vertical-scroller",
 };
 
 const Component: React.FC = () => {
@@ -42,8 +42,8 @@ const Component: React.FC = () => {
         enableLineNumber: true,
         _leftColGroup: [],
         _colGroup: [],
-        _totalWidthOfColumns: 200
-      }
+        _totalWidthOfColumns: 200,
+      },
     });
 
     layoutDispatch({
@@ -55,8 +55,8 @@ const Component: React.FC = () => {
         _lineNumberColumnWidth: 50,
         _headerHeight: 0,
         _bodyWidth: 500,
-        _bodyHeight: 500
-      }
+        _bodyHeight: 500,
+      },
     });
   }, []);
 
@@ -67,7 +67,7 @@ const Component: React.FC = () => {
         width: 500,
         height: 500,
         position: "relative",
-        border: "1px solid #ccc"
+        border: "1px solid #ccc",
       }}
     >
       <DatagridVerticalScroller size={10} />
