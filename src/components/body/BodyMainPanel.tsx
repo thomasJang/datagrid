@@ -13,11 +13,12 @@ const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
   styleTop,
-  styleLeft
+  styleLeft,
 }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const { _bodyWidth = 1, _bodyHeight = 1 } = layoutContext;
+  const { dataLength, bodyRowHeight = 20 } = context;
 
   const lineNumberColumnWidth = React.useMemo(() => {
     return context.enableLineNumber
@@ -29,17 +30,27 @@ const BodyMainPanel: React.FC<IProps> = ({
     () => ({
       left: lineNumberColumnWidth,
       width: _bodyWidth - lineNumberColumnWidth,
-      height: _bodyHeight
+      height: _bodyHeight,
     }),
     [_bodyWidth, _bodyHeight, lineNumberColumnWidth]
   );
 
+  const bodyContentWidth = React.useMemo(() => {
+    return (context._colGroup || [])
+      .map((n) => n._width || 0)
+      .reduce((acc, cur) => {
+        return acc + cur;
+      }, 0);
+  }, [context._colGroup]);
+
   const contentContainerStyle = React.useMemo(
     () => ({
-      top: styleTop,
-      left: styleLeft
+      paddingLeft: styleLeft,
+      paddingTop: styleTop,
+      height: dataLength * bodyRowHeight,
+      width: bodyContentWidth,
     }),
-    [styleTop, styleLeft]
+    [styleTop, styleLeft, dataLength, bodyRowHeight, bodyContentWidth]
   );
 
   if (!context._colGroup || context._colGroup.length < 1) {

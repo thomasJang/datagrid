@@ -3,7 +3,7 @@ import { IColumn } from "../../@interface";
 import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 
 interface IProps {
-  columns: IColumn[];
+  columns?: IColumn[];
 }
 const HeaderTable: React.FC<IProps> = ({ columns }) => {
   const layoutContext = useDatagridLayoutContext();
@@ -34,12 +34,12 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
   return (
     <table>
       <colgroup>
-        {columns.map(renderColumn)}
+        {(columns || []).map(renderColumn)}
         <col />
       </colgroup>
       <tbody>
         <tr>
-          {columns.map(renderTd)}
+          {(columns || []).map(renderTd)}
           <td />
         </tr>
       </tbody>

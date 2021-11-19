@@ -31,10 +31,6 @@ const HeaderMainPanel: React.FC<IProps> = ({ styleLeft }) => {
     [styleLeft]
   );
 
-  if (!context._colGroup || context._colGroup.length < 1) {
-    return null;
-  }
-
   return (
     <div className="ac-datagrid--header--main__panel" style={containerStyle}>
       <div data-panel={"scroll-content"} style={contentContainerStyle}>

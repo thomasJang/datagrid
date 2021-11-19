@@ -4,7 +4,7 @@ class CanvasContext {
   constructor() {}
 
   public initCanvas() {
-    this.canvas = document.createElement('canvas');
+    this.canvas = document.createElement("canvas");
     this.canvas.className = "ac-datagrid--canvas";
     this.context = this.canvas.getContext("2d");
   }
@@ -15,9 +15,7 @@ class CanvasContext {
     }
     try {
       return this.context?.measureText(text).width || 0;
-    } catch (err) {
-
-    }
+    } catch (err) {}
     return 0;
   }
 }
