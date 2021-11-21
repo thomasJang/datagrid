@@ -60,9 +60,11 @@ const BodyMainPanel: React.FC<IProps> = ({
 
   const onScroll: React.EventHandler<any> = (evt) => {
     const scrollTop = evt.target?.scrollTop;
+    const scrollLeft = evt.target?.scrollLeft;
     layoutDispatch({
-      type: LayoutContextActionTypes.SET_SCROLL_TOP,
+      type: LayoutContextActionTypes.SET_SCROLL,
       scrollTop,
+      scrollLeft,
     });
   };
 
