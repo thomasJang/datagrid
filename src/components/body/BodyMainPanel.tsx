@@ -5,6 +5,7 @@ import {
   useDatagridLayoutContext,
   useDatagridLayoutDispatch,
 } from "../../context/DatagridLayoutContext";
+import throttle from "lodash.throttle";
 import BodyTable from "./BodyTable";
 
 interface IProps {
@@ -58,7 +59,7 @@ const BodyMainPanel: React.FC<IProps> = ({
     [styleTop, styleLeft, dataLength, bodyRowHeight, bodyContentWidth]
   );
 
-  const onScroll: React.EventHandler<any> = (evt) => {
+  const onScroll: React.EventHandler<any> = throttle((evt) => {
     const scrollTop = evt.target?.scrollTop;
     const scrollLeft = evt.target?.scrollLeft;
     layoutDispatch({
@@ -66,7 +67,7 @@ const BodyMainPanel: React.FC<IProps> = ({
       scrollTop,
       scrollLeft,
     });
-  };
+  });
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
