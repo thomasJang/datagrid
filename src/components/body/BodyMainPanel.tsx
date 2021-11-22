@@ -53,7 +53,7 @@ const BodyMainPanel: React.FC<IProps> = ({
   const contentContainerStyle = React.useMemo(
     () => ({
       paddingLeft: styleLeft,
-      paddingTop: styleTop,
+      paddingTop: startRowIndex * bodyRowHeight,
       height: dataLength * bodyRowHeight,
       width: bodyContentWidth,
     }),
