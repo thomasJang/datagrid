@@ -5,7 +5,9 @@ DataGrid는 누구나 쉽게 대용량 데이터를 엑셀처럼 활용할 수 �
 <br/>
 더 많은 데이터를 웹에서 직관적이고 빠르게 사용해보세요.
 <hr />
-###  설치방법
+
+### 설치방법
+
 ```bash
 npm install @a-c/datagrid --save
 ```
@@ -84,3 +86,7 @@ ReactDOM.render(
 
  
 - [개발 히스토리](https://medium.com/chequer/react-datagrid-component-%EC%A0%9C%EC%9E%91%EA%B8%B0-with-es6-typescript-4efcbfe1b442)
+
+- [문의사항][id]
+  
+[id]: asroq7434@gmail.com "문의사항"
