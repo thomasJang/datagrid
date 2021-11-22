@@ -23,8 +23,8 @@ const BodyMainPanel: React.FC<IProps> = ({
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
-  const scrollContentRef = React.useRef<HTMLDivElement>(null);
-  const { _bodyWidth = 1, _bodyHeight = 1 } = layoutContext;
+  const panelScrollRef = React.useRef<HTMLDivElement>(null);
+  const { _bodyWidth = 1, _bodyHeight = 1, _scrollTop } = layoutContext;
   const { dataLength, bodyRowHeight = 20 } = context;
 
   const lineNumberColumnWidth = React.useMemo(() => {
@@ -62,8 +62,8 @@ const BodyMainPanel: React.FC<IProps> = ({
 
   const onScroll: React.UIEventHandler<HTMLDivElement> = throttle(
     React.useCallback(() => {
-      const scrollTop = scrollContentRef.current?.scrollTop || 0;
-      const scrollLeft = scrollContentRef.current?.scrollLeft || 0;
+      const scrollTop = panelScrollRef.current?.scrollTop || 0;
+      const scrollLeft = panelScrollRef.current?.scrollLeft || 0;
       layoutDispatch({
         type: LayoutContextActionTypes.SET_SCROLL,
         scrollTop,
@@ -72,6 +72,9 @@ const BodyMainPanel: React.FC<IProps> = ({
     }, [layoutDispatch])
   );
 
+  React.useEffect(() => {
+    if (panelScrollRef.current) panelScrollRef.current.scrollTop = _scrollTop;
+  }, [_scrollTop]);
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
@@ -81,7 +84,7 @@ const BodyMainPanel: React.FC<IProps> = ({
     <div
       className="ac-datagrid--body--main__panel"
       style={containerStyle}
-      ref={scrollContentRef}
+      ref={panelScrollRef}
       onScroll={onScroll}
     >
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
