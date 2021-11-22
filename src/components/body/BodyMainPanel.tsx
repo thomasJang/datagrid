@@ -64,7 +64,15 @@ const BodyMainPanel: React.FC<IProps> = ({
       height: dataLength * bodyRowHeight,
       width: bodyContentWidth,
     }),
-    [styleTop, styleLeft, dataLength, bodyRowHeight, bodyContentWidth]
+    [
+      styleTop,
+      styleLeft,
+      _scrollTop,
+      _scrollLeft,
+      dataLength,
+      bodyRowHeight,
+      bodyContentWidth,
+    ]
   );
 
   const onScroll: React.UIEventHandler<HTMLDivElement> = throttle(
