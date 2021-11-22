@@ -24,7 +24,12 @@ const BodyMainPanel: React.FC<IProps> = ({
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
   const panelScrollRef = React.useRef<HTMLDivElement>(null);
-  const { _bodyWidth = 1, _bodyHeight = 1, _scrollTop } = layoutContext;
+  const {
+    _bodyWidth = 1,
+    _bodyHeight = 1,
+    _scrollLeft,
+    _scrollTop,
+  } = layoutContext;
   const { dataLength, bodyRowHeight = 20 } = context;
 
   const lineNumberColumnWidth = React.useMemo(() => {
@@ -52,8 +57,10 @@ const BodyMainPanel: React.FC<IProps> = ({
 
   const contentContainerStyle = React.useMemo(
     () => ({
-      paddingLeft: styleLeft,
-      paddingTop: startRowIndex * bodyRowHeight,
+      top: styleTop,
+      left: styleLeft,
+      paddingLeft: _scrollLeft,
+      paddingTop: _scrollTop,
       height: dataLength * bodyRowHeight,
       width: bodyContentWidth,
     }),
@@ -73,8 +80,11 @@ const BodyMainPanel: React.FC<IProps> = ({
   );
 
   React.useEffect(() => {
-    if (panelScrollRef.current) panelScrollRef.current.scrollTop = _scrollTop;
-  }, [_scrollTop]);
+    if (panelScrollRef.current) {
+      panelScrollRef.current.scrollTop = _scrollTop;
+      panelScrollRef.current.scrollLeft = _scrollLeft;
+    }
+  }, [_scrollTop, _scrollLeft]);
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
