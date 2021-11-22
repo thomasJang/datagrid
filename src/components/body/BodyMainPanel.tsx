@@ -1,6 +1,11 @@
 import * as React from "react";
+import { LayoutContextActionTypes } from "../../@interface";
 import { useDatagridContext } from "../../context/DatagridContext";
-import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
+import {
+  useDatagridLayoutContext,
+  useDatagridLayoutDispatch,
+} from "../../context/DatagridLayoutContext";
+import throttle from "lodash.throttle";
 import BodyTable from "./BodyTable";
 
 interface IProps {
@@ -15,8 +20,10 @@ const BodyMainPanel: React.FC<IProps> = ({
   styleTop,
   styleLeft,
 }) => {
+  const scrollContentRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
+  const layoutDispatch = useDatagridLayoutDispatch();
   const { _bodyWidth = 1, _bodyHeight = 1 } = layoutContext;
   const { dataLength, bodyRowHeight = 20 } = context;
 
@@ -53,12 +60,27 @@ const BodyMainPanel: React.FC<IProps> = ({
     [styleTop, styleLeft, dataLength, bodyRowHeight, bodyContentWidth]
   );
 
+  const onScroll: React.EventHandler<any> = throttle(() => {
+    const scrollTop = scrollContentRef.current?.scrollTop || 0;
+    const scrollLeft = scrollContentRef.current?.scrollLeft || 0;
+    layoutDispatch({
+      type: LayoutContextActionTypes.SET_SCROLL,
+      scrollTop,
+      scrollLeft,
+    });
+  });
+
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
   }
 
   return (
-    <div className="ac-datagrid--body--main__panel" style={containerStyle}>
+    <div
+      className="ac-datagrid--body--main__panel"
+      style={containerStyle}
+      ref={scrollContentRef}
+      onScroll={onScroll}
+    >
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
         <BodyTable
           columns={context._colGroup}
