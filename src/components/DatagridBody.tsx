@@ -31,7 +31,8 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
       startRowIndex + displayRowCount > dataLength
         ? dataLength
         : startRowIndex + displayRowCount;
-
+    console.log(`start: ${startRowIndex}, end : ${endRowIndex}, styleTOP : ${styleTop}`);
+    
     return {
       startRowIndex,
       endRowIndex,
