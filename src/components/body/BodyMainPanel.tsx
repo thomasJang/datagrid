@@ -60,7 +60,7 @@ const BodyMainPanel: React.FC<IProps> = ({
     [styleTop, styleLeft, dataLength, bodyRowHeight, bodyContentWidth]
   );
 
-  const onScroll: React.EventHandler<any> = throttle(() => {
+  const onScroll: React.UIEventHandler<HTMLDivElement> = throttle(() => {
     const scrollTop = scrollContentRef.current?.scrollTop || 0;
     const scrollLeft = scrollContentRef.current?.scrollLeft || 0;
     layoutDispatch({
