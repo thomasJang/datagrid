@@ -16,6 +16,10 @@ React Datagrid Component
 
 [comment]: <> (link to gh-page for storybook)
 
+## Example
+
+http://a-component.github.io/datagrid/
+
 ## Install
 
 ```bash
