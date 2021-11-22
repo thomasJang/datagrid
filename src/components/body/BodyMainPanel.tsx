@@ -20,10 +20,10 @@ const BodyMainPanel: React.FC<IProps> = ({
   styleTop,
   styleLeft,
 }) => {
-  const scrollContentRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
+  const scrollContentRef = React.useRef<HTMLDivElement>(null);
   const { _bodyWidth = 1, _bodyHeight = 1 } = layoutContext;
   const { dataLength, bodyRowHeight = 20 } = context;
 
@@ -60,15 +60,18 @@ const BodyMainPanel: React.FC<IProps> = ({
     [styleTop, styleLeft, dataLength, bodyRowHeight, bodyContentWidth]
   );
 
-  const onScroll: React.UIEventHandler<HTMLDivElement> = throttle(() => {
-    const scrollTop = scrollContentRef.current?.scrollTop || 0;
-    const scrollLeft = scrollContentRef.current?.scrollLeft || 0;
-    layoutDispatch({
-      type: LayoutContextActionTypes.SET_SCROLL,
-      scrollTop,
-      scrollLeft,
-    });
-  });
+  const onScroll: React.UIEventHandler<HTMLDivElement> = throttle(
+    React.useCallback(() => {
+      const scrollTop = scrollContentRef.current?.scrollTop || 0;
+      const scrollLeft = scrollContentRef.current?.scrollLeft || 0;
+      layoutDispatch({
+        type: LayoutContextActionTypes.SET_SCROLL,
+        scrollTop,
+        scrollLeft,
+      });
+    }, [layoutDispatch])
+  );
+
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
