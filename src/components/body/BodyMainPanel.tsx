@@ -80,8 +80,8 @@ const BodyMainPanel: React.FC<IProps> = ({
       throttle((scrollTop: number, scrollLeft: number) => {
         if (scrollTop < 0) scrollTop = 0;
         else if (scrollLeft < 0) scrollLeft = 0;
-        else if (scrollTop > _bodyHeight)
-          scrollTop = dataLength * bodyRowHeight;
+
+        if (scrollTop > _bodyHeight) scrollTop = dataLength * bodyRowHeight;
         else if (scrollLeft > _bodyWidth - lineNumberColumnWidth)
           scrollLeft = _bodyWidth - lineNumberColumnWidth;
 
