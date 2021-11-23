@@ -4,6 +4,10 @@ export enum ContextActionTypes {
   SET_STATE = "SET_STATE"
 }
 
+export enum ThemeContextActionTypes {
+  SET_THEME = "SET_THEME"
+}
+
 export enum LayoutContextActionTypes {
   SET_HOVER = "SET_HOVER",
   SET_SCROLL = "SET_SCROLL",
@@ -84,8 +88,8 @@ export interface IDatagridProps extends IDatagridCommonProps {
   onClick?: () => void;
 }
 
-export interface IDatagridHeader extends IDatagridCommonProps {}
-export interface IDatagridBody extends IDatagridCommonProps {}
+export interface IDatagridHeader extends IDatagridCommonProps { }
+export interface IDatagridBody extends IDatagridCommonProps { }
 export interface IDatagridVerticalScroller extends IDatagridCommonProps {
   size?: number;
 }
@@ -105,6 +109,10 @@ export interface IDatagridContext extends IDatagridProps {
   _colGroup?: IColumn[];
   _totalWidthOfColumns?: number; // 계산된 컬럼들의 너비 합
   _frozenPanelWidth?: number;
+}
+
+export interface IDatagridThemeContext {
+  _theme: string;
 }
 
 export interface IDatagridLayoutContext {
