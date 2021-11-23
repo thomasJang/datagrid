@@ -101,6 +101,9 @@ export interface IDatagridStatusBar extends IDatagridCommonProps {
   showScroller?: boolean;
   scrollerSize?: number;
 }
+export interface IDatagridOptionBar extends IDatagridCommonProps {
+  isFiltered: boolean;
+}
 
 // local variables
 export interface IDatagridContext extends IDatagridProps {
