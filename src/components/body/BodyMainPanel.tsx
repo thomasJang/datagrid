@@ -61,7 +61,7 @@ const BodyMainPanel: React.FC<IProps> = ({
       left: styleLeft,
       paddingLeft: _scrollLeft,
       paddingTop: _scrollTop,
-      height: dataLength * bodyRowHeight,
+      height: bodyCotentHeight
       width: bodyContentWidth,
     }),
     [
