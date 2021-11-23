@@ -1,4 +1,5 @@
 import * as React from "react";
+import FilterDropdown from "./FilterDropdown";
 
 interface IPros {}
 
@@ -8,6 +9,7 @@ const FilterSelector: React.FC<IPros> = () => {
       <ul>
         <li>
           <label>Column</label>
+          <FilterDropdown />
         </li>
         <li>
           <label>Value</label>
@@ -15,6 +17,7 @@ const FilterSelector: React.FC<IPros> = () => {
         </li>
         <li>
           <label>Operators</label>
+          <FilterDropdown />
         </li>
       </ul>
       <button type="button">+</button>
