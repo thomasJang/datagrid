@@ -1,7 +1,6 @@
 import * as React from "react";
 // import { IDatagridCommonProps } from "../../@interface";
 // import { useDatagridFilterContext } from "../../context/DatagridFilterContext";
-import "../../style/dropDown.less";
 import triangleIcon from "../../assets/icons/icon-triangle.svg";
 
 interface IProps {}
