@@ -1,7 +1,11 @@
 import * as React from "react";
 
 export enum ContextActionTypes {
-  SET_STATE = "SET_STATE"
+  SET_STATE = "SET_STATE",
+}
+
+export enum FilterContextActionTypes {
+  SET_FILTER = "SET_FILTER",
 }
 
 export enum LayoutContextActionTypes {
@@ -13,7 +17,7 @@ export enum LayoutContextActionTypes {
   SET_BODY_DIMENSION = "SET_BODY_DIMENSION",
   SET_HEADER_HEIGHT = "SET_HEADER_HEIGHT",
   SET_BODY_HEIGHT = "SET_BODY_HEIGHT",
-  SET_STATE = "SET_STATE"
+  SET_STATE = "SET_STATE",
 }
 
 type DataItemType = "C" | "U" | "D";
@@ -105,6 +109,12 @@ export interface IDatagridContext extends IDatagridProps {
   _colGroup?: IColumn[];
   _totalWidthOfColumns?: number; // 계산된 컬럼들의 너비 합
   _frozenPanelWidth?: number;
+}
+
+export interface IDatagridFilterContext {
+  _isFiltered: boolean;
+  _filteredData: IData;
+  _filteredDataLength: number;
 }
 
 export interface IDatagridLayoutContext {
