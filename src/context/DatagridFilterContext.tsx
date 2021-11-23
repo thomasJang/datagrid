@@ -54,12 +54,12 @@ export function DatagridFilterProvider({
 
 export function useDatagridFilterContext() {
   const state = React.useContext(DatagridFilterContext);
-  if (!state) throw new Error("Cannot find DatagridContextProvider");
+  if (!state) throw new Error("Cannot state DatagridContextProvider");
   return state;
 }
 
 export function useDatagridFilterDispatch() {
   const dispatch = React.useContext(DatagridFilterDispatchContext);
-  if (!dispatch) throw new Error("Cannot find DatagridContextProvider");
+  if (!dispatch) throw new Error("Cannot dispath DatagridContextProvider");
   return dispatch;
 }

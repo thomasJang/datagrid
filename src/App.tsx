@@ -3,7 +3,7 @@ import { IDatagridProps } from "./@interface";
 import { DatagridProvider } from "./context/DatagridContext";
 import { DatagridLayoutProvider } from "./context/DatagridLayoutContext";
 import Datagrid from "./components/Datagrid";
-import { DatagridFilterProvider } from "context/DatagridFilterContext";
+import { DatagridFilterProvider } from "./context/DatagridFilterContext";
 
 const App: React.FC<IDatagridProps> = (props) => {
   return (
