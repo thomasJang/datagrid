@@ -14,6 +14,7 @@ interface IProps {
   styleTop: number;
   styleLeft: number;
 }
+
 const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
@@ -55,29 +56,28 @@ const BodyMainPanel: React.FC<IProps> = ({
       }, 0);
   }, [context._colGroup]);
 
+  const bodyContentHeight = React.useMemo(() => {
+    return dataLength * bodyRowHeight;
+  }, [dataLength, bodyRowHeight]);
+
   const contentContainerStyle = React.useMemo(
     () => ({
       top: styleTop,
       left: styleLeft,
       paddingLeft: _scrollLeft,
       paddingTop: _scrollTop,
-      height: bodyCotentHeight
+      height: bodyContentHeight,
       width: bodyContentWidth,
     }),
     [
       styleTop,
       styleLeft,
-      _scrollTop,
       _scrollLeft,
-      dataLength,
-      bodyRowHeight,
+      _scrollTop,
+      bodyContentHeight,
       bodyContentWidth,
     ]
   );
-
-  const bodyContentHeight = React.useMemo(() => {
-    return dataLength * bodyRowHeight;
-  }, [dataLength, bodyRowHeight]);
 
   const throttledScroll = React.useMemo(
     () =>
