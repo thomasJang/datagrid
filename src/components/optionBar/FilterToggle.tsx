@@ -1,4 +1,5 @@
 import * as React from "react";
+import FilterIcon from "../../assets/icons/icon-filter.svg";
 
 interface IPros {
   onClick: () => void;
@@ -7,9 +8,10 @@ interface IPros {
 const FilterToggle: React.FC<IPros> = (props) => {
   const { onClick } = props;
   return (
-    <button className="ac-datagrid--option_bar__filter_togle" onClick={onClick}>
-      FILTER
-    </button>
+    <div className="ac-datagrid--option_bar__filter_togle" onClick={onClick}>
+      <img src={FilterIcon} />
+      <span>FILTER</span>
+    </div>
   );
 };
 

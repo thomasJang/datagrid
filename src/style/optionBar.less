@@ -7,14 +7,25 @@
 }
 
 .ac-datagrid--option_bar__filter_togle {
+  padding: 0 10px;
   cursor: pointer;
   background: none;
   border: none;
+  display: flex;
+  align-items: center;
+  img {
+    width: 13px;
+    height: 13px;
+    margin-right: 5px;
+  }
+  span {
+    font-size: 1.2em;
+  }
 }
 
 .ac-datagrid--option_bar__filter_selector {
   width: 100%;
-  height: 100px;
+  height: 90px;
   position: absolute;
   top: 69px;
   z-index: 100;
@@ -23,4 +34,34 @@
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+  font-size: 1.2em;
+
+  ul {
+    padding: 0;
+    margin: 15px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 1fr;
+    width: calc(100% - 40px);
+
+    label {
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    input {
+      border: none;
+      border-bottom: 1px solid #000;
+      outline: none;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
 }
