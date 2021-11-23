@@ -17,12 +17,13 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
-  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const [barY, setBarY] = React.useState(0);
   const [barHeight, setBarHeight] = React.useState(0);
   const [display, setDisplay] = React.useState(false);
   const [scrollActive, setScrollActive] = React.useState(false);
+
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const { dataLength, bodyRowHeight = 1 } = context;
   const { _bodyHeight = 1, _scrollTop, _hover } = layoutContext;
@@ -114,7 +115,7 @@ const DatagridVerticalScroller: React.FC<IDatagridVerticalScroller> = ({
     }
 
     setBarY(newBarY);
-  }, [_scrollTop, barHeight]);
+  }, [_bodyHeight, _scrollTop, barHeight, bodyContentHeight]);
 
   const scrollBarStyle = React.useMemo(
     () => ({
