@@ -83,12 +83,19 @@ const BodyMainPanel: React.FC<IProps> = ({
     () =>
       throttle((scrollTop: number, scrollLeft: number) => {
         // check scrollTop, scrollLeft limit
-        const contentScrollableHeight = bodyContentHeight - _bodyHeight;
-        const contentScrollableWidth =
-          bodyContentWidth - (_bodyWidth - lineNumberColumnWidth);
+        const contentScrollableHeight = Math.max(
+          0,
+          bodyContentHeight - _bodyHeight
+        );
+        const contentScrollableWidth = Math.max(
+          0,
+          bodyContentWidth - (_bodyWidth - lineNumberColumnWidth)
+        );
+
         if (scrollTop < 0) scrollTop = 0;
         else if (scrollTop > contentScrollableHeight)
           scrollTop = contentScrollableHeight;
+
         if (scrollLeft < 0) scrollLeft = 0;
         else if (scrollLeft > contentScrollableWidth)
           scrollLeft = contentScrollableWidth;
