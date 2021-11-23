@@ -36,7 +36,7 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
   const dispatch = useDatagridDispatch();
   const layoutDispatch = useDatagridLayoutDispatch();
 
-  const { cssClassName = "ac-datagrid" } = context;
+  const { cssClassName = "ac-datagrid dark" } = context;
   const styles: React.CSSProperties = {
     ...style,
     width,
