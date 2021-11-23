@@ -10,8 +10,6 @@ import {
   DatagridVerticalScroller,
 } from "../src";
 import OptionBar from "../src/components/optionBar/OptionBar";
-
-import Dropdown from '../src/components/optionBar/FilterDropdown'
 export default {
   title: "datagrid/basic",
 };
