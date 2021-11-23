@@ -3,12 +3,15 @@ import { IDatagridProps } from "./@interface";
 import { DatagridProvider } from "./context/DatagridContext";
 import { DatagridLayoutProvider } from "./context/DatagridLayoutContext";
 import Datagrid from "./components/Datagrid";
+import { DatagridThemeProvider } from "./context/DatagridThemeContext";
 
 const App: React.FC<IDatagridProps> = (props) => {
   return (
     <DatagridProvider>
       <DatagridLayoutProvider>
-        <Datagrid {...props} />
+        <DatagridThemeProvider>
+          <Datagrid {...props} />
+        </DatagridThemeProvider>
       </DatagridLayoutProvider>
     </DatagridProvider>
   );
