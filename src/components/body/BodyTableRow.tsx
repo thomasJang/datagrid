@@ -20,6 +20,11 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
 
   const {onClick} = context;
 
+  const customClickHandler=(e: React.MouseEvent) => {
+    console.log(e.currentTarget.getAttribute('data-item'));
+    console.log(e.currentTarget.getAttribute('data-col'));
+  }
+
   const renderItem = React.useCallback(
     (col: IColumn, ci: number) => {
       const item = Array.isArray(rowItem.value)
@@ -27,7 +32,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         : rowItem.value[String(col.key)];
 
       return (
-        <td key={ci} onClick={onClick}>
+        <td key={ci} onClick={customClickHandler} data-item={item} data-col ={ci}>
           <span>{item}</span>
         </td>
       );
