@@ -6,6 +6,7 @@ export enum ContextActionTypes {
 
 export enum FilterContextActionTypes {
   SET_FILTER = "SET_FILTER",
+  SET_STATE = "SET_STATE"
 }
 
 export enum LayoutContextActionTypes {
