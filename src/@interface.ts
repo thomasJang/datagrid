@@ -81,7 +81,7 @@ export interface IDatagridProps extends IDatagridCommonProps {
   frozenRowIndex?: number;
 
   onScroll?: () => void;
-  onClick?: () => void;
+  onClick?: (e?:React.MouseEvent, value?:any, selectedRow?: number, selectedCol?:number) => void;
 }
 
 export interface IDatagridHeader extends IDatagridCommonProps {}

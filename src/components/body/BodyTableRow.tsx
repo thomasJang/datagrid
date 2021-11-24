@@ -8,8 +8,14 @@ interface IProps {
   rowItem: IDataItem;
 }
 
+type onPos = {
+  col : Number
+  row : Number
+}
+
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
+  const [onEdit, setOnEdit] = React.useState<onPos>({col: -1, row: -1});
 
   const containerStyle = React.useMemo(
     () => ({
@@ -20,12 +26,22 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
 
   const {onClick} = context;
 
-  const customClickHandler=(e: React.MouseEvent) => {
-    const item = e.currentTarget.getAttribute('data-item');
-    const colIdx = e.currentTarget.getAttribute('data-colIdx');
+  const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (evt) => {
+    evt.preventDefault();
+    const value = evt.currentTarget.dataset.value;
+    const colIdx = evt.currentTarget.dataset.col
+    const rowIdx = rowIndex;
+    onClick?.();
+    if(colIdx)
+      onEditing(evt, Number.parseInt(colIdx), rowIdx);
+  }
 
-    console.log(e.currentTarget.getAttribute('data-item'));
-    console.log(e.currentTarget.getAttribute('data-col'));
+  const onEditing = (evt : React.MouseEvent, colIdx: number, rowIdx: number) => {
+    setOnEdit({...onEdit, col:colIdx, row:rowIdx});
+  };
+
+  const onBlur:React.FocusEventHandler<HTMLInputElement> = (evt) => {
+    setOnEdit({...onEdit, col: -1, row: -1});
   }
 
   const renderItem = React.useCallback(
@@ -34,13 +50,15 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
       return (
-        <td key={ci} onClick={customClickHandler} data-item={item} data-colIdx ={ci}>
-          <span>{item}</span>
+        <td key={ci}  onClick={customClickHandler} data-col ={ci} data-value ={item}>
+          { ci === onEdit.col && rowIndex == onEdit.row ?  <input type="text" onBlur = {onBlur} autoFocus={true}/> : <span>{item}</span>}
         </td>
       );
     },
-    [rowItem.value]
+    [rowItem.value, onEdit]
   );
+
+
 
   return (
     <tr style={containerStyle}>
