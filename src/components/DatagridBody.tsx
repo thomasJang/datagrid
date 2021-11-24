@@ -1,6 +1,5 @@
 import * as React from "react";
 import { IDatagridBody, LayoutContextActionTypes } from "../@interface";
-import BodyAsidePanel from "./body/BodyAsidePanel";
 import BodyLeftPanel from "./body/BodyLeftPanel";
 import BodyMainPanel from "./body/BodyMainPanel";
 import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
@@ -58,11 +57,6 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
 
   return (
     <div ref={containerRef} className="ac-datagrid--body" style={props.style}>
-      <BodyAsidePanel
-        startRowIndex={startRowIndex}
-        endRowIndex={endRowIndex}
-        styleTop={styleTop}
-      />
       <BodyLeftPanel />
       <BodyMainPanel
         startRowIndex={startRowIndex}
