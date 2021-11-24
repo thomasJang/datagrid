@@ -10,6 +10,7 @@ interface IProps {
 
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
+  const [onEdit, setOnEdit] = React.useState(false);
 
   const containerStyle = React.useMemo(
     () => ({
@@ -21,24 +22,31 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const {onClick} = context;
 
   const customClickHandler=(e: React.MouseEvent) => {
-    console.log(e.currentTarget.getAttribute('data-item'));
-    console.log(e.currentTarget.getAttribute('data-col'));
+    const value = e.currentTarget.getAttribute('data-item')
+    const colIdx = e.currentTarget.getAttribute('data-col')
+
   }
+  const onEditing = (e : any) => {
+    setOnEdit(!onEdit)
+    console.log(e);
+    e.stopPropagation(); 
+  };
 
   const renderItem = React.useCallback(
     (col: IColumn, ci: number) => {
       const item = Array.isArray(rowItem.value)
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
-
       return (
-        <td key={ci} onClick={customClickHandler} data-item={item} data-col ={ci}>
-          <span>{item}</span>
+
+        <td key={ci}  onClick={customClickHandler} data-item={item} data-col ={ci}>
+          { onEdit ?  <input type="text" /> : <span>{item} ...</span>}
         </td>
       );
     },
-    [rowItem.value]
+    [rowItem.value, onEdit]
   );
+
 
   return (
     <tr style={containerStyle}>
