@@ -2,8 +2,8 @@ import { FilterContextActionTypes } from "../../@interface";
 import * as React from "react";
 import FilterDropdown from "./FilterDropdown";
 import { useDatagridContext } from "../../context/DatagridContext";
-import { useDatagridFilterDispatch } from "../../context/DatagridFilterContext";
-import { getDataItem } from "lib";
+import getDataItem from "../../lib/getDataItem";
+
 
 interface IPros {}
 
