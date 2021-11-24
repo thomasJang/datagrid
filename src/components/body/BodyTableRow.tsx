@@ -15,13 +15,7 @@ type onPos = {
 
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
-<<<<<<< HEAD
-  const [onEdit, setOnEdit] = React.useState(false);
-  const [idx, setIdx] = React.useState(rowIndex);
-=======
   const [onEdit, setOnEdit] = React.useState<onPos>({col: -1, row: -1});
-
->>>>>>> 8a28d75bc143cf2e65b2a0de8864df2f97404931
   const containerStyle = React.useMemo(
     () => ({
       height: context.bodyRowHeight,
@@ -31,16 +25,6 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
 
   const {onClick} = context;
 
-<<<<<<< HEAD
-  const customClickHandler=(e: React.MouseEvent) => {
-    const value = e.currentTarget.getAttribute('data-item')
-    const colIdx = e.currentTarget.getAttribute('data-col')
-    setOnEdit(!onEdit);
-    console.log(`value : ${value}`);
-    console.log(`Idx : ${colIdx}`);
-    onClick?.()
-  }
-=======
   const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (evt) => {
     evt.preventDefault();
     const value = evt.currentTarget.dataset.value;
@@ -54,7 +38,6 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const onEditing = (evt : React.MouseEvent, colIdx: number, rowIdx: number) => {
     setOnEdit({...onEdit, col:colIdx, row:rowIdx});
   };
->>>>>>> 8a28d75bc143cf2e65b2a0de8864df2f97404931
 
   const onBlur:React.FocusEventHandler<HTMLInputElement> = (evt) => {
     setOnEdit({...onEdit, col: -1, row: -1});
@@ -66,14 +49,9 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
       return (
-<<<<<<< HEAD
-        // 
-        <td key={ci}  onClick={customClickHandler} data-item={item} data-col ={ci}>
-          { onEdit ?  <input type="text" /> : <span>{item} ...</span>}
-=======
+
         <td key={ci}  onClick={customClickHandler} data-col ={ci} data-value ={item}>
           { ci === onEdit.col && rowIndex == onEdit.row ?  <input type="text" onBlur = {onBlur} autoFocus={true}/> : <span>{item}</span>}
->>>>>>> 8a28d75bc143cf2e65b2a0de8864df2f97404931
         </td>
       );
     },
