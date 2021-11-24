@@ -11,7 +11,7 @@ interface IProps {
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
   const [onEdit, setOnEdit] = React.useState(false);
-
+  const [idx, setIdx] = React.useState(rowIndex);
   const containerStyle = React.useMemo(
     () => ({
       height: context.bodyRowHeight,
@@ -24,13 +24,11 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const customClickHandler=(e: React.MouseEvent) => {
     const value = e.currentTarget.getAttribute('data-item')
     const colIdx = e.currentTarget.getAttribute('data-col')
-
+    setOnEdit(!onEdit);
+    console.log(`value : ${value}`);
+    console.log(`Idx : ${colIdx}`);
+    onClick?.()
   }
-  const onEditing = (e : any) => {
-    setOnEdit(!onEdit)
-    console.log(e);
-    e.stopPropagation(); 
-  };
 
   const renderItem = React.useCallback(
     (col: IColumn, ci: number) => {
@@ -38,7 +36,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
       return (
-
+        // 
         <td key={ci}  onClick={customClickHandler} data-item={item} data-col ={ci}>
           { onEdit ?  <input type="text" /> : <span>{item} ...</span>}
         </td>
