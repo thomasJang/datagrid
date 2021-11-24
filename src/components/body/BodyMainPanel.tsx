@@ -7,6 +7,7 @@ import {
 } from "../../context/DatagridLayoutContext";
 import throttle from "lodash.throttle";
 import BodyTable from "./BodyTable";
+import BodyAsidePanel from "./BodyAsidePanel";
 
 interface IProps {
   startRowIndex: number;
@@ -41,7 +42,7 @@ const BodyMainPanel: React.FC<IProps> = ({
 
   const containerStyle = React.useMemo(
     () => ({
-      left: lineNumberColumnWidth,
+      left: 0,
       width: _bodyWidth - lineNumberColumnWidth,
       height: _bodyHeight,
     }),
@@ -67,7 +68,7 @@ const BodyMainPanel: React.FC<IProps> = ({
       paddingLeft: _scrollLeft,
       paddingTop: _scrollTop,
       height: bodyContentHeight,
-      width: bodyContentWidth,
+      width: bodyContentWidth + lineNumberColumnWidth,
     }),
     [
       styleTop,
@@ -76,6 +77,7 @@ const BodyMainPanel: React.FC<IProps> = ({
       _scrollTop,
       bodyContentHeight,
       bodyContentWidth,
+      lineNumberColumnWidth,
     ]
   );
 
@@ -141,10 +143,16 @@ const BodyMainPanel: React.FC<IProps> = ({
       onScroll={onScroll}
     >
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
+        <BodyAsidePanel
+          startRowIndex={startRowIndex}
+          endRowIndex={endRowIndex}
+        />
         <BodyTable
           columns={context._colGroup}
           startRowIndex={startRowIndex}
           endRowIndex={endRowIndex}
+          lineNumberColumnWidth={lineNumberColumnWidth}
+          bodyContentWidth={bodyContentWidth}
         />
       </div>
     </div>
