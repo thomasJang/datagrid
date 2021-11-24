@@ -1,6 +1,4 @@
 import * as React from "react";
-// import { IDatagridCommonProps } from "../../@interface";
-// import { useDatagridFilterContext } from "../../context/DatagridFilterContext";
 import triangleIcon from "../../assets/icons/icon-triangle.svg";
 
 interface IProps {
@@ -9,7 +7,7 @@ interface IProps {
   selectCallBack: any;
 }
 
-const FilterDropdown: React.FC<IProps> = ({ items, selectedItem, selectCallBack }) => {
+const ColorDropdown: React.FC<IProps> = ({ items, selectedItem, selectCallBack }) => {
   // const context = useDatagridFilterContext();
   // const handleColumnSelect: React.ChangeEventHandler<HTMLSelectElement> = (ev) => {
   //     console.log(ev.target.value);
@@ -19,7 +17,6 @@ const FilterDropdown: React.FC<IProps> = ({ items, selectedItem, selectCallBack 
   const onClick = () => setIsActive(!isActive);
 
   return (
-    //   <div className="dropdown-container">
     <div className="menu-container">
       <div className="content-box" onClick={onClick}>
         <button className="menu-trigger">{selectedItem}</button>
@@ -35,10 +32,9 @@ const FilterDropdown: React.FC<IProps> = ({ items, selectedItem, selectCallBack 
         </ul>
       </nav>
     </div>
-    //   </div>
   );
 };
-export default FilterDropdown;
+export default ColorDropdown;
 
 export const useDetectOutsideClick = (el: any, initialState: any) => {
   const [isActive, setIsActive] = React.useState(initialState);

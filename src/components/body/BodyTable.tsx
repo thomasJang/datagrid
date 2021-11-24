@@ -9,11 +9,7 @@ interface IProps {
   startRowIndex: number;
   endRowIndex: number;
 }
-const BodyTable: React.FC<IProps> = ({
-  columns,
-  startRowIndex,
-  endRowIndex,
-}) => {
+const BodyTable: React.FC<IProps> = ({ columns, startRowIndex, endRowIndex }) => {
   const context = useDatagridContext();
 
   return (
@@ -29,14 +25,7 @@ const BodyTable: React.FC<IProps> = ({
           if (context.data) {
             const rowItem = getDataItem(context.data, rowIndex);
             if (rowItem) {
-              return (
-                <BodyTableRow
-                  key={rowIndex}
-                  columns={columns}
-                  rowIndex={rowIndex}
-                  rowItem={rowItem}
-                />
-              );
+              return <BodyTableRow key={rowIndex} columns={columns} rowIndex={rowIndex} rowItem={rowItem} />;
             }
           }
         })}
