@@ -31,7 +31,8 @@
   --border-style: @acgrid-border-style;
   --border-width: @acgrid-border-width;
   --border: var(--border-width) var(--border-style) var(--border-color);
-  --column-border: @acgrid-border-width @acgrid-border-style @acgrid-border-color;
+  --column-border: @acgrid-border-width @acgrid-border-style
+    @acgrid-border-color;
   --font-size: @acgrid-font-size;
   --header-bg: @acgrid-header-bg;
   --line-number-bg: @acgrid-line-number-bg;
@@ -65,10 +66,8 @@
   user-select: none;
 
   table {
-    border-collapse: collapse;
     border-spacing: 0;
     table-layout: fixed;
-    border: 0 none;
     width: 100%;
   }
   td {
