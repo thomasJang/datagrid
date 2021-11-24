@@ -17,7 +17,7 @@ const BodyAsidePanel: React.FC<IProps> = ({ startRowIndex, endRowIndex }) => {
     [context.lineNumberStartAt]
   );
 
-  const containerStyle = React.useMemo(
+  const tableStyle = React.useMemo(
     () => ({ width: layoutContext._lineNumberColumnWidth, height }),
     [layoutContext._lineNumberColumnWidth, height]
   );
@@ -31,7 +31,10 @@ const BodyAsidePanel: React.FC<IProps> = ({ startRowIndex, endRowIndex }) => {
   }
 
   return (
-    <table style={containerStyle}>
+    <table
+      style={tableStyle}
+      className="ac-datagrid--body--main__panel--body__aside__table"
+    >
       <tbody>
         {arrayFromRange(startRowIndex, endRowIndex).map((rowIndex) => {
           return (
