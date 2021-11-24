@@ -1,5 +1,5 @@
 import * as React from "react";
-import { action } from "@storybook/addon-actions";
+
 import "../src/style/index.less";
 import { IColumn, IDataItem } from "../src/@interface";
 import {
@@ -9,7 +9,7 @@ import {
   DatagridHorizontalScroller,
   DatagridVerticalScroller,
 } from "../src";
-
+import OptionBar from "../src/components/optionBar/OptionBar";
 export default {
   title: "datagrid/basic",
 };
@@ -75,6 +75,7 @@ export const Basic: React.FC = () => {
         scrollLeft={scrollLeft}
         enableLineNumber
       >
+        <OptionBar />
         <DatagridHeader />
         <DatagridBody>
           <DatagridVerticalScroller size={12} />

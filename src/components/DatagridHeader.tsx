@@ -11,10 +11,10 @@ import {
 } from "../context/DatagridLayoutContext";
 
 const DatagridHeader: React.FC<IDatagridHeader> = (props) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const styles = React.useMemo(() => {
     return { ...props.style, height: context.headerHeight };
