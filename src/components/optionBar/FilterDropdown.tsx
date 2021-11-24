@@ -4,12 +4,16 @@ import * as React from "react";
 import triangleIcon from "../../assets/icons/icon-triangle.svg";
 
 interface IProps {
-  items: any[],
-  selectedItem: any
-  selectCallBack: any,
+  items: any[];
+  selectedItem: any;
+  selectCallBack: any;
 }
 
-const FilterDropdown: React.FC<IProps> = ({items, selectedItem, selectCallBack}) => {
+const FilterDropdown: React.FC<IProps> = ({
+  items,
+  selectedItem,
+  selectCallBack,
+}) => {
   // const context = useDatagridFilterContext();
   // const handleColumnSelect: React.ChangeEventHandler<HTMLSelectElement> = (ev) => {
   //     console.log(ev.target.value);
@@ -21,10 +25,8 @@ const FilterDropdown: React.FC<IProps> = ({items, selectedItem, selectCallBack})
   return (
     //   <div className="dropdown-container">
     <div className="menu-container">
-      <div className="content-box">
-        <button onClick={onClick} className="menu-trigger">
-        {selectedItem}
-          </button>
+      <div className="content-box" onClick={onClick}>
+        <button className="menu-trigger">{selectedItem}</button>
         <img src={triangleIcon} alt="icon" />
       </div>
       <nav
@@ -32,12 +34,11 @@ const FilterDropdown: React.FC<IProps> = ({items, selectedItem, selectCallBack})
         className={`menu ${isActive ? "active" : "inactive"}`}
       >
         <ul>
-          {(items || []).map(
-            (item,i) => (
-            <li id={item} key = {i} onClick = {selectCallBack}>
+          {(items || []).map((item, i) => (
+            <li id={item} key={i} onClick={selectCallBack}>
               {item}
-            </li>)
-          )}
+            </li>
+          ))}
         </ul>
       </nav>
     </div>
