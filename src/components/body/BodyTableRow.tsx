@@ -18,6 +18,8 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     [context.bodyRowHeight]
   );
 
+  const {onClick} = context;
+
   const renderItem = React.useCallback(
     (col: IColumn, ci: number) => {
       const item = Array.isArray(rowItem.value)
@@ -25,7 +27,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         : rowItem.value[String(col.key)];
 
       return (
-        <td key={ci}>
+        <td key={ci} onClick={onClick}>
           <span>{item}</span>
         </td>
       );
