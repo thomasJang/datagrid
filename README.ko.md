@@ -1,6 +1,13 @@
 # DataGrid
 
-DataGrid는 누구나 쉽게 대용량 데이터를 엑셀처럼 활용할 수 있는 라이브러리 입니다.
+[![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url]
+
+[npm-image]: https://img.shields.io/npm/v/@a-c/datagrid
+[npm-url]: https://www.npmjs.com/package/@a-c/datagrid
+[download-image]: https://img.shields.io/npm/dw/@a-c/datagrid
+[download-url]: https://www.npmjs.com/package/@a-c/datagrid
+
+DataGrid는 누구나 쉽게 대용량 데이터를 엑셀처럼 쉽고 빠르게 활용할 수 있는 라이브러리 입니다.
 <br/>
 더 많은 데이터를 웹에서 직관적이고 빠르게 사용해보세요.
 
@@ -12,7 +19,7 @@ DataGrid는 누구나 쉽게 대용량 데이터를 엑셀처럼 활용할 수 �
 npm install @a-c/datagrid --save
 ```
 
-스토리북을 활용하여 컴포넌트를 체험해보세요.
+스토리북을 활용해 컴포넌트를 체험해보세요.
 
 ```bash
 npm install
@@ -21,9 +28,19 @@ npm run storybook
 
 <hr />
 
+## 기능
 
+<br />
 
-### 기능
+### **Theme**
+
+<img src="https://user-images.githubusercontent.com/62472550/143468529-b675483b-e7b2-4667-a740-a861507c033f.gif" width="650" height="500">
+
+<br />
+
+### **Modifying Cell data**
+
+<img src="https://user-images.githubusercontent.com/62472550/143468577-5e0d17b3-f2c6-4b43-a1fa-315efc563226.gif" width="550" height="600">
 
 <hr />
 
@@ -97,3 +114,5 @@ ReactDOM.render(
 - [문의사항][id]
 
 [id]: asroq7434@gmail.com "문의사항"
+
+- [커밋 컨벤션](https://www.notion.so/git-commit-convention-54cf3d86e53840c9b8613df73d067267)
