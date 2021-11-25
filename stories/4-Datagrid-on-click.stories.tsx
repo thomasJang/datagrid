@@ -54,6 +54,7 @@ export const OnClick: React.FC = () => {
         data={dataSource}
         dataLength={dataSource.length}
         enableLineNumber
+        setEditOptions ={true}
         onClick = {helloClickHandler}
       >
         <DatagridHeader />
