@@ -50,8 +50,8 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         : rowItem.value[String(col.key)];
       return (
 
-        <td key={ci}  onClick={customClickHandler} data-col ={ci} data-value ={item}>
-          { ci === onEdit.col && rowIndex == onEdit.row ?  <input type="text" onBlur = {onBlur} autoFocus={true}/> : <span>{item}</span>}
+        <td className="datagrid-container" key={ci}  onClick={customClickHandler} data-col ={ci} data-value ={item}>
+          { ci === onEdit.col && rowIndex == onEdit.row ?  <input className="datagrid-cell" type="text" onBlur = {onBlur} autoFocus={true}/> : <span>{item}</span>}
         </td>
       );
     },
