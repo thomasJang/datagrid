@@ -9,14 +9,14 @@ interface IProps {
   rowItem: IDataItem;
 }
 
-type onPos = {
+type Position = {
   col: number;
   row: number;
 };
 
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
-  const [onEdit, setOnEdit] = React.useState<onPos>({col: -1, row: -1});
+  const [editingPosition, setEditingPosition] = React.useState<Position>({col: -1, row: -1});
 
   const containerStyle = React.useMemo(
     () => ({
@@ -25,7 +25,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     [context.bodyRowHeight]
   );
 
-  const { onClick } = context;
+  const { onClick, setEditOptions } = context;
 
   const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (
     evt
@@ -42,7 +42,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   }
 
   const onEditing = (evt: React.MouseEvent, colIdx: number, rowIdx: number) => {
-    setOnEdit({ ...onEdit, col: colIdx, row: rowIdx });
+    setEditingPosition({ ...editingPosition, col: colIdx, row: rowIdx });
   };
 
   const onBlur:React.FocusEventHandler<HTMLInputElement> = (evt) => {
@@ -54,7 +54,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     const key= context._colGroup?.[colIdx].key;
     if (key !== undefined)
       nextData[rowIndex]["value"][key] = evt.currentTarget.value;
-    setOnEdit({...onEdit, col: -1, row: -1});
+      setEditingPosition({...setEditingPosition, col: -1, row: -1});
   }
 
   const renderItem = React.useCallback(
@@ -70,7 +70,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
           data-col={ci}
           data-value={item}
         >
-          {ci === onEdit.col && rowIndex == onEdit.row ? (
+          {ci === editingPosition.col && rowIndex == editingPosition.row ? (
             <input
               id = {ci.toString()}
               type="text"
@@ -87,8 +87,8 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     [
       rowItem.value,
       customClickHandler,
-      onEdit.col,
-      onEdit.row,
+      editingPosition.col,
+      editingPosition.row,
       rowIndex,
       onBlur,
     ]
