@@ -81,6 +81,7 @@ export interface IDatagridProps extends IDatagridCommonProps {
   bodyRowHeight?: number;
   bodyAlign?: Direction;
   statusBarHeight?: number;
+  theme?: string;
 
   enableLineNumber?: boolean;
   lineNumberStartAt?: number;
@@ -93,8 +94,8 @@ export interface IDatagridProps extends IDatagridCommonProps {
   onClick?: () => void;
 }
 
-export interface IDatagridHeader extends IDatagridCommonProps {}
-export interface IDatagridBody extends IDatagridCommonProps {}
+export interface IDatagridHeader extends IDatagridCommonProps { }
+export interface IDatagridBody extends IDatagridCommonProps { }
 export interface IDatagridVerticalScroller extends IDatagridCommonProps {
   size?: number;
 }
