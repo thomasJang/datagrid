@@ -70,6 +70,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
           onClick={customClickHandler}
           data-col={ci}
           data-value={item}
+          
         >
           {ci === editingPosition.col && rowIndex == editingPosition.row ? (
             <input
