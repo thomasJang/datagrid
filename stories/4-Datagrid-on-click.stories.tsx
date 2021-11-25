@@ -18,10 +18,7 @@ export default {
 export const OnClick: React.FC = () => {
   const columns = [
     { key: "id", label: "ID" },
-    { key: "name", label: "Name" },
-    { key: "name", label: "Name" },
-    { key: "name", label: "Name" },
-    { key: "name", label: "Name" },
+    { key: "name", label: "Name" }
   ];
   const dataSource = [
     { value: { id: "1", name: "tom" } },
