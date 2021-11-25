@@ -1,4 +1,4 @@
-const themeProperties = [
+const themeProperties: string[] = [
     "--bg",
     "--header-bg",
     "--tr-bg",
@@ -10,7 +10,7 @@ const themeProperties = [
     "--txt--default-color",
 ]
 
-const themeLabel = [
+const themeLabel: string[] = [
     "bg",
     "header-bg",
     "tr-bg",
