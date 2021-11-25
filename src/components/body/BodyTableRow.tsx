@@ -38,7 +38,8 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     if(colIdx === undefined)
       return;
     onClick?.(evt, value, rowIdx,  Number.parseInt(colIdx));
-    onEditing(evt, Number.parseInt(colIdx), rowIdx);
+    if(setEditOptions)
+      onEditing(evt, Number.parseInt(colIdx), rowIdx);
   }
 
   const onEditing = (evt: React.MouseEvent, colIdx: number, rowIdx: number) => {
