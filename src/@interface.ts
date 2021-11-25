@@ -80,6 +80,7 @@ export interface IDatagridProps extends IDatagridCommonProps {
   frozenColumnIndex?: number;
   frozenRowIndex?: number;
 
+  setEditOptions?: boolean;
   onScroll?: () => void;
   onClick?: (e?:React.MouseEvent, value?:any, selectedRow?: number, selectedCol?:number) => void;
 }
