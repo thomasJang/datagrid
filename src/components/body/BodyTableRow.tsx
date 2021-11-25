@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn, IDataItem } from "../../@interface";
@@ -9,13 +10,13 @@ interface IProps {
 }
 
 type onPos = {
-  col : Number
-  row : Number
-}
+  col: number;
+  row: number;
+};
 
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
-  const [onEdit, setOnEdit] = React.useState<onPos>({col: -1, row: -1});
+  const [onEdit, setOnEdit] = React.useState<onPos>({ col: -1, row: -1 });
   const containerStyle = React.useMemo(
     () => ({
       height: context.bodyRowHeight,
@@ -23,25 +24,26 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     [context.bodyRowHeight]
   );
 
-  const {onClick} = context;
+  const { onClick } = context;
 
-  const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (evt) => {
+  const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (
+    evt
+  ) => {
     evt.preventDefault();
-    const value = evt.currentTarget.dataset.value;
-    const colIdx = evt.currentTarget.dataset.col
+    //const value = evt.currentTarget.dataset.value;
+    const colIdx = evt.currentTarget.dataset.col;
     const rowIdx = rowIndex;
     onClick?.();
-    if(colIdx)
-      onEditing(evt, Number.parseInt(colIdx), rowIdx);
-  }
-
-  const onEditing = (evt : React.MouseEvent, colIdx: number, rowIdx: number) => {
-    setOnEdit({...onEdit, col:colIdx, row:rowIdx});
+    if (colIdx) onEditing(evt, Number.parseInt(colIdx), rowIdx);
   };
 
-  const onBlur:React.FocusEventHandler<HTMLInputElement> = (evt) => {
-    setOnEdit({...onEdit, col: -1, row: -1});
-  }
+  const onEditing = (evt: React.MouseEvent, colIdx: number, rowIdx: number) => {
+    setOnEdit({ ...onEdit, col: colIdx, row: rowIdx });
+  };
+
+  const onBlur: React.FocusEventHandler<HTMLInputElement> = () => {
+    setOnEdit({ ...onEdit, col: -1, row: -1 });
+  };
 
   const renderItem = React.useCallback(
     (col: IColumn, ci: number) => {
@@ -49,16 +51,34 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
       return (
-
-        <td className="datagrid-container" key={ci}  onClick={customClickHandler} data-col ={ci} data-value ={item}>
-          { ci === onEdit.col && rowIndex == onEdit.row ?  <input className="datagrid-cell" type="text" onBlur = {onBlur} autoFocus={true}/> : <span>{item}</span>}
+        <td
+          key={ci}
+          onClick={customClickHandler}
+          data-col={ci}
+          data-value={item}
+        >
+          {ci === onEdit.col && rowIndex == onEdit.row ? (
+            <input
+              type="text"
+              onBlur={onBlur}
+              autoFocus={true}
+              placeholder={item}
+            />
+          ) : (
+            <span>{item}</span>
+          )}
         </td>
       );
     },
-    [rowItem.value, onEdit]
+    [
+      rowItem.value,
+      customClickHandler,
+      onEdit.col,
+      onEdit.row,
+      rowIndex,
+      onBlur,
+    ]
   );
-
-
 
   return (
     <tr style={containerStyle}>
