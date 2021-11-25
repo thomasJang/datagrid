@@ -1,4 +1,3 @@
-import { lutimesSync } from "fs";
 import * as React from "react";
 import ColorIcon from "../../assets/icons/icon-color.png";
 
