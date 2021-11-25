@@ -16,9 +16,7 @@ type onPos = {
 
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
-  const dispatch = useDatagridDispatch();
   const [onEdit, setOnEdit] = React.useState<onPos>({col: -1, row: -1});
-  const [editingText, setEditingText] = React.useState("");
 
   const containerStyle = React.useMemo(
     () => ({
@@ -34,11 +32,9 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   ) => {
     evt.preventDefault();
 
-    console.log(context.data)
     const value = evt.currentTarget.dataset.value;
     const colIdx = evt.currentTarget.dataset.col
     const rowIdx = rowIndex;
-    console.log(context.data);
     if(colIdx === undefined)
       return;
     onClick?.(evt, value, rowIdx,  Number.parseInt(colIdx));
@@ -56,12 +52,8 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     };
     const nextData:any = nextState.data;
     const key= context._colGroup?.[colIdx].key;
-    if(key !== undefined) {
-      // columns와 데이터 불일치로 인해 문제 발생
+    if (key !== undefined)
       nextData[rowIndex]["value"][key] = evt.currentTarget.value;
-      console.log(nextData[rowIndex]["value"][key]);
-    }
-    // 디스패처 사용 안했는데 데이터 변경이 발생
     setOnEdit({...onEdit, col: -1, row: -1});
   }
 
@@ -84,7 +76,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
               type="text"
               onBlur={onBlur}
               autoFocus={true}
-              placeholder={item}
+              defaultValue ={item}
             />
           ) : (
             <span>{item}</span>
