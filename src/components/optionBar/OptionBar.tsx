@@ -2,10 +2,10 @@ import * as React from "react";
 import { IDatagridOptionBar } from "@interface";
 import FilterToggle from "./FilterToggle";
 import FilterSelector from "./FilterSelector";
-import ColorToggle from "./ColorToggle";
-import CustomToggle from "./CustomToggle";
-import ColorSelector from "./ColorSelector";
-import ColorCustom from "./ColorCustom";
+import ColorToggle from "./color/ColorToggle";
+import CustomToggle from "./custom/CustomToggle";
+import ColorSelector from "./color/ColorSelector";
+import ColorCustom from "./custom/ColorCustom";
 
 const OptionBar: React.FC<IDatagridOptionBar> = () => {
   const [selectDisplay, setSelectDisplay] = React.useState(false);

@@ -1,10 +1,10 @@
 import * as React from "react";
-import { ThemeContextActionTypes } from "../../@interface";
+import { ThemeContextActionTypes } from "../../../@interface";
 import { useDatagridThemeContext,
   useDatagridThemeDispatch
-} from "../../context/DatagridThemeContext";
-import { presetItems } from "./themeItems/ThemePreset";
-import { themeProperties } from "./themeItems/ThemeProperties";
+} from "../../../context/DatagridThemeContext";
+import { presetItems } from "../themeItems/ThemePreset";
+import { themeProperties } from "../themeItems/ThemeProperties";
 interface IPros {
   onMouseLeave: () => void;
 }

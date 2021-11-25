@@ -1,5 +1,5 @@
 import * as React from "react";
-import ColorIcon from "../../assets/icons/icon-color.png";
+import ColorIcon from "../../../assets/icons/icon-color.png";
 
 interface IPros {
   onClick: () => void;
