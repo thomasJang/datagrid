@@ -3,6 +3,7 @@ import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn } from "../../@interface";
 import BodyTableRow from "./BodyTableRow";
 import { arrayFromRange, getDataItem } from "../../lib";
+import { useDatagridFilterContext } from "../../context/DatagridFilterContext";
 
 interface IProps {
   columns: IColumn[];
@@ -15,7 +16,12 @@ const BodyTable: React.FC<IProps> = ({
   endRowIndex,
 }) => {
   const context = useDatagridContext();
+  const filterContext = useDatagridFilterContext();
 
+  React.useEffect(() => {
+    console.log(` filter data : ${filterContext._filteredData}`);
+    console.log(` isFiltered ? : ${filterContext._isFiltered}`);
+  });
   return (
     <table>
       <colgroup>
@@ -30,12 +36,18 @@ const BodyTable: React.FC<IProps> = ({
             const rowItem = getDataItem(context.data, rowIndex);
             if (rowItem) {
               return (
+                { filterContext._isFiltered ? 
                 <BodyTableRow
                   key={rowIndex}
                   columns={columns}
                   rowIndex={rowIndex}
                   rowItem={rowItem}
-                />
+                /> : 
+              <div>
+               test
+              </div>
+              }
+               
               );
             }
           }
