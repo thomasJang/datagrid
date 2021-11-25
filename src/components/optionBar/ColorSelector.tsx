@@ -1,19 +1,15 @@
 import * as React from "react";
 import { ThemeContextActionTypes } from "../../@interface";
-import {
-  useDatagridThemeContext,
-  useDatagridThemeDispatch
-} from "../../context/DatagridThemeContext";
-
+import { useDatagridThemeDispatch } from "../../context/DatagridThemeContext";
+import { presetItems } from "./themeItems/themePreset";
 interface IPros {
   onMouseLeave: () => void;
- }
+}
 
 const ColorSelector: React.FC<IPros> = (props) => {
-  const {onMouseLeave} = props;
-  const context = useDatagridThemeContext();
+  const { onMouseLeave } = props;
   const colorDispatch = useDatagridThemeDispatch();
-  const Items = ["normal", "dark", "orange", "violet"];
+
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
     colorDispatch({
       type: ThemeContextActionTypes.SET_THEME,
@@ -25,7 +21,7 @@ const ColorSelector: React.FC<IPros> = (props) => {
       <ul className="color_selector__list">
         <li className="color_selector__item">
           {
-            (Items || []).map((item, index) => (
+            (presetItems || []).map((item, index) => (
               <div onClick={onClickHandler} key={index}>{item}</div>
             ))
           }
