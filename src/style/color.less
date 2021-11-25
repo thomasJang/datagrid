@@ -22,13 +22,28 @@
     height: 15px;
   }
 }
+.ac-datagrid--option_bar__custom_toggle {
+  padding: 0 10px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  img {
+    height: 15px;
+  }
+  span {
+    font-size: 1.2em;
+    height: 15px;
+  }
+}
 
 .ac-datagrid--option_bar__color_selector {
   width: 15%;
   height: 90px;
   position: absolute;
   top: 39px;
-  right: 78px;
+  left: 345px;
   z-index: 100;
   background: rgba(255, 255, 255, 0.3);
   border: 1px solid #d9d9d9;
@@ -48,6 +63,10 @@
       cursor: pointer;
     }
   }
+}
+
+.ac-datagrid--option_bar__custom_selector {
+  width: 50%;
 }
 * {
   box-sizing: border-box;
