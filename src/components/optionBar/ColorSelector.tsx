@@ -5,12 +5,14 @@ import {
   useDatagridThemeDispatch
 } from "../../context/DatagridThemeContext";
 
-interface IPros { }
+interface IPros {
+  onMouseLeave: () => void;
+ }
 
-const ColorSelector: React.FC<IPros> = () => {
+const ColorSelector: React.FC<IPros> = (props) => {
+  const {onMouseLeave} = props;
   const context = useDatagridThemeContext();
   const colorDispatch = useDatagridThemeDispatch();
-
   const Items = ["normal", "dark", "orange", "violet"];
   const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
     colorDispatch({
@@ -19,7 +21,7 @@ const ColorSelector: React.FC<IPros> = () => {
     });
   };
   return (
-    <div className="ac-datagrid--option_bar__color_selector">
+    <div className="ac-datagrid--option_bar__color_selector" onMouseLeave={onMouseLeave}>
       <ul className="color_selector__list">
         <li className="color_selector__item">
           {
