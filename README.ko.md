@@ -21,6 +21,12 @@ npm run storybook
 
 <hr />
 
+
+
+### 기능
+
+<hr />
+
 ## 예제
 
 ```js
