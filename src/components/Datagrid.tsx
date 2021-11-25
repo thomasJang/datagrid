@@ -1,5 +1,11 @@
 import * as React from "react";
-import { ContextActionTypes, IDatagridContext, IDatagridProps, LayoutContextActionTypes } from "../@interface";
+import {
+  ContextActionTypes,
+  IDatagridContext,
+  IDatagridProps,
+  LayoutContextActionTypes,
+  ThemeContextActionTypes
+} from "../@interface";
 import getCTXDataByColumns from "../lib/getCTXDataByColumns";
 import { useDatagridContext, useDatagridDispatch } from "../context/DatagridContext";
 import {
@@ -23,15 +29,16 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
     width,
     enableFrozenCell,
     frozenColumnIndex,
+    theme
   } = props;
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const dispatch = useDatagridDispatch();
   const layoutDispatch = useDatagridLayoutDispatch();
-  const theme = useDatagridThemeContext();
-  const themedis = useDatagridThemeDispatch();
+  const themeContext = useDatagridThemeContext();
+  const themeDispatch = useDatagridThemeDispatch();
 
-  const { cssClassName = `ac-datagrid ${theme._theme}` } = context;
+  const { cssClassName = `ac-datagrid ${themeContext._theme}` } = context;
   const styles: React.CSSProperties = {
     ...style,
     width,
@@ -43,6 +50,7 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
       layoutDispatch(action);
     }, 300)
   );
+
 
   const handleMouseEnter: React.MouseEventHandler = () => {
     debouncedLayoutDispatch.cancel?.();
@@ -126,6 +134,15 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
       });
     }
   }, [scrollTop, scrollLeft]);
+
+  React.useEffect(() => {
+    if (theme) {
+      themeDispatch({
+        type: ThemeContextActionTypes.SET_THEME,
+        theme: theme
+      })
+    }
+  }, []);
 
   if (!context._ready) {
     return null;
