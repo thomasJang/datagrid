@@ -24,11 +24,14 @@
   box-sizing: border-box;
 }
 
-.ac-datagrid--body--main__panel--body__aside__table {
+.ac-datagrid .ac-datagrid--body--main__panel--body__aside__table {
   overflow: hidden;
   border-right: var(--border);
   text-align: center;
   background: var(--line-number-bg);
+  position: sticky;
+  z-index: 2;
+  left: 0;
 }
 
 .ac-datagrid--body--main__panel--body__table {
