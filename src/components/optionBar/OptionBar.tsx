@@ -11,11 +11,13 @@ const OptionBar: React.FC<IDatagridOptionBar> = () => {
   const onClick = () => {
     setDisplay((prev) => !prev);
   };
-
+  const onMouseLeave = () => {
+    setDisplay((prev) => !prev);
+  };
   return (
     <div className="ac-datagrid--option_bar">
-      <ColorToggle onClick={onClick} />
-      {display && <ColorSelector />}
+      <ColorToggle onClick={onClick}/>
+      {display && <ColorSelector onMouseLeave={onMouseLeave}/>}
     </div>
   );
 };
