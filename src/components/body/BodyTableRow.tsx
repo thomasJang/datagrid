@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { useDatagridContext, useDatagridDispatch } from "../../context/DatagridContext";
 import { IColumn, IDatagridContext, IDataItem } from "../../@interface";
@@ -9,9 +10,9 @@ interface IProps {
 }
 
 type onPos = {
-  col : Number
-  row : Number
-}
+  col: number;
+  row: number;
+};
 
 const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
   const context = useDatagridContext();
@@ -26,10 +27,13 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     [context.bodyRowHeight]
   );
 
-  const {onClick} = context;
+  const { onClick } = context;
 
-  const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (evt) => {
+  const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (
+    evt
+  ) => {
     evt.preventDefault();
+
     console.log(context.data)
     const value = evt.currentTarget.dataset.value;
     const colIdx = evt.currentTarget.dataset.col
@@ -41,8 +45,8 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     onEditing(evt, Number.parseInt(colIdx), rowIdx);
   }
 
-  const onEditing = (evt : React.MouseEvent, colIdx: number, rowIdx: number) => {
-    setOnEdit({...onEdit, col:colIdx, row:rowIdx});
+  const onEditing = (evt: React.MouseEvent, colIdx: number, rowIdx: number) => {
+    setOnEdit({ ...onEdit, col: colIdx, row: rowIdx });
   };
 
   const onBlur:React.FocusEventHandler<HTMLInputElement> = (evt) => {
@@ -67,12 +71,35 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
       return (
-        <td key={ci}  onClick={customClickHandler} data-col ={ci} data-value ={item}>
-          { ci === onEdit.col && rowIndex == onEdit.row ?  <input id={ci.toString()} type="text" onBlur = {onBlur} autoFocus={true} style={{width:90}}/> : <span>{item}</span>}
+
+        <td
+          key={ci}
+          onClick={customClickHandler}
+          data-col={ci}
+          data-value={item}
+        >
+          {ci === onEdit.col && rowIndex == onEdit.row ? (
+            <input
+              id = {ci.toString()}
+              type="text"
+              onBlur={onBlur}
+              autoFocus={true}
+              placeholder={item}
+            />
+          ) : (
+            <span>{item}</span>
+          )}
         </td>
       );
     },
-    [rowItem.value, onEdit]
+    [
+      rowItem.value,
+      customClickHandler,
+      onEdit.col,
+      onEdit.row,
+      rowIndex,
+      onBlur,
+    ]
   );
 
   return (
