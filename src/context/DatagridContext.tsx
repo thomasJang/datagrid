@@ -7,9 +7,9 @@ export type DatagridContextAction = {
 };
 
 const DatagridContext = React.createContext<IDatagridContext | null>(null);
-const DatagridDispatchContext = React.createContext<React.Dispatch<
-  DatagridContextAction
-> | null>(null);
+const DatagridDispatchContext = React.createContext<React.Dispatch<DatagridContextAction> | null>(
+  null
+);
 
 const DatagridContextReducer = (
   state: IDatagridContext,
@@ -20,7 +20,7 @@ const DatagridContextReducer = (
       return {
         ...state,
         ...action.state,
-        _ready: true
+        _ready: true,
       };
     default:
       throw new Error("Unhandled action");

@@ -3,22 +3,22 @@ import {
   ContextActionTypes,
   IDatagridContext,
   IDatagridProps,
-  LayoutContextActionTypes
+  LayoutContextActionTypes,
 } from "../@interface";
 import getCTXDataByColumns from "../lib/getCTXDataByColumns";
 import {
   useDatagridContext,
-  useDatagridDispatch
+  useDatagridDispatch,
 } from "../context/DatagridContext";
 import {
   DatagridLayoutContextAction,
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch
+  useDatagridLayoutDispatch,
 } from "../context/DatagridLayoutContext";
 import debounce from "lodash.debounce";
 import CanvasContext from "../lib/CanvasContext";
 
-const Datagrid: React.FC<IDatagridProps> = props => {
+const Datagrid: React.FC<IDatagridProps> = (props) => {
   const {
     children,
     height,
@@ -29,7 +29,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     style,
     width,
     enableFrozenCell,
-    frozenColumnIndex
+    frozenColumnIndex,
   } = props;
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
@@ -40,11 +40,11 @@ const Datagrid: React.FC<IDatagridProps> = props => {
   const styles: React.CSSProperties = {
     ...style,
     width,
-    height
+    height,
   };
 
   const { current: debouncedLayoutDispatch } = React.useRef(
-    debounce<(action: DatagridLayoutContextAction) => void>(action => {
+    debounce<(action: DatagridLayoutContextAction) => void>((action) => {
       layoutDispatch(action);
     }, 300)
   );
@@ -53,14 +53,14 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     debouncedLayoutDispatch.cancel?.();
     debouncedLayoutDispatch({
       type: LayoutContextActionTypes.SET_HOVER,
-      hover: true
+      hover: true,
     });
   };
   const handleMouseLeave: React.MouseEventHandler = () => {
     debouncedLayoutDispatch.cancel?.();
     debouncedLayoutDispatch({
       type: LayoutContextActionTypes.SET_HOVER,
-      hover: false
+      hover: false,
     });
   };
 
@@ -69,7 +69,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     // make new context
     const nextState: IDatagridContext = {
       ...context,
-      ...props
+      ...props,
     };
 
     if (
@@ -80,24 +80,24 @@ const Datagrid: React.FC<IDatagridProps> = props => {
       const {
         _leftColGroup,
         _colGroup,
-        _totalWidthOfColumns
+        _totalWidthOfColumns,
       } = getCTXDataByColumns(nextState.columns, {
         containerWidth: nextState.width || 0,
         enableFrozenCell: nextState.enableFrozenCell,
-        frozenColumnIndex: nextState.frozenColumnIndex
+        frozenColumnIndex: nextState.frozenColumnIndex,
       });
       nextState._leftColGroup = _leftColGroup;
       nextState._colGroup = _colGroup;
       nextState._totalWidthOfColumns = _totalWidthOfColumns;
       // console.log(
-      //     'getCTXData by columns',
-      //     _leftColGroup,
-      //     _colGroup,
-      //     _totalWidthOfColumns,
+      //   "getCTXData by columns",
+      //   _leftColGroup,
+      //   _colGroup,
+      //   _totalWidthOfColumns
       // );
     }
     if (context.data !== nextState.data) {
-      // console.log('changed or init data');
+      // console.log("changed or init data");
     }
 
     dispatch({ type: ContextActionTypes.SET_STATE, state: nextState });
@@ -111,9 +111,9 @@ const Datagrid: React.FC<IDatagridProps> = props => {
 
     layoutDispatch({
       type: LayoutContextActionTypes.SET_LINE_NUMBER_WIDTH,
-      lineNumberColumnWidth
+      lineNumberColumnWidth,
     });
-  }, [dataLength]);
+  }, [dataLength, layoutDispatch]);
 
   React.useEffect(() => {
     if (
@@ -122,7 +122,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
     ) {
       let {
         scrollTop = layoutContext._scrollTop,
-        scrollLeft = layoutContext._scrollLeft
+        scrollLeft = layoutContext._scrollLeft,
       } = props;
 
       if (scrollTop < 0) {
@@ -150,7 +150,7 @@ const Datagrid: React.FC<IDatagridProps> = props => {
       layoutDispatch({
         type: LayoutContextActionTypes.SET_SCROLL,
         scrollTop,
-        scrollLeft
+        scrollLeft,
       });
     }
   }, [scrollTop, scrollLeft]);

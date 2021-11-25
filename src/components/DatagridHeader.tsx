@@ -7,10 +7,10 @@ import HeaderMainPanel from "./header/HeaderMainPanel";
 import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
 import {
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch
+  useDatagridLayoutDispatch,
 } from "../context/DatagridLayoutContext";
 
-const DatagridHeader: React.FC<IDatagridHeader> = props => {
+const DatagridHeader: React.FC<IDatagridHeader> = (props) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
@@ -28,7 +28,7 @@ const DatagridHeader: React.FC<IDatagridHeader> = props => {
     if (containerRef.current) {
       layoutDispatch({
         type: LayoutContextActionTypes.SET_HEADER_HEIGHT,
-        headerHeight: containerRef.current.clientHeight
+        headerHeight: containerRef.current.clientHeight,
       });
     }
   }, [props.style, context.headerHeight]);
