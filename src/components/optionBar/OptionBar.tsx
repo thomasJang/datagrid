@@ -26,16 +26,18 @@ const OptionBar: React.FC<IDatagridOptionBar> = () => {
     setDisplay((prev) => !prev);
   };
 
+  const onMouseLeave = () => {
+    setDisplay((prev) => !prev);
+  };
+
   const onPaletteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const themeStyle = document.querySelector(`.${themeContext._theme}`) as HTMLParagraphElement;
     themeStyle.style.setProperty(e.target.name, e.target.value);
   }
-
   return (
     <div className="ac-datagrid--option_bar">
-
       <ColorToggle onClick={onClick} />
-      {display && <ColorSelector />}
+      {display && <ColorSelector onMouseLeave={onMouseLeave} />}
     </div>
   );
 };

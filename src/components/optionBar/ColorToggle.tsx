@@ -9,10 +9,15 @@ interface IPros {
 const ColorToggle: React.FC<IPros> = (props) => {
   const { onClick } = props;
   return (
-    <div className="ac-datagrid--option_bar__color_toggle" onClick={onClick}>
-      <img src={ColorIcon} />
-      <span>COLOR</span>
-    </div>
+    <>
+      <div className="ac-datagrid--option_bar__color_toggle" onClick={onClick} title="change color-theme">
+        <img src={ColorIcon} />
+        <span>COLOR</span>
+      </div>
+      <div className="ac-datagrid--option_bar__color_toggle" title="customize color-theme" >
+        <span>CUSTOM</span>
+      </div>
+    </>
   );
 };
 
