@@ -42,11 +42,10 @@ const BodyMainPanel: React.FC<IProps> = ({
 
   const containerStyle = React.useMemo(
     () => ({
-      left: 0,
-      width: _bodyWidth - lineNumberColumnWidth,
+      width: _bodyWidth,
       height: _bodyHeight,
     }),
-    [_bodyWidth, _bodyHeight, lineNumberColumnWidth]
+    [_bodyWidth, _bodyHeight]
   );
 
   const bodyContentWidth = React.useMemo(() => {
