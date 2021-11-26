@@ -37,34 +37,38 @@ export const Formater: React.FC = () => {
 
   const setColumnFormater = () => {
     setColumns([
-      { key: "id", label: "ID"},
-      { key: "name", label: "Name", formatter: (args) => {return '*' + args + '*'}},
+      { key: "id", label: "ID" },
+      { key: "name", label: "Name" },
+      { key: "date", label: "Date", formatter: "date" },
     ]);
-  }
+  };
 
   React.useEffect(() => {
     setColumns([
       { key: "id", label: "ID" },
       { key: "name", label: "Name" },
+      { key: "date", label: "Date" },
     ]);
+    const date = new Date();
     setData([
-      { value: { id: "1", name: "tom" } },
-      { value: { id: "2", name: "seowoo" } },
-      { value: { id: "3", name: "seowoo" } },
-      { value: { id: "4", name: "seowoo" } },
-      { value: { id: "5", name: "seowoo" } },
-      { value: { id: "6", name: "seowoo" } },
-      { value: { id: "7", name: "seowoo" } },
-      { value: { id: "8", name: "seowoo" } },
-      { value: { id: "9", name: "seowoo" } },
-      { value: { id: "10", name: "seowoo" } },
-      { value: { id: "11", name: "seowoo" } },
-      { value: { id: "12", name: "seowoo" } },
-      { value: { id: "13", name: "seowoo" } },
-      { value: { id: "14", name: "seowoo" } },
-      { value: { id: "15", name: "seowoo" } },
-      { value: { id: "16", name: "seowoo" } },
-      { value: { id: "17", name: "seowoo" } },
+      { value: { id: "1", name: "tom", date: date } },
+      { value: { id: "2", name: "seowoo", date: date } },
+      { value: { id: "3", name: "seowoo", date: date } },
+      { value: { id: "4", name: "seowoo", date: date } },
+      { value: { id: "4", name: "seowoo", date: date } },
+      { value: { id: "5", name: "seowoo", date: date } },
+      { value: { id: "6", name: "seowoo", date: date } },
+      { value: { id: "7", name: "seowoo", date: date } },
+      { value: { id: "8", name: "seowoo", date: date } },
+      { value: { id: "9", name: "seowoo", date: date } },
+      { value: { id: "10", name: "seowoo", date: date } },
+      { value: { id: "11", name: "seowoo", date: date } },
+      { value: { id: "12", name: "seowoo", date: date } },
+      { value: { id: "13", name: "seowoo", date: date } },
+      { value: { id: "14", name: "seowoo", date: date } },
+      { value: { id: "15", name: "seowoo", date: date } },
+      { value: { id: "16", name: "seowoo", date: date } },
+      { value: { id: "17", name: "seowoo", date: date } },
     ]);
   }, []);
 
