@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn, IDataItem } from "../../@interface";
-import { isFunction } from "lodash";
 
 interface IProps {
   columns: IColumn[];
@@ -25,14 +24,11 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
 
-      let formattedItem: any
-      if (typeof col.formatter === 'string') {
-        
-      }
-      else if (typeof col.formatter === 'function') {
+      let formattedItem: any;
+      if (typeof col.formatter === "string") {
+      } else if (typeof col.formatter === "function") {
         formattedItem = col.formatter(item);
-      } 
-      else {
+      } else {
         formattedItem = item;
       }
       return (
