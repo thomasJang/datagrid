@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ThemeContextActionTypes } from "../../../@interface";
-import { useDatagridThemeContext,
+import {
+  useDatagridThemeContext,
   useDatagridThemeDispatch
 } from "../../../context/DatagridThemeContext";
 import { presetItems } from "../themeItems/ThemePreset";
@@ -14,17 +15,17 @@ const ColorSelector: React.FC<IPros> = (props) => {
   const colorContext = useDatagridThemeContext();
   const colorDispatch = useDatagridThemeDispatch();
 
-  const onClickHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
+  const onClick: React.MouseEventHandler<HTMLDivElement> = React.useCallback((e) => {
     const themeStyle = document.querySelector(`.${colorContext._theme}`) as HTMLParagraphElement;
 
     themeProperties.map((prop) => (
       themeStyle.style.removeProperty(prop)
-    ))
+    ));
     colorDispatch({
       type: ThemeContextActionTypes.SET_THEME,
       theme: e.currentTarget.innerText,
     });
-  };
+  }, [colorContext._theme]);
 
   return (
     <div className="ac-datagrid--option_bar__color_selector" onMouseLeave={onMouseLeave}>
@@ -32,7 +33,7 @@ const ColorSelector: React.FC<IPros> = (props) => {
         <li className="color_selector__item">
           {
             (presetItems || []).map((item, index) => (
-              <div onClick={onClickHandler} key={index}>{item}</div>
+              <div onClick={onClick} key={index}>{item}</div>
             ))
           }
         </li>
