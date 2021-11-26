@@ -10,6 +10,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages",
     "build": "rimraf public && cross-env NODE_ENV=production rollup -c",
     "clean": "rimraf package-lock.json && rimraf ./node_modules",
     "rollup": "rollup -c -w"
@@ -40,6 +41,7 @@
     "@storybook/addons": "^6.3.12",
     "@storybook/react": "^6.3.12",
     "@storybook/source-loader": "^6.3.12",
+    "@storybook/storybook-deployer": "^2.8.10",
     "@storybook/theming": "^6.3.12",
     "@types/jest": "^26.0.19",
     "@types/lodash.debounce": "^4.0.6",
