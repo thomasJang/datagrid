@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export enum ContextActionTypes {
-  SET_STATE = "SET_STATE"
+  SET_STATE = "SET_STATE",
 }
 
 export enum LayoutContextActionTypes {
@@ -13,7 +13,7 @@ export enum LayoutContextActionTypes {
   SET_BODY_DIMENSION = "SET_BODY_DIMENSION",
   SET_HEADER_HEIGHT = "SET_HEADER_HEIGHT",
   SET_BODY_HEIGHT = "SET_BODY_HEIGHT",
-  SET_STATE = "SET_STATE"
+  SET_STATE = "SET_STATE",
 }
 
 type DataItemType = "C" | "U" | "D";
@@ -41,7 +41,7 @@ export interface IColumn {
   rowSpan?: number;
   colIndex?: number;
   rowIndex?: number;
-  formatter?: (args:any) => any;
+  formatter?: (args: any) => any | string;
   collector?: number;
   editor?: any;
   _sx?: number;
