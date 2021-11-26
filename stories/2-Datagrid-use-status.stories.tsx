@@ -10,6 +10,7 @@ import {
   DatagridVerticalScroller,
   DatagridStatusBar,
 } from "../src";
+import OptionBar from "../src/components/optionBar/OptionBar";
 
 export default {
   title: "datagrid/use-status",
@@ -43,7 +44,7 @@ export const UseStatusBar: React.FC = () => {
     { value: { id: "17", name: "seowoo" } },
     { value: { id: "18", name: "seowoo" } },
   ];
-
+  const theme = "custom";
   return (
     <div>
       <Datagrid
@@ -56,7 +57,9 @@ export const UseStatusBar: React.FC = () => {
         data={dataSource}
         dataLength={dataSource.length}
         enableLineNumber
+        theme={theme}
       >
+        <OptionBar />
         <DatagridHeader />
         <DatagridBody>
           <DatagridVerticalScroller size={12} />

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import "../src/style/index.less";
 import { IColumn, IDataItem } from "../src/@interface";
 import {
@@ -35,6 +34,7 @@ export const Basic: React.FC = () => {
     ]);
   };
 
+  const theme = "custom";
   React.useEffect(() => {
     setColumns([
       { key: "id", label: "ID" },
@@ -74,6 +74,7 @@ export const Basic: React.FC = () => {
         scrollTop={scrollTop}
         scrollLeft={scrollLeft}
         enableLineNumber
+        theme={theme}
       >
         <OptionBar />
         <DatagridHeader />
