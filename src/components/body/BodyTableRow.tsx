@@ -25,9 +25,19 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
 
+      let formattedItem: any
+      if (typeof col.formatter === 'string') {
+        
+      }
+      else if (typeof col.formatter === 'function') {
+        formattedItem = col.formatter(item);
+      } 
+      else {
+        formattedItem = item;
+      }
       return (
         <td key={ci}>
-          <span>{item}</span>
+          <span>{formattedItem}</span>
         </td>
       );
     },
