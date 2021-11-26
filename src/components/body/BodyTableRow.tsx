@@ -64,7 +64,6 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
       return (
-
         <td
           key={ci}
           onClick={customClickHandler}
