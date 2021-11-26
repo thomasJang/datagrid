@@ -1,7 +1,5 @@
 import * as React from "react";
 import { IDatagridOptionBar } from "@interface";
-import FilterToggle from "./FilterToggle";
-import FilterSelector from "./FilterSelector";
 import ColorToggle from "./color/ColorToggle";
 import CustomToggle from "./custom/CustomToggle";
 import ColorSelector from "./color/ColorSelector";
