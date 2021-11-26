@@ -69,6 +69,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         : rowItem.value[String(col.key)];
       return (
         <td
+          className="ac-datagrid--body--main__panel__cell"
           key={ci}
           onClick={customClickHandler}
           data-col={ci}
