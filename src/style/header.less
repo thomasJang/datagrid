@@ -11,10 +11,14 @@
   border-bottom: var(--border);
 }
 
-.ac-datagrid--header--aside__panel {
+.ac-datagrid .ac-datagrid--header--aside__panel {
   overflow: hidden;
   border-right: var(--border);
   box-sizing: border-box;
+  position: sticky;
+  z-index: 20;
+  left: 0;
+  background: var(--header-bg);
 }
 .ac-datagrid--header--left_panel {
   overflow: hidden;
@@ -23,5 +27,14 @@
   position: absolute;
   left: 0;
   top: 0;
-  overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+.ac-datagrid--header--main__panel--header__table {
+  position: absolute;
 }

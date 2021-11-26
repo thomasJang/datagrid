@@ -15,7 +15,6 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   // width,
   size = 12,
 }) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
@@ -25,6 +24,8 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   const [containerWidth, setContainerWidth] = React.useState(0);
   const [enable, setEnable] = React.useState(false);
   const [scrollActive, setScrollActive] = React.useState(false);
+
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const { enableLineNumber, /*_totalWidthOfColumns*/ _colGroup = [] } = context;
   const {

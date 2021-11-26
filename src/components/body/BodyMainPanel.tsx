@@ -63,21 +63,11 @@ const BodyMainPanel: React.FC<IProps> = ({
   const contentContainerStyle = React.useMemo(
     () => ({
       top: styleTop,
-      left: styleLeft,
-      paddingLeft: _scrollLeft,
       paddingTop: _scrollTop,
       height: bodyContentHeight,
-      width: bodyContentWidth + lineNumberColumnWidth,
+      width: bodyContentWidth,
     }),
-    [
-      styleTop,
-      styleLeft,
-      _scrollLeft,
-      _scrollTop,
-      bodyContentHeight,
-      bodyContentWidth,
-      lineNumberColumnWidth,
-    ]
+    [styleTop, _scrollTop, bodyContentHeight, bodyContentWidth]
   );
 
   const throttledScroll = React.useMemo(
@@ -126,7 +116,7 @@ const BodyMainPanel: React.FC<IProps> = ({
   React.useEffect(() => {
     if (panelScrollRef.current) {
       panelScrollRef.current.scrollTop = _scrollTop;
-      panelScrollRef.current.scrollLeft = _scrollLeft;
+      //panelScrollRef.current.scrollLeft = _scrollLeft;
     }
   }, [_scrollTop, _scrollLeft]);
 
