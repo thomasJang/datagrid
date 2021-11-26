@@ -10,7 +10,7 @@ import {
   DatagridVerticalScroller,
   DatagridStatusBar,
 } from "../src";
-
+import Resizer from "../src/components/resizer/Resizer";
 export default {
   title: "datagrid/use-status",
 };
@@ -58,6 +58,7 @@ export const UseStatusBar: React.FC = () => {
         enableLineNumber
       >
         <DatagridHeader />
+        <Resizer />
         <DatagridBody>
           <DatagridVerticalScroller size={12} />
         </DatagridBody>
