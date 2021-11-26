@@ -6,7 +6,7 @@ const themeProperties: string[] = [
   "--status-bg",
   "--scroll-bar-color",
   "--status-scroll-bar-bg",
-  "--txt--default-color",
+  "--txt-default-color",
   "--txt-header-color",
 ];
 
