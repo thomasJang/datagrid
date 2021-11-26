@@ -47,7 +47,6 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
     if (containerRef.current) {
       const bodyHeight = containerRef.current.clientHeight;
       const bodyWidth = containerRef.current.clientWidth;
-
       layoutDispatch({
         type: LayoutContextActionTypes.SET_BODY_DIMENSION,
         bodyHeight,
