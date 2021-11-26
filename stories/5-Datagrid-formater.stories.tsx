@@ -38,7 +38,7 @@ export const Formater: React.FC = () => {
   const setColumnFormater = () => {
     setColumns([
       { key: "id", label: "ID"},
-      { key: "name", label: "Name"},
+      { key: "name", label: "Name", formatter: (args) => {return '*' + args + '*'}},
     ]);
   }
 
