@@ -1,6 +1,9 @@
 import * as React from "react";
 import { IColumn } from "../../@interface";
-import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
+import {
+  useDatagridLayoutContext,
+  useDatagridLayoutDispatch,
+} from "../../context/DatagridLayoutContext";
 import Resizer from "../resizer/Resizer";
 
 interface IProps {
@@ -20,6 +23,22 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
   const renderColumn = React.useCallback((col: IColumn, ci: number) => {
     return <col key={ci} style={{ width: col._width }} />;
   }, []);
+  /* 
+  const [mouseOn, useMouseOn] = React.useState(false);
+
+  const onMouseDown = () => {
+    useMouseOn(true);
+    console.log("mousedown!", mouseOn);
+  };
+  const onMouseMove = () => {
+    if (mouseOn) console.log("moving");
+  };
+  const onMouseUp = () => {
+    if (mouseOn) {
+      console.log("up!");
+      useMouseOn(false);
+    }
+  };*/
 
   const renderTd = React.useCallback(
     (col: IColumn, ci: number) => {
