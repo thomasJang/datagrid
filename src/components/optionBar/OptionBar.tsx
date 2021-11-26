@@ -28,7 +28,7 @@ const OptionBar: React.FC<IDatagridOptionBar> = () => {
       <ColorToggle onClick={onClick} />
       {selectDisplay && <ColorSelector onMouseLeave={onMouseLeave} />}
       <CustomToggle onClick={onClickCustomBox} />
-      {customDisplay && <ColorCustom />}
+      {customDisplay && <ColorCustom onClick={onClickCustomBox} />}
     </div>
   );
 };
