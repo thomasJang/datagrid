@@ -24,6 +24,8 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     row: -1,
   });
 
+  const { onClick, enableEditCell } = context;
+
   const containerStyle = React.useMemo(
     () => ({
       height: context.bodyRowHeight,
@@ -31,53 +33,72 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     [context.bodyRowHeight]
   );
 
-  const { onClick, enableEditCell } = context;
+  const customClickHandler = React.useCallback(
+    (
+      evt: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>,
+      colIndex: number,
+      value: any
+    ) => {
+      evt.preventDefault();
 
-  const customClickHandler: React.MouseEventHandler<HTMLTableDataCellElement> = (
-    evt
-  ) => {
-    evt.preventDefault();
+      if (colIndex === undefined) return;
+      onClick?.(evt, value, rowIndex, colIndex);
+      if (enableEditCell) onEditing(evt, colIndex);
+    },
+    [rowIndex, enableEditCell, onClick]
+  );
 
-    const value = evt.currentTarget.dataset.value;
-    const colIdx = evt.currentTarget.dataset.col;
-    const rowIdx = rowIndex;
-    if (colIdx === undefined) return;
-    onClick?.(evt, value, rowIdx, Number.parseInt(colIdx));
-    if (enableEditCell) onEditing(evt, Number.parseInt(colIdx), rowIdx);
-  };
+  const editTextChnage = React.useCallback(
+    (colIndex: number, edittedText: string) => {
+      const nextState: IDatagridContext = {
+        ...context,
+      };
+      const nextData: any = nextState.data;
+      const key = context._colGroup?.[colIndex].key;
+      if (key !== undefined) nextData[rowIndex]["value"][key] = edittedText;
+      setEditingPosition((beforePosition) => {
+        return { ...beforePosition, col: -1, row: -1 };
+      });
+    },
+    [context]
+  );
 
   const onEditing = React.useCallback(
-    (evt: React.MouseEvent, colIdx: number, rowIdx: number) => {
-      setEditingPosition({ ...editingPosition, col: colIdx, row: rowIdx });
+    (evt: React.MouseEvent, colIndex: number) => {
+      setEditingPosition((beforePosition) => {
+        return { ...beforePosition, col: colIndex, row: rowIndex };
+      });
     },
     []
   );
 
-  const onBlur: React.FocusEventHandler<HTMLInputElement> = (evt) => {
-    const colIdx: number = Number.parseInt(evt.currentTarget.id);
-    const edittedText = evt.currentTarget.value;
-    editTextChnage(colIdx, edittedText);
-  }
+  const onBlur = React.useCallback(
+    (evt: React.FocusEvent<HTMLInputElement, Element>, colIndex: number) => {
+      const edittedText = evt.currentTarget.value;
+      editTextChnage(colIndex, edittedText);
+    },
+    []
+  );
 
-  const editTextChnage = (colIdx: number, edittedText: string) => {
-    const nextState: IDatagridContext = {
-      ...context,
-    };
-    const nextData: any = nextState.data;
-    const key = context._colGroup?.[colIdx].key;
-    if (key !== undefined)
-      nextData[rowIndex]["value"][key] = edittedText;
-    setEditingPosition({...setEditingPosition, col: -1, row: -1});
-  };
-
-  const onKeyUp = (evt:React.KeyboardEvent<HTMLInputElement>, ci: number, rowIndex: number, value: any) => {
-    if (evt.key == 'Enter' && ci == editingPosition.col && rowIndex == editingPosition.row) {
-      editTextChnage(ci, evt.currentTarget.value);
-    }
-    else if(evt.key == 'Escape' && ci == editingPosition.col && rowIndex == editingPosition.row) {
-      editTextChnage(ci, value);
-    }
-  }
+  const onKeyUp = React.useCallback(
+    (evt: React.KeyboardEvent<HTMLInputElement>, value: any) => {
+      const colIndex: number = Number.parseInt(evt.currentTarget.id);
+      if (
+        evt.key == "Enter" &&
+        colIndex == editingPosition.col &&
+        rowIndex == editingPosition.row
+      ) {
+        editTextChnage(colIndex, evt.currentTarget.value);
+      } else if (
+        evt.key == "Escape" &&
+        colIndex == editingPosition.col &&
+        rowIndex == editingPosition.row
+      ) {
+        editTextChnage(colIndex, value);
+      }
+    },
+    [editingPosition, rowIndex]
+  );
 
   const renderItem = React.useCallback(
     (col: IColumn, ci: number) => {
@@ -88,19 +109,21 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         <td
           className="ac-datagrid--body--main__panel__cell"
           key={ci}
-          onClick={customClickHandler}
-          data-col={ci}
-          data-value={item}
+          onClick={(
+            evt: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>
+          ) => customClickHandler(evt, ci, item)}
         >
           {ci === editingPosition.col && rowIndex == editingPosition.row ? (
             <input
               className="ac-datagrid--body--main__panel__input"
               id={String(ci)}
               type="text"
-              onBlur={onBlur}
+              onBlur={(evt: React.FocusEvent<HTMLInputElement, Element>) =>
+                onBlur(evt, ci)
+              }
               autoFocus={true}
-              defaultValue ={item}
-              onKeyUp = {(evt) => onKeyUp(evt, ci, rowIndex,item)}
+              defaultValue={item}
+              onKeyUp={(evt) => onKeyUp(evt, item)}
             />
           ) : (
             <span>{item}</span>
