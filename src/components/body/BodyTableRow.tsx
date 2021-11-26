@@ -48,14 +48,28 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
 
   const onBlur:React.FocusEventHandler<HTMLInputElement> = (evt) => {
     const colIdx: number = Number.parseInt(evt.currentTarget.id);
+    const edittedText = evt.currentTarget.value;
+    editTextChnage(colIdx, edittedText);
+  }
+
+  const editTextChnage = (colIdx: number, edittedText: string) => {
     const nextState: IDatagridContext = {
         ...context
     };
     const nextData:any = nextState.data;
     const key= context._colGroup?.[colIdx].key;
     if (key !== undefined)
-      nextData[rowIndex]["value"][key] = evt.currentTarget.value;
+      nextData[rowIndex]["value"][key] = edittedText;
       setEditingPosition({...setEditingPosition, col: -1, row: -1});
+  }
+
+  const onKeyUp = (evt:React.KeyboardEvent<HTMLInputElement>, ci: number, rowIndex: number, value: any) => {
+    if (evt.key == 'Enter' && ci == editingPosition.col && rowIndex == editingPosition.row) {
+      editTextChnage(ci, evt.currentTarget.value);
+    }
+    else if(evt.key == 'Escape' && ci == editingPosition.col && rowIndex == editingPosition.row) {
+      editTextChnage(ci, value);
+    }
   }
 
   const renderItem = React.useCallback(
@@ -78,6 +92,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
               onBlur={onBlur}
               autoFocus={true}
               defaultValue ={item}
+              onKeyUp = {(evt) => onKeyUp(evt, ci, rowIndex,item)}
             />
           ) : (
             <span>{item}</span>
