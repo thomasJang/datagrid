@@ -81,7 +81,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
           {ci === editingPosition.col && rowIndex == editingPosition.row ? (
             <input
               className="ac-datagrid--body--main__panel__input"
-              id={ci.toString()}
+              id={String(ci)}
               type="text"
               onBlur={onBlur}
               autoFocus={true}
