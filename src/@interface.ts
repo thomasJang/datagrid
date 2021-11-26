@@ -41,7 +41,7 @@ export interface IColumn {
   rowSpan?: number;
   colIndex?: number;
   rowIndex?: number;
-  formatter?: number;
+  formatter?: (args:any) => any;
   collector?: number;
   editor?: any;
   _sx?: number;

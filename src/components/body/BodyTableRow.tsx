@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn, IDataItem } from "../../@interface";
+import { isFunction } from "lodash";
 
 interface IProps {
   columns: IColumn[];
