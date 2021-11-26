@@ -5,20 +5,14 @@ import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 interface IProps {
   columns?: IColumn[];
   lineNumberColumnWidth: number;
-  bodyContentWidth: number;
 }
-const HeaderTable: React.FC<IProps> = ({
-  columns,
-  lineNumberColumnWidth,
-  bodyContentWidth,
-}) => {
+const HeaderTable: React.FC<IProps> = ({ columns, lineNumberColumnWidth }) => {
   const layoutContext = useDatagridLayoutContext();
   const { _headerHeight: height } = layoutContext;
 
-  const tableStyle = React.useMemo(
-    () => ({ width: bodyContentWidth, left: lineNumberColumnWidth }),
-    [bodyContentWidth, lineNumberColumnWidth]
-  );
+  const tableStyle = React.useMemo(() => ({ left: lineNumberColumnWidth }), [
+    lineNumberColumnWidth,
+  ]);
 
   const columnStyle = React.useMemo(
     () => ({

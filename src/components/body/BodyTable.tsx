@@ -9,21 +9,18 @@ interface IProps {
   startRowIndex: number;
   endRowIndex: number;
   lineNumberColumnWidth: number;
-  bodyContentWidth: number;
 }
 const BodyTable: React.FC<IProps> = ({
   columns,
   startRowIndex,
   endRowIndex,
   lineNumberColumnWidth,
-  bodyContentWidth,
 }) => {
   const context = useDatagridContext();
 
-  const tableStyle = React.useMemo(
-    () => ({ left: lineNumberColumnWidth, width: bodyContentWidth }),
-    [lineNumberColumnWidth, bodyContentWidth]
-  );
+  const tableStyle = React.useMemo(() => ({ left: lineNumberColumnWidth }), [
+    lineNumberColumnWidth,
+  ]);
 
   return (
     <table

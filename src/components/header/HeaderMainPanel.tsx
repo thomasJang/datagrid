@@ -24,20 +24,6 @@ const HeaderMainPanel: React.FC = () => {
     }),
     [_bodyWidth, layoutContext._headerHeight]
   );
-  const bodyContentWidth = React.useMemo(() => {
-    return (context._colGroup || [])
-      .map((n) => n._width || 0)
-      .reduce((acc, cur) => {
-        return acc + cur;
-      }, 0);
-  }, [context._colGroup]);
-
-  const contentContainerStyle = React.useMemo(
-    () => ({
-      width: bodyContentWidth,
-    }),
-    [bodyContentWidth]
-  );
 
   React.useEffect(() => {
     if (panelScrollRef.current) {
@@ -51,12 +37,11 @@ const HeaderMainPanel: React.FC = () => {
       style={containerStyle}
       ref={panelScrollRef}
     >
-      <div data-panel={"scroll-content"} style={contentContainerStyle}>
+      <div data-panel={"scroll-content"}>
         <HeaderAsidePanel />
         <HeaderTable
           columns={context._colGroup}
           lineNumberColumnWidth={lineNumberColumnWidth}
-          bodyContentWidth={bodyContentWidth}
         />
       </div>
     </div>

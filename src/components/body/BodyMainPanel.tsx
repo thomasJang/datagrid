@@ -13,25 +13,18 @@ interface IProps {
   startRowIndex: number;
   endRowIndex: number;
   styleTop: number;
-  styleLeft: number;
 }
 
 const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
   styleTop,
-  styleLeft,
 }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
   const panelScrollRef = React.useRef<HTMLDivElement>(null);
-  const {
-    _bodyWidth = 1,
-    _bodyHeight = 1,
-    _scrollLeft,
-    _scrollTop,
-  } = layoutContext;
+  const { _bodyWidth = 1, _bodyHeight = 1, _scrollTop } = layoutContext;
   const { dataLength, bodyRowHeight = 20 } = context;
 
   const lineNumberColumnWidth = React.useMemo(() => {
@@ -116,9 +109,8 @@ const BodyMainPanel: React.FC<IProps> = ({
   React.useEffect(() => {
     if (panelScrollRef.current) {
       panelScrollRef.current.scrollTop = _scrollTop;
-      //panelScrollRef.current.scrollLeft = _scrollLeft;
     }
-  }, [_scrollTop, _scrollLeft]);
+  }, [_scrollTop]);
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
@@ -141,7 +133,6 @@ const BodyMainPanel: React.FC<IProps> = ({
           startRowIndex={startRowIndex}
           endRowIndex={endRowIndex}
           lineNumberColumnWidth={lineNumberColumnWidth}
-          bodyContentWidth={bodyContentWidth}
         />
       </div>
     </div>
