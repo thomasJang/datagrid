@@ -16,7 +16,7 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
   const layoutDispatch = useDatagridLayoutDispatch();
 
   const { bodyRowHeight = 20, dataLength } = context;
-  const { _bodyHeight = 1, _scrollTop, _scrollLeft } = layoutContext;
+  const { _bodyHeight = 1, _scrollTop } = layoutContext;
 
   const { startRowIndex, endRowIndex, styleTop } = React.useMemo(() => {
     const displayRowCount = Math.floor(_bodyHeight / bodyRowHeight);
@@ -25,17 +25,12 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
       startRowIndex + displayRowCount > dataLength
         ? dataLength
         : startRowIndex + displayRowCount;
-
     return {
       startRowIndex,
       endRowIndex,
       styleTop: -(_scrollTop % bodyRowHeight),
     };
   }, [_bodyHeight, bodyRowHeight, dataLength, _scrollTop]);
-
-  const styleLeft = React.useMemo(() => {
-    return -_scrollLeft;
-  }, [_scrollLeft]);
 
   useIsomorphicLayoutEffect(() => {
     if (containerRef.current) {
@@ -57,7 +52,6 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
         startRowIndex={startRowIndex}
         endRowIndex={endRowIndex}
         styleTop={styleTop}
-        styleLeft={styleLeft}
       />
       {props.children}
     </div>
