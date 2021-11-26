@@ -46,9 +46,12 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
     if (setEditOptions) onEditing(evt, Number.parseInt(colIdx), rowIdx);
   };
 
-  const onEditing = (evt: React.MouseEvent, colIdx: number, rowIdx: number) => {
-    setEditingPosition({ ...editingPosition, col: colIdx, row: rowIdx });
-  };
+  const onEditing = React.useCallback(
+    (evt: React.MouseEvent, colIdx: number, rowIdx: number) => {
+      setEditingPosition({ ...editingPosition, col: colIdx, row: rowIdx });
+    },
+    []
+  );
 
   const onBlur: React.FocusEventHandler<HTMLInputElement> = (evt) => {
     const colIdx: number = Number.parseInt(evt.currentTarget.id);
