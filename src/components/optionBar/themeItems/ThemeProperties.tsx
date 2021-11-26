@@ -1,25 +1,25 @@
 const themeProperties: string[] = [
-    "--bg",
-    "--header-bg",
-    "--tr-bg",
-    "--line-number-bg",
-    "--scroll-bar-color",
-    "--status-bg",
-    "--status-scroll-bar-bg",
-    "--txt-header-color",
-    "--txt--default-color",
-]
+  "--bg",
+  "--header-bg",
+  "--tr-bg",
+  "--line-number-bg",
+  "--status-bg",
+  "--scroll-bar-color",
+  "--status-scroll-bar-bg",
+  "--txt--default-color",
+  "--txt-header-color",
+];
 
 const themeLabel: string[] = [
-    "bg",
-    "header-bg",
-    "tr-bg",
-    "line-number-bg",
-    "scroll-bar-bg",
-    "status-bg",
-    "status-scroll-bar-bg",
-    "txt-header-color",
-    "txt-default-color",
-]
+  "General",
+  "Header",
+  "Table-row",
+  "Index-column",
+  "Status-row",
+  "Scroll-bar",
+  "Scroll-bar track",
+  "Font : general",
+  "Font : header",
+];
 
 export { themeProperties, themeLabel };

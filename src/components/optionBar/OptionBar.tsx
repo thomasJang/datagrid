@@ -13,19 +13,14 @@ const OptionBar: React.FC<IDatagridOptionBar> = () => {
 
   const onClick = () => {
     setSelectDisplay((prev) => !prev);
-    if (customDisplay)
-      setCustomDisplay((prev) => !prev);
+    if (customDisplay) setCustomDisplay((prev) => !prev);
   };
   const onClickCustomBox = () => {
-    if (selectDisplay)
-      setSelectDisplay((prev) => !prev);
+    if (selectDisplay) setSelectDisplay((prev) => !prev);
     setCustomDisplay((prev) => !prev);
   };
   const onMouseLeave = () => {
     setSelectDisplay((prev) => !prev);
-  };
-  const onMouseLeaveCustomBox = () => {
-    //setCustomDisplay((prev) => !prev);
   };
 
   return (
@@ -33,7 +28,7 @@ const OptionBar: React.FC<IDatagridOptionBar> = () => {
       <ColorToggle onClick={onClick} />
       {selectDisplay && <ColorSelector onMouseLeave={onMouseLeave} />}
       <CustomToggle onClick={onClickCustomBox} />
-      {customDisplay && <ColorCustom onMouseLeave={onMouseLeaveCustomBox} />}
+      {customDisplay && <ColorCustom />}
     </div>
   );
 };
