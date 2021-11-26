@@ -16,6 +16,10 @@ React Datagrid Component
 
 [comment]: <> (link to gh-page for storybook)
 
+## Example
+
+http://a-component.github.io/datagrid/
+
 ## Install
 
 ```bash
@@ -39,7 +43,7 @@ const columns = [
     {key: "id", label: "ID"},
     {key: "name", label: "Name"},
 ];
-const datat = [
+const data = [
     {value: {id: "1", name: "tom"}},
     {value: {id: "2", name: "seowoo"}},
     {value: {id: "3", name: "seowoo"}},

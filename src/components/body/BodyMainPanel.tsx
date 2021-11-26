@@ -14,6 +14,7 @@ interface IProps {
   styleTop: number;
   styleLeft: number;
 }
+
 const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
@@ -55,22 +56,25 @@ const BodyMainPanel: React.FC<IProps> = ({
       }, 0);
   }, [context._colGroup]);
 
+  const bodyContentHeight = React.useMemo(() => {
+    return dataLength * bodyRowHeight;
+  }, [dataLength, bodyRowHeight]);
+
   const contentContainerStyle = React.useMemo(
     () => ({
       top: styleTop,
       left: styleLeft,
       paddingLeft: _scrollLeft,
       paddingTop: _scrollTop,
-      height: dataLength * bodyRowHeight,
+      height: bodyContentHeight,
       width: bodyContentWidth,
     }),
     [
       styleTop,
       styleLeft,
-      _scrollTop,
       _scrollLeft,
-      dataLength,
-      bodyRowHeight,
+      _scrollTop,
+      bodyContentHeight,
       bodyContentWidth,
     ]
   );
@@ -78,13 +82,23 @@ const BodyMainPanel: React.FC<IProps> = ({
   const throttledScroll = React.useMemo(
     () =>
       throttle((scrollTop: number, scrollLeft: number) => {
-        console.log("throttled");
+        // check scrollTop, scrollLeft limit
+        const contentScrollableHeight = Math.max(
+          0,
+          bodyContentHeight - _bodyHeight
+        );
+        const contentScrollableWidth = Math.max(
+          0,
+          bodyContentWidth - (_bodyWidth - lineNumberColumnWidth)
+        );
+
         if (scrollTop < 0) scrollTop = 0;
-        else if (scrollLeft < 0) scrollLeft = 0;
-        else if (scrollTop > _bodyHeight)
-          scrollTop = dataLength * bodyRowHeight;
-        else if (scrollLeft > _bodyWidth - lineNumberColumnWidth)
-          scrollLeft = _bodyWidth - lineNumberColumnWidth;
+        else if (scrollTop > contentScrollableHeight)
+          scrollTop = contentScrollableHeight;
+
+        if (scrollLeft < 0) scrollLeft = 0;
+        else if (scrollLeft > contentScrollableWidth)
+          scrollLeft = contentScrollableWidth;
 
         layoutDispatch({
           type: LayoutContextActionTypes.SET_SCROLL,
@@ -95,8 +109,8 @@ const BodyMainPanel: React.FC<IProps> = ({
     [
       _bodyHeight,
       _bodyWidth,
-      bodyRowHeight,
-      dataLength,
+      bodyContentHeight,
+      bodyContentWidth,
       layoutDispatch,
       lineNumberColumnWidth,
     ]
@@ -105,7 +119,6 @@ const BodyMainPanel: React.FC<IProps> = ({
   const onScroll: React.UIEventHandler<HTMLDivElement> = React.useCallback(() => {
     const scrollTop = panelScrollRef.current?.scrollTop || 0;
     const scrollLeft = panelScrollRef.current?.scrollLeft || 0;
-    console.log("onScroll");
     return throttledScroll(scrollTop, scrollLeft);
   }, [throttledScroll]);
 
