@@ -78,7 +78,6 @@ const BodyMainPanel: React.FC<IProps> = ({
   const throttledScroll = React.useMemo(
     () =>
       throttle((scrollTop: number, scrollLeft: number) => {
-        console.log("throttled");
         if (scrollTop < 0) scrollTop = 0;
         else if (scrollLeft < 0) scrollLeft = 0;
         else if (scrollTop > _bodyHeight)
@@ -105,7 +104,6 @@ const BodyMainPanel: React.FC<IProps> = ({
   const onScroll: React.UIEventHandler<HTMLDivElement> = React.useCallback(() => {
     const scrollTop = panelScrollRef.current?.scrollTop || 0;
     const scrollLeft = panelScrollRef.current?.scrollLeft || 0;
-    console.log("onScroll");
     return throttledScroll(scrollTop, scrollLeft);
   }, [throttledScroll]);
 

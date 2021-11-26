@@ -1,7 +1,5 @@
 import * as React from "react";
 import { IDatagridOptionBar } from "@interface";
-import FilterToggle from "./FilterToggle";
-import FilterSelector from "./FilterSelector";
 import ColorToggle from "./color/ColorToggle";
 import CustomToggle from "./custom/CustomToggle";
 import ColorSelector from "./color/ColorSelector";
@@ -11,17 +9,19 @@ const OptionBar: React.FC<IDatagridOptionBar> = () => {
   const [selectDisplay, setSelectDisplay] = React.useState(false);
   const [customDisplay, setCustomDisplay] = React.useState(false);
 
-  const onClick = () => {
+  const onClick = React.useCallback(() => {
     setSelectDisplay((prev) => !prev);
     if (customDisplay) setCustomDisplay((prev) => !prev);
-  };
-  const onClickCustomBox = () => {
+  }, [customDisplay]);
+
+  const onClickCustomBox = React.useCallback(() => {
     if (selectDisplay) setSelectDisplay((prev) => !prev);
     setCustomDisplay((prev) => !prev);
-  };
-  const onMouseLeave = () => {
+  }, [selectDisplay]);
+
+  const onMouseLeave = React.useCallback(() => {
     setSelectDisplay((prev) => !prev);
-  };
+  }, []);
 
   return (
     <div className="ac-datagrid--option_bar">
