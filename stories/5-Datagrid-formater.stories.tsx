@@ -20,17 +20,16 @@ export const Formater: React.FC = () => {
   const [scrollTop, setScrollTop] = React.useState(0);
   const [scrollLeft, setScrollLeft] = React.useState(0);
 
-  const setColumnA = () => {
+  const setColumnsRestore = () => {
     setColumns([
-      { key: "name", label: "네임", width: 200 },
-      { key: "date", label: "date" },
-      { key: "writer", label: "writer", width: 300 },
+      { key: "id", label: "ID" },
+      { key: "name", label: "Name" },
     ]);
   };
 
-  const setColumnB = () => {
+  const setColumnPredefined = () => {
     setColumns([
-      { key: "id", label: "ID" },
+      { key: "id", label: "ID", formatter: "double" },
       { key: "name", label: "Name" },
     ]);
   };
@@ -38,8 +37,13 @@ export const Formater: React.FC = () => {
   const setColumnFormater = () => {
     setColumns([
       { key: "id", label: "ID" },
-      { key: "name", label: "Name" },
-      { key: "date", label: "Date", formatter: "date" },
+      {
+        key: "name",
+        label: "Name",
+        formatter: (args) => {
+          return "**" + args + "**";
+        },
+      },
     ]);
   };
 
@@ -47,28 +51,26 @@ export const Formater: React.FC = () => {
     setColumns([
       { key: "id", label: "ID" },
       { key: "name", label: "Name" },
-      { key: "date", label: "Date" },
     ]);
-    const date = new Date();
     setData([
-      { value: { id: "1", name: "tom", date: date } },
-      { value: { id: "2", name: "seowoo", date: date } },
-      { value: { id: "3", name: "seowoo", date: date } },
-      { value: { id: "4", name: "seowoo", date: date } },
-      { value: { id: "4", name: "seowoo", date: date } },
-      { value: { id: "5", name: "seowoo", date: date } },
-      { value: { id: "6", name: "seowoo", date: date } },
-      { value: { id: "7", name: "seowoo", date: date } },
-      { value: { id: "8", name: "seowoo", date: date } },
-      { value: { id: "9", name: "seowoo", date: date } },
-      { value: { id: "10", name: "seowoo", date: date } },
-      { value: { id: "11", name: "seowoo", date: date } },
-      { value: { id: "12", name: "seowoo", date: date } },
-      { value: { id: "13", name: "seowoo", date: date } },
-      { value: { id: "14", name: "seowoo", date: date } },
-      { value: { id: "15", name: "seowoo", date: date } },
-      { value: { id: "16", name: "seowoo", date: date } },
-      { value: { id: "17", name: "seowoo", date: date } },
+      { value: { id: "1", name: "tom" } },
+      { value: { id: "2", name: "seowoo" } },
+      { value: { id: "3", name: "seowoo" } },
+      { value: { id: "4", name: "seowoo" } },
+      { value: { id: "4", name: "seowoo" } },
+      { value: { id: "5", name: "seowoo" } },
+      { value: { id: "6", name: "seowoo" } },
+      { value: { id: "7", name: "seowoo" } },
+      { value: { id: "8", name: "seowoo" } },
+      { value: { id: "9", name: "seowoo" } },
+      { value: { id: "10", name: "seowoo" } },
+      { value: { id: "11", name: "seowoo" } },
+      { value: { id: "12", name: "seowoo" } },
+      { value: { id: "13", name: "seowoo" } },
+      { value: { id: "14", name: "seowoo" } },
+      { value: { id: "15", name: "seowoo" } },
+      { value: { id: "16", name: "seowoo" } },
+      { value: { id: "17", name: "seowoo" } },
     ]);
   }, []);
 
@@ -93,23 +95,9 @@ export const Formater: React.FC = () => {
         </DatagridBody>
       </Datagrid>
       <section>
-        <button onClick={setColumnA}>setColumn A</button>
-        <button onClick={setColumnB}>setColumn B</button>
+        <button onClick={setColumnPredefined}>setColumn Predefined</button>
         <button onClick={setColumnFormater}>setColumn Formater</button>
-      </section>
-      <section>
-        scrollTop :
-        <input
-          type={"number"}
-          value={scrollTop}
-          onChange={(e) => setScrollTop(Number(e.target.value))}
-        />
-        &nbsp; scrollLeft :
-        <input
-          type={"number"}
-          value={scrollLeft}
-          onChange={(e) => setScrollLeft(Number(e.target.value))}
-        />
+        <button onClick={setColumnsRestore}>setColumn Restore</button>
       </section>
     </div>
   );

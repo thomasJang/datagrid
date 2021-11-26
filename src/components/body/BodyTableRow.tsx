@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { IColumn, IDataItem } from "../../@interface";
+import predefinedFormatter from "../../lib/predefinedFormatter";
 
 interface IProps {
   columns: IColumn[];
@@ -25,7 +26,11 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         : rowItem.value[String(col.key)];
 
       let formattedItem: any;
-      if (typeof col.formatter === "string") {
+      if (
+        typeof col.formatter === "string" &&
+        col.formatter in predefinedFormatter
+      ) {
+        formattedItem = predefinedFormatter[col.formatter](item);
       } else if (typeof col.formatter === "function") {
         formattedItem = col.formatter(item);
       } else {

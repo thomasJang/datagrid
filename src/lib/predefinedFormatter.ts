@@ -1,13 +1,8 @@
-const predefinedFormatter = {
-  date: (args: any) => {
-    let month = args.getMonth() + 1;
-    let day = args.getDate();
+interface Iformatter {
+  [key: string]: (args: any) => any;
+}
 
-    month = month >= 10 ? month : "0" + month;
-    day = day >= 10 ? day : "0" + day;
-
-    return args.getFullYear() + "-" + month + "-" + day;
-  },
+const predefinedFormatter: Iformatter = {
   double: (args: any) => {
     return args * 2;
   },
