@@ -13,6 +13,17 @@ interface IProps {
 const HeaderTable: React.FC<IProps> = ({ columns, lineNumberColumnWidth }) => {
   const layoutContext = useDatagridLayoutContext();
   const { _headerHeight: height } = layoutContext;
+  const [display, setDisplay] = React.useState(0);
+  const [column, setColumn] = React.useState(-1);
+
+  const onClick: React.MouseEventHandler<HTMLTableDataCellElement> = React.useCallback(
+    (evt) => {
+      evt.preventDefault();
+      setDisplay(display + 1);
+      setColumn(parseInt(evt.currentTarget.id));
+    },
+    [display]
+  );
 
   const tableStyle = React.useMemo(() => ({ left: lineNumberColumnWidth }), [
     lineNumberColumnWidth,
@@ -31,13 +42,33 @@ const HeaderTable: React.FC<IProps> = ({ columns, lineNumberColumnWidth }) => {
   const renderTd = React.useCallback(
     (col: IColumn, ci: number) => {
       return (
-        <td key={ci} style={columnStyle}>
+        <td
+          className="ac-datagrid--header--main__panel_cell"
+          id={String(ci)}
+          key={ci}
+          onClick={onClick}
+          style={columnStyle}
+        >
+          {column == ci ? (
+            <>
+              {display % 3 == 1 ? (
+                <span className="arrow_icon arrow_icon_down" />
+              ) : (
+                <></>
+              )}
+              {display % 3 == 2 ? (
+                <span className="arrow_icon arrow_icon_up" />
+              ) : (
+                <></>
+              )}
+            </>
+          ) : null}
           <span>{col.label}</span>
           <Resizer index={ci} col={col} />
         </td>
       );
     },
-    [columnStyle]
+    [onClick, columnStyle, column, display]
   );
 
   return (
