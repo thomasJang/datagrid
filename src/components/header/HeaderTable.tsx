@@ -19,19 +19,21 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
     }),
     [height]
   );
-
-  const renderColumn = (col: IColumn, ci: number) => {
+  const renderColumn = React.useCallback((col: IColumn, ci: number) => {
     return <col key={ci} style={{ width: col._width }} />;
-  };
+  }, []);
 
-  const renderTd = (col: IColumn, ci: number) => {
-    return (
-      <td key={ci} style={columnStyle}>
-        <span>{col.label}</span>
-        <Resizer index={ci} col={col} />
-      </td>
-    );
-  };
+  const renderTd = React.useCallback(
+    (col: IColumn, ci: number) => {
+      return (
+        <td key={ci} style={columnStyle}>
+          <span>{col.label}</span>
+          <Resizer index={ci} col={col} />
+        </td>
+      );
+    },
+    [columnStyle]
+  );
 
   return (
     <table>
