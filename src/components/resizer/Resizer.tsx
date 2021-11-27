@@ -24,6 +24,8 @@ const Resizer: React.FC<IProps> = ({ index }) => {
       // check limit
       if (newResizerX < 0) {
         newResizerX = offsetX;
+      } else if (newResizerX < 49.9) {
+        newResizerX = 50;
       }
       newResizerPosition = newResizerX;
       setOffsetX(newResizerX);
