@@ -9,22 +9,28 @@ interface IProps {
   columns: IColumn[];
   startRowIndex: number;
   endRowIndex: number;
+  lineNumberColumnWidth: number;
 }
 
 const BodyTable: React.FC<IProps> = ({
   columns,
   startRowIndex,
   endRowIndex,
+  lineNumberColumnWidth,
 }) => {
   const context = useDatagridContext();
   const filterContext = useDatagridFilterContext();
 
-  React.useEffect(() => {
-    console.log(` filter data : ${filterContext._filteredData}`);
-    console.log(` isFiltered ? : ${filterContext._isFiltered}`);
-  });
+  const tableStyle = React.useMemo(
+    () => ({ left: lineNumberColumnWidth }),
+    [lineNumberColumnWidth]
+  );
+
   return (
-    <table>
+    <table
+      className="ac-datagrid--body--main__panel--body__table"
+      style={tableStyle}
+    >
       <colgroup>
         {columns.map((col, ci) => (
           <col key={ci} style={{ width: col._width }} />

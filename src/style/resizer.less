@@ -1,0 +1,23 @@
+.resizer {
+  position: absolute;
+  z-index: 1000;
+  width: 2px;
+  height: 28px;
+  top: 0px;
+  background-color: darkblue;
+  cursor: col-resize;
+  opacity: 0;
+  &:hover,
+  &.resizer-active {
+    background-image: radial-gradient(
+      at center center,
+      rgba(0, 0, 0, 0.2) 0%,
+      transparent 70%,
+      transparent 100%
+    );
+    opacity: 1;
+    background-size: 100% 50px;
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+  }
+}

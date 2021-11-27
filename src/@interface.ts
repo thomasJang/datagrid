@@ -2,6 +2,7 @@ import * as React from "react";
 
 export enum ContextActionTypes {
   SET_STATE = "SET_STATE",
+  SET_COLUMN_WIDTH = "SET_COLUMN_WIDTH",
 }
 
 export enum LayoutContextActionTypes {
@@ -17,6 +18,10 @@ export enum LayoutContextActionTypes {
 }
 
 type DataItemType = "C" | "U" | "D";
+
+export type PREDEFINED_FORMAT = {
+  double: (args: number) => number;
+};
 
 export interface IDataItem {
   type?: DataItemType;
@@ -41,7 +46,7 @@ export interface IColumn {
   rowSpan?: number;
   colIndex?: number;
   rowIndex?: number;
-  formatter?: number;
+  formatter?: keyof PREDEFINED_FORMAT | ((args: any) => React.ReactNode);
   collector?: number;
   editor?: any;
   _sx?: number;
@@ -72,6 +77,7 @@ export interface IDatagridProps extends IDatagridCommonProps {
   bodyRowHeight?: number;
   bodyAlign?: Direction;
   statusBarHeight?: number;
+  theme?: string;
 
   enableLineNumber?: boolean;
   lineNumberStartAt?: number;
@@ -102,6 +108,9 @@ export interface IDatagridHorizontalScroller extends IDatagridCommonProps {
 export interface IDatagridStatusBar extends IDatagridCommonProps {
   showScroller?: boolean;
   scrollerSize?: number;
+}
+export interface IDatagridOptionBar extends IDatagridCommonProps {
+  isFiltered: boolean;
 }
 
 // local variables
