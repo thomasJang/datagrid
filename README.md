@@ -21,10 +21,9 @@ Use more data intuitively and quickly on the web.
 
 http://a-component.github.io/datagrid/
 
-## Install
-=======
+
 ### Installation
->>>>>>> docs
+
 
 ```bash
 npm install @a-c/datagrid --save
