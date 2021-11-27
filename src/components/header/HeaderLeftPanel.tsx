@@ -17,13 +17,22 @@ const HeaderLeftPanel: React.FC<IProps> = () => {
     [height]
   );
 
+  const lineNumberColumnWidth = React.useMemo(() => {
+    return context.enableLineNumber
+      ? layoutContext._lineNumberColumnWidth || 50
+      : 0;
+  }, [context.enableLineNumber, layoutContext._lineNumberColumnWidth]);
+
   if (!context._leftColGroup || context._leftColGroup.length < 1) {
     return null;
   }
 
   return (
     <div className="ac-datagrid--header--left_panel" style={containerStyle}>
-      <HeaderTable columns={context._leftColGroup} />
+      <HeaderTable
+        columns={context._leftColGroup}
+        lineNumberColumnWidth={lineNumberColumnWidth}
+      />
     </div>
   );
 };

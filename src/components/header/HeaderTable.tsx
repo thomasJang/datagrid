@@ -4,8 +4,9 @@ import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
 
 interface IProps {
   columns?: IColumn[];
+  lineNumberColumnWidth: number;
 }
-const HeaderTable: React.FC<IProps> = ({ columns }) => {
+const HeaderTable: React.FC<IProps> = ({ columns, lineNumberColumnWidth }) => {
   const layoutContext = useDatagridLayoutContext();
   const { _headerHeight: height } = layoutContext;
   const [display, setDisplay] = React.useState(0);
@@ -19,6 +20,10 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
     },
     [display]
   );
+
+  const tableStyle = React.useMemo(() => ({ left: lineNumberColumnWidth }), [
+    lineNumberColumnWidth,
+  ]);
 
   const columnStyle = React.useMemo(
     () => ({
@@ -63,7 +68,10 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
   );
 
   return (
-    <table>
+    <table
+      className="ac-datagrid--header--main__panel--header__table"
+      style={tableStyle}
+    >
       <colgroup>
         {(columns || []).map(renderColumn)}
         <col />

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { action } from "@storybook/addon-actions";
 import "../src/style/index.less";
 import { IColumn, IDataItem } from "../src/@interface";
 import {
@@ -8,30 +9,41 @@ import {
   DatagridHorizontalScroller,
   DatagridVerticalScroller,
 } from "../src";
-import OptionBar from "./optionBar/OptionBar";
+
 export default {
-  title: "datagrid/basic",
+  title: "datagrid/formater",
 };
 
-export const Basic: React.FC = () => {
+export const Formater: React.FC = () => {
   const [columns, setColumns] = React.useState<IColumn[]>([]);
   const [data, setData] = React.useState<IDataItem[]>([]);
   const [scrollTop, setScrollTop] = React.useState(0);
   const [scrollLeft, setScrollLeft] = React.useState(0);
-  const [theme, setTheme] = React.useState("normal");
 
-  const setColumnA = () => {
-    setColumns([
-      { key: "name", label: "네임", width: 200 },
-      { key: "date", label: "date" },
-      { key: "writer", label: "writer", width: 300 },
-    ]);
-  };
-
-  const setColumnB = () => {
+  const setColumnsRestore = () => {
     setColumns([
       { key: "id", label: "ID" },
       { key: "name", label: "Name" },
+    ]);
+  };
+
+  const setColumnPredefined = () => {
+    setColumns([
+      { key: "id", label: "ID", formatter: "double" },
+      { key: "name", label: "Name" },
+    ]);
+  };
+
+  const setColumnFormater = () => {
+    setColumns([
+      { key: "id", label: "ID" },
+      {
+        key: "name",
+        label: "Name",
+        formatter: (args) => {
+          return "**" + args + "**";
+        },
+      },
     ]);
   };
 
@@ -44,6 +56,7 @@ export const Basic: React.FC = () => {
       { value: { id: "1", name: "tom" } },
       { value: { id: "2", name: "seowoo" } },
       { value: { id: "3", name: "seowoo" } },
+      { value: { id: "4", name: "seowoo" } },
       { value: { id: "4", name: "seowoo" } },
       { value: { id: "5", name: "seowoo" } },
       { value: { id: "6", name: "seowoo" } },
@@ -63,7 +76,6 @@ export const Basic: React.FC = () => {
 
   return (
     <div>
-      <OptionBar setTheme={setTheme} />
       <Datagrid
         width={500}
         height={400}
@@ -75,7 +87,6 @@ export const Basic: React.FC = () => {
         scrollTop={scrollTop}
         scrollLeft={scrollLeft}
         enableLineNumber
-        theme={theme}
       >
         <DatagridHeader />
         <DatagridBody>
@@ -84,22 +95,9 @@ export const Basic: React.FC = () => {
         </DatagridBody>
       </Datagrid>
       <section>
-        <button onClick={setColumnA}>setColumn A</button>
-        <button onClick={setColumnB}>setColumn B</button>
-      </section>
-      <section>
-        scrollTop :
-        <input
-          type={"number"}
-          value={scrollTop}
-          onChange={(e) => setScrollTop(Number(e.target.value))}
-        />
-        &nbsp; scrollLeft :
-        <input
-          type={"number"}
-          value={scrollLeft}
-          onChange={(e) => setScrollLeft(Number(e.target.value))}
-        />
+        <button onClick={setColumnPredefined}>setColumn Predefined</button>
+        <button onClick={setColumnFormater}>setColumn Formater</button>
+        <button onClick={setColumnsRestore}>setColumn Restore</button>
       </section>
     </div>
   );

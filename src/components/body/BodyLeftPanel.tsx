@@ -10,7 +10,7 @@ const BodyLeftPanel: React.FC<IProps> = () => {
 
   const containerStyle = React.useMemo(
     () => ({
-      height
+      height,
     }),
     [height]
   );

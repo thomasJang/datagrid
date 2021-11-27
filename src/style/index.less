@@ -3,13 +3,13 @@
 @acgrid-border-negative-width: -1px;
 @acgrid-border-style: solid;
 @acgrid-border-color: #d9d9d9;
+@acgrid-tr-bg: #e0e0e0;
 @acgrid-header-bg: #eee;
 @acgrid-line-number-bg: #eee;
 @acgrid-scroll-bar-color: rgba(160, 176, 173, 0.7);
 @acgrid-status-bg: #eee;
 @acgrid-status-scroll-bar-track-bg: rgba(160, 176, 173, 0.2);
-
-@acgrid-txt-static: #222;
+@acgrid-txt-header: #222;
 @acgrid-txt-default: #222;
 @acgrid-txt-hover: #222;
 @acgrid-txt-active: #222;
@@ -20,29 +20,28 @@
 @acgrid-txt-desc: #222;
 
 @acgrid-font-size: 12px;
+@acgrid-font-weight: 700;
 @acgrid-padding-base-tb: 0;
 @acgrid-padding-base-lr: 5px;
 @acgrid-padding-base: @acgrid-padding-base-tb @acgrid-padding-base-lr;
 
 .ac-datagrid {
-  --bg: @acgrid-base-color;
   --border-color: @acgrid-border-color;
   --border-negative-width: @acgrid-border-negative-width;
   --border-style: @acgrid-border-style;
   --border-width: @acgrid-border-width;
   --border: var(--border-width) var(--border-style) var(--border-color);
-  --column-border: @acgrid-border-width @acgrid-border-style @acgrid-border-color;
+  --column-border: @acgrid-border-width @acgrid-border-style
+    @acgrid-border-color;
   --font-size: @acgrid-font-size;
   --header-bg: @acgrid-header-bg;
   --line-number-bg: @acgrid-line-number-bg;
   --padding-base-lr: @acgrid-padding-base-lr;
   --padding-base-tb: @acgrid-padding-base-tb;
   --padding-base: @acgrid-padding-base;
-  --scroll-bar-color: @acgrid-scroll-bar-color;
-  --status-bg: @acgrid-status-bg;
-  --status-scroll-bar-bg: @acgrid-status-scroll-bar-track-bg;
-  --txt-color: @acgrid-txt-static;
-  --txt-default-color: @acgrid-txt-default;
+  --font-size: @acgrid-font-size;
+  --font-weight-bold: @acgrid-font-weight;
+
   --txt-hover-active: @acgrid-txt-active;
   --txt-hover-color: @acgrid-txt-hover;
   --txt-hover-desc: @acgrid-txt-desc;
@@ -53,7 +52,7 @@
 }
 
 .ac-datagrid {
-  background-color: var(--bg);
+  background: var(--bg);
   border: var(--border);
   font-size: var(--font-size);
   box-sizing: content-box;
@@ -71,16 +70,31 @@
     border: 0 none;
     width: 100%;
   }
+
   td {
     padding: 0;
     border: 0 none;
     border-right: var(--border);
     border-bottom: var(--border);
+    position: relative;
     &:last-child {
       border-right: 0 none;
     }
     > span {
       padding: var(--padding-base);
+    }
+    input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      padding: 0 5px;
+
+      ::placeholder {
+        font-size: 11px;
+      }
     }
   }
 }
@@ -98,3 +112,5 @@
 @import "./body";
 @import "./scroller";
 @import "./statusBar";
+@import "../../stories/optionBar/style/theme.less";
+@import "./cell.less";

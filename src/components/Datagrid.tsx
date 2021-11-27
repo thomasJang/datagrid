@@ -30,13 +30,14 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
     width,
     enableFrozenCell,
     frozenColumnIndex,
+    theme,
   } = props;
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const dispatch = useDatagridDispatch();
   const layoutDispatch = useDatagridLayoutDispatch();
 
-  const { cssClassName = "ac-datagrid" } = context;
+  const { cssClassName = `ac-datagrid ${theme}` } = context;
   const styles: React.CSSProperties = {
     ...style,
     width,
