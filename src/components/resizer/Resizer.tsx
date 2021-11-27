@@ -30,11 +30,11 @@ const Resizer: React.FC<IProps> = ({ index, col }) => {
       }
       newResizerPosition = newResizerX;
       setOffsetX(newResizerX);
-    });
+    }, 10);
     const mouseMoveEnd = () => {
       setResizerActive(false);
       dispatch({
-        type: ContextActionTypes.SET_COLUMN,
+        type: ContextActionTypes.SET_COLUMN_WIDTH,
         _width: newResizerPosition,
         index,
       });
