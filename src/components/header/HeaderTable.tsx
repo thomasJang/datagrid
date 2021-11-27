@@ -8,6 +8,17 @@ interface IProps {
 const HeaderTable: React.FC<IProps> = ({ columns }) => {
   const layoutContext = useDatagridLayoutContext();
   const { _headerHeight: height } = layoutContext;
+  const [display, setDisplay] = React.useState(0);
+  const [column, setColumn] = React.useState(-1);
+
+  const onClick: React.MouseEventHandler<HTMLTableDataCellElement> = React.useCallback(
+    (evt) => {
+      evt.preventDefault();
+      setDisplay(display + 1);
+      setColumn(parseInt(evt.currentTarget.id));
+    },
+    [display]
+  );
 
   const columnStyle = React.useMemo(
     () => ({
@@ -23,12 +34,24 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
   const renderTd = React.useCallback(
     (col: IColumn, ci: number) => {
       return (
-        <td key={ci} style={columnStyle}>
+        <td
+          className="ac-datagrid--header--main__panel_cell"
+          id={String(ci)}
+          key={ci}
+          onClick={onClick}
+          style={columnStyle}
+        >
+          {column == ci ? (
+            <>
+              {display % 3 == 1 ? <span>↑</span> : <></>}
+              {display % 3 == 2 ? <span>↓</span> : <></>}
+            </>
+          ) : null}
           <span>{col.label}</span>
         </td>
       );
     },
-    [columnStyle]
+    [onClick, columnStyle, column, display]
   );
 
   return (
