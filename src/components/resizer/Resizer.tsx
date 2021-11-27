@@ -1,15 +1,16 @@
 import * as React from "react";
 import debounce from "lodash.debounce";
 import { useDatagridDispatch } from "../../context/DatagridContext";
-import { ContextActionTypes } from "../../@interface";
+import { ContextActionTypes, IColumn } from "../../@interface";
 
 interface IProps {
   index: number;
+  col: IColumn;
 }
 
-const Resizer: React.FC<IProps> = ({ index }) => {
+const Resizer: React.FC<IProps> = ({ index, col }) => {
   const [resizerActive, setResizerActive] = React.useState(false);
-  const [offsetX, setOffsetX] = React.useState(100);
+  const [offsetX, setOffsetX] = React.useState(col._width as number);
   const dispatch = useDatagridDispatch();
   let newResizerPosition = offsetX;
 

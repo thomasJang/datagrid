@@ -116,11 +116,12 @@ const BodyMainPanel: React.FC<IProps> = ({
     ]
   );
 
-  const onScroll: React.UIEventHandler<HTMLDivElement> = React.useCallback(() => {
-    const scrollTop = panelScrollRef.current?.scrollTop || 0;
-    const scrollLeft = panelScrollRef.current?.scrollLeft || 0;
-    return throttledScroll(scrollTop, scrollLeft);
-  }, [throttledScroll]);
+  const onScroll: React.UIEventHandler<HTMLDivElement> =
+    React.useCallback(() => {
+      const scrollTop = panelScrollRef.current?.scrollTop || 0;
+      const scrollLeft = panelScrollRef.current?.scrollLeft || 0;
+      return throttledScroll(scrollTop, scrollLeft);
+    }, [throttledScroll]);
 
   React.useEffect(() => {
     if (panelScrollRef.current) {

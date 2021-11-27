@@ -28,7 +28,7 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
     return (
       <td key={ci} style={columnStyle}>
         <span>{col.label}</span>
-        <Resizer index={ci} />
+        <Resizer index={ci} col={col} />
       </td>
     );
   };

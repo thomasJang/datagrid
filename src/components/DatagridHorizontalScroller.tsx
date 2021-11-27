@@ -1,19 +1,19 @@
 import * as React from "react";
 import {
   IDatagridHorizontalScroller,
-  LayoutContextActionTypes
+  LayoutContextActionTypes,
 } from "../@interface";
 import { useDatagridContext } from "../context/DatagridContext";
 import {
   useDatagridLayoutContext,
-  useDatagridLayoutDispatch
+  useDatagridLayoutDispatch,
 } from "../context/DatagridLayoutContext";
 import debounce from "lodash.debounce";
 
 const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   style,
   width,
-  size = 12
+  size = 12,
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const context = useDatagridContext();
@@ -31,7 +31,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
     _hover,
     _bodyWidth = 1,
     _lineNumberColumnWidth = 50,
-    _scrollLeft
+    _scrollLeft,
   } = layoutContext;
 
   const contentScrollContainerWidth = React.useMemo(() => {
@@ -40,22 +40,24 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
 
   const bodyContentWidth = React.useMemo(() => {
     return _colGroup
-      .map(n => n._width || 0)
+      .map((n) => n._width || 0)
       .reduce((acc, cur) => {
         return acc + cur;
       }, 0);
-  }, [_totalWidthOfColumns]);
+  }, [_totalWidthOfColumns, context._colGroup]);
 
   const styles: React.CSSProperties = React.useMemo(
     () => ({
       ...style,
       width: "100%",
-      height: size
+      height: size,
     }),
     [style, size]
   );
 
-  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = ev => {
+  const handleActiveScrollBar: React.MouseEventHandler<HTMLDivElement> = (
+    ev
+  ) => {
     ev.preventDefault();
 
     const startClientX = ev.clientX;
@@ -80,7 +82,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
 
       layoutDispatch({
         type: LayoutContextActionTypes.SET_SCROLL_LEFT,
-        scrollLeft: scrollLeft
+        scrollLeft: scrollLeft,
       });
     });
 
@@ -129,7 +131,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
   const scrollBarStyle = React.useMemo(
     () => ({
       width: barWidth,
-      left: barX
+      left: barX,
     }),
     [barWidth, barX]
   );
