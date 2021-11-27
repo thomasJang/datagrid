@@ -11,6 +11,7 @@ const Resizer: React.FC<IProps> = ({ index }) => {
   const [resizerActive, setResizerActive] = React.useState(false);
   const [offsetX, setOffsetX] = React.useState(100);
   const dispatch = useDatagridDispatch();
+  let newResizerPosition = 0;
 
   const handleActiveResizer: React.MouseEventHandler<HTMLDivElement> = (
     evt
@@ -18,23 +19,22 @@ const Resizer: React.FC<IProps> = ({ index }) => {
     evt.preventDefault();
 
     const startClientX = evt.clientX;
-
     const mouseMove = debounce((evt: MouseEvent) => {
-      console.log(resizerActive);
       let newResizerX = offsetX + (evt.clientX - startClientX);
       // check limit
       if (newResizerX < 0) {
         newResizerX = offsetX;
       }
+      newResizerPosition = newResizerX;
       setOffsetX(newResizerX);
-      dispatch({
-        type: ContextActionTypes.SET_COLUMN,
-        _width: newResizerX,
-        index,
-      });
     });
     const mouseMoveEnd = () => {
       setResizerActive(false);
+      dispatch({
+        type: ContextActionTypes.SET_COLUMN,
+        _width: newResizerPosition,
+        index,
+      });
       document.removeEventListener("mousemove", mouseMove);
       document.removeEventListener("mouseup", mouseMoveEnd);
       document.removeEventListener("mouseleave", mouseMoveEnd);

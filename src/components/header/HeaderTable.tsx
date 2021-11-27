@@ -20,37 +20,18 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
     [height]
   );
 
-  const renderColumn = React.useCallback((col: IColumn, ci: number) => {
+  const renderColumn = (col: IColumn, ci: number) => {
     return <col key={ci} style={{ width: col._width }} />;
-  }, []);
-  /* 
-  const [mouseOn, useMouseOn] = React.useState(false);
-
-  const onMouseDown = () => {
-    useMouseOn(true);
-    console.log("mousedown!", mouseOn);
   };
-  const onMouseMove = () => {
-    if (mouseOn) console.log("moving");
-  };
-  const onMouseUp = () => {
-    if (mouseOn) {
-      console.log("up!");
-      useMouseOn(false);
-    }
-  };*/
 
-  const renderTd = React.useCallback(
-    (col: IColumn, ci: number) => {
-      return (
-        <td key={ci} style={columnStyle}>
-          <span>{col.label}</span>
-          <Resizer index={ci} />
-        </td>
-      );
-    },
-    [columnStyle]
-  );
+  const renderTd = (col: IColumn, ci: number) => {
+    return (
+      <td key={ci} style={columnStyle}>
+        <span>{col.label}</span>
+        <Resizer index={ci} />
+      </td>
+    );
+  };
 
   return (
     <table>

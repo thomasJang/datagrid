@@ -16,7 +16,6 @@ const DatagridContextReducer = (
   state: IDatagridContext,
   action: DatagridContextAction
 ): IDatagridContext => {
-  console.log(action);
   switch (action.type) {
     case ContextActionTypes.SET_STATE:
       return {
