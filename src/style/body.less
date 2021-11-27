@@ -11,10 +11,17 @@
   left: 0;
   top: 0;
   overflow: auto;
+  color: var(--txt-default-color);
+  text-align: center;
 
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
+  }
+  tr:nth-child(2n) {
+    background-color: var(--tr-bg);
+    box-sizing: border-box;
+    border-left: 1px solid var(--border-color);
   }
 }
 

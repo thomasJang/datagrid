@@ -38,14 +38,7 @@ const BodyTable: React.FC<IProps> = ({
           if (context.data) {
             const rowItem = getDataItem(context.data, rowIndex);
             if (rowItem) {
-              return (
-                <BodyTableRow
-                  key={rowIndex}
-                  columns={columns}
-                  rowIndex={rowIndex}
-                  rowItem={rowItem}
-                />
-              );
+              return <BodyTableRow key={rowIndex} columns={columns} rowIndex={rowIndex} rowItem={rowItem} />;
             }
           }
         })}

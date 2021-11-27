@@ -17,7 +17,6 @@ const DatagridBody: React.FC<IDatagridBody> = (props) => {
 
   const { bodyRowHeight = 20, dataLength } = context;
   const { _bodyHeight = 1, _scrollTop } = layoutContext;
-
   const { startRowIndex, endRowIndex, styleTop } = React.useMemo(() => {
     const displayRowCount = Math.floor(_bodyHeight / bodyRowHeight);
     const startRowIndex = Math.floor(_scrollTop / bodyRowHeight);
