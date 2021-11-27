@@ -29,7 +29,7 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
     style,
     width,
     enableFrozenCell,
-    frozenColumnIndex,
+    frozenColumnIndex
   } = props;
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
