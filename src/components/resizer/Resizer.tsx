@@ -11,7 +11,7 @@ const Resizer: React.FC<IProps> = ({ index }) => {
   const [resizerActive, setResizerActive] = React.useState(false);
   const [offsetX, setOffsetX] = React.useState(100);
   const dispatch = useDatagridDispatch();
-  let newResizerPosition = 0;
+  let newResizerPosition = offsetX;
 
   const handleActiveResizer: React.MouseEventHandler<HTMLDivElement> = (
     evt

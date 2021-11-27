@@ -9,8 +9,9 @@ export type DatagridContextAction =
   | { type: ContextActionTypes.SET_COLUMN; _width: number; index: number };
 
 const DatagridContext = React.createContext<IDatagridContext | null>(null);
-const DatagridDispatchContext =
-  React.createContext<React.Dispatch<DatagridContextAction> | null>(null);
+const DatagridDispatchContext = React.createContext<React.Dispatch<
+  DatagridContextAction
+> | null>(null);
 
 const DatagridContextReducer = (
   state: IDatagridContext,
@@ -24,7 +25,7 @@ const DatagridContextReducer = (
         _ready: true,
       };
     case ContextActionTypes.SET_COLUMN:
-      const newColumn = state._colGroup || [];
+      const newColumn = [...(state._colGroup || [])];
       newColumn[action.index]._width = action._width;
       return {
         ...state,
