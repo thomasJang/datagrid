@@ -8,6 +8,8 @@
   border-right: var(--border);
   text-align: center;
   background: var(--line-number-bg);
+  color: var(--txt-header-color);
+  font-weight: var(--font-weight-bold);
 }
 .ac-datagrid--body--left_panel {
   overflow: hidden;
@@ -17,10 +19,17 @@
   left: 0;
   top: 0;
   overflow: auto;
+  color: var(--txt-default-color);
+  text-align: center;
 
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
+  }
+  tr:nth-child(2n) {
+   background-color: var(--tr-bg);
+   box-sizing: border-box;
+   border-left: 1px solid var(--border-color);
   }
 }
 

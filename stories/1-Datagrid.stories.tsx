@@ -1,5 +1,4 @@
 import * as React from "react";
-import { action } from "@storybook/addon-actions";
 import "../src/style/index.less";
 import { IColumn, IDataItem } from "../src/@interface";
 import {
@@ -9,7 +8,7 @@ import {
   DatagridHorizontalScroller,
   DatagridVerticalScroller,
 } from "../src";
-
+import OptionBar from "./optionBar/OptionBar";
 export default {
   title: "datagrid/basic",
 };
@@ -19,6 +18,7 @@ export const Basic: React.FC = () => {
   const [data, setData] = React.useState<IDataItem[]>([]);
   const [scrollTop, setScrollTop] = React.useState(0);
   const [scrollLeft, setScrollLeft] = React.useState(0);
+  const [theme, setTheme] = React.useState("normal");
 
   const setColumnA = () => {
     setColumns([
@@ -63,6 +63,7 @@ export const Basic: React.FC = () => {
 
   return (
     <div>
+      <OptionBar setTheme={setTheme} />
       <Datagrid
         width={500}
         height={400}
@@ -74,6 +75,7 @@ export const Basic: React.FC = () => {
         scrollTop={scrollTop}
         scrollLeft={scrollLeft}
         enableLineNumber
+        theme={theme}
       >
         <DatagridHeader />
         <DatagridBody>
