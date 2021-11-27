@@ -9,7 +9,6 @@ interface IPros {
 
 const ColorSelector: React.FC<IPros> = (props) => {
   const { onMouseLeave, setTheme } = props;
-  const testRef = React.useRef();
 
   const onClick: React.MouseEventHandler<HTMLElement> = React.useCallback(
     (e) => {
@@ -21,7 +20,7 @@ const ColorSelector: React.FC<IPros> = (props) => {
       );
       setTheme(e.currentTarget.innerHTML);
     },
-    []
+    [setTheme]
   );
 
   return (
@@ -31,7 +30,7 @@ const ColorSelector: React.FC<IPros> = (props) => {
     >
       <ul className="color_selector__list">
         {(presetItems || []).map((item, index) => (
-          <li ref={testRef} onClick={onClick} key={index}>
+          <li onClick={onClick} key={index}>
             {item}
           </li>
         ))}
