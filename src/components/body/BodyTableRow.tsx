@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
-import {
-  useDatagridContext,
-  useDatagridDispatch,
-} from "../../context/DatagridContext";
-import { IColumn, IDatagridContext, IDataItem } from "../../@interface";
-
+import { useDatagridContext } from "../../context/DatagridContext";
+import { IColumn, IDataItem, IDatagridContext } from "../../@interface";
+import predefinedFormatter from "../../lib/predefinedFormatter";
 interface IProps {
   columns: IColumn[];
   rowIndex: number;
@@ -105,6 +102,19 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
       const item = Array.isArray(rowItem.value)
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
+
+      let formattedItem: React.ReactNode;
+      if (
+        typeof col.formatter === "string" &&
+        col.formatter in predefinedFormatter
+      ) {
+        formattedItem = predefinedFormatter[col.formatter](item);
+      } else if (typeof col.formatter === "function") {
+        formattedItem = col.formatter(item);
+      } else {
+        formattedItem = item;
+      }
+
       return (
         <td
           className="ac-datagrid--body--main__panel__cell"
@@ -126,7 +136,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
               onKeyUp={(evt) => onKeyUp(evt, item)}
             />
           ) : (
-            <span>{item}</span>
+            <span>{formattedItem}</span>
           )}
         </td>
       );
