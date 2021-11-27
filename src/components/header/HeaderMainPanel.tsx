@@ -1,14 +1,15 @@
 import * as React from "react";
 import { useDatagridContext } from "../../context/DatagridContext";
 import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
+import HeaderAsidePanel from "./HeaderAsidePanel";
 import HeaderTable from "./HeaderTable";
 
-interface IProps {
-  styleLeft: number;
-}
-const HeaderMainPanel: React.FC<IProps> = ({ styleLeft }) => {
+const HeaderMainPanel: React.FC = () => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
+  const { _bodyWidth, _scrollLeft } = layoutContext;
+
+  const panelScrollRef = React.useRef<HTMLDivElement>(null);
 
   const lineNumberColumnWidth = React.useMemo(() => {
     return context.enableLineNumber
@@ -18,23 +19,30 @@ const HeaderMainPanel: React.FC<IProps> = ({ styleLeft }) => {
 
   const containerStyle = React.useMemo(
     () => ({
-      left: lineNumberColumnWidth,
+      width: _bodyWidth,
       height: layoutContext._headerHeight,
     }),
-    [lineNumberColumnWidth, layoutContext._headerHeight]
+    [_bodyWidth, layoutContext._headerHeight]
   );
 
-  const contentContainerStyle = React.useMemo(
-    () => ({
-      left: styleLeft,
-    }),
-    [styleLeft]
-  );
+  React.useEffect(() => {
+    if (panelScrollRef.current) {
+      panelScrollRef.current.scrollLeft = _scrollLeft;
+    }
+  }, [_scrollLeft]);
 
   return (
-    <div className="ac-datagrid--header--main__panel" style={containerStyle}>
-      <div data-panel={"scroll-content"} style={contentContainerStyle}>
-        <HeaderTable columns={context._colGroup} />
+    <div
+      className="ac-datagrid--header--main__panel"
+      style={containerStyle}
+      ref={panelScrollRef}
+    >
+      <div data-panel={"scroll-content"}>
+        <HeaderAsidePanel />
+        <HeaderTable
+          columns={context._colGroup}
+          lineNumberColumnWidth={lineNumberColumnWidth}
+        />
       </div>
     </div>
   );

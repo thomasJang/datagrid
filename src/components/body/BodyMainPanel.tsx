@@ -7,30 +7,24 @@ import {
 } from "../../context/DatagridLayoutContext";
 import throttle from "lodash.throttle";
 import BodyTable from "./BodyTable";
+import BodyAsidePanel from "./BodyAsidePanel";
 
 interface IProps {
   startRowIndex: number;
   endRowIndex: number;
   styleTop: number;
-  styleLeft: number;
 }
 
 const BodyMainPanel: React.FC<IProps> = ({
   startRowIndex,
   endRowIndex,
   styleTop,
-  styleLeft,
 }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const layoutDispatch = useDatagridLayoutDispatch();
   const panelScrollRef = React.useRef<HTMLDivElement>(null);
-  const {
-    _bodyWidth = 1,
-    _bodyHeight = 1,
-    _scrollLeft,
-    _scrollTop,
-  } = layoutContext;
+  const { _bodyWidth = 1, _bodyHeight = 1, _scrollTop } = layoutContext;
   const { dataLength, bodyRowHeight = 20 } = context;
 
   const lineNumberColumnWidth = React.useMemo(() => {
@@ -41,11 +35,10 @@ const BodyMainPanel: React.FC<IProps> = ({
 
   const containerStyle = React.useMemo(
     () => ({
-      left: lineNumberColumnWidth,
-      width: _bodyWidth - lineNumberColumnWidth,
+      width: _bodyWidth,
       height: _bodyHeight,
     }),
-    [_bodyWidth, _bodyHeight, lineNumberColumnWidth]
+    [_bodyWidth, _bodyHeight]
   );
 
   const bodyContentWidth = React.useMemo(() => {
@@ -63,20 +56,11 @@ const BodyMainPanel: React.FC<IProps> = ({
   const contentContainerStyle = React.useMemo(
     () => ({
       top: styleTop,
-      left: styleLeft,
-      paddingLeft: _scrollLeft,
       paddingTop: _scrollTop,
       height: bodyContentHeight,
       width: bodyContentWidth,
     }),
-    [
-      styleTop,
-      styleLeft,
-      _scrollLeft,
-      _scrollTop,
-      bodyContentHeight,
-      bodyContentWidth,
-    ]
+    [styleTop, _scrollTop, bodyContentHeight, bodyContentWidth]
   );
 
   const throttledScroll = React.useMemo(
@@ -126,9 +110,8 @@ const BodyMainPanel: React.FC<IProps> = ({
   React.useEffect(() => {
     if (panelScrollRef.current) {
       panelScrollRef.current.scrollTop = _scrollTop;
-      panelScrollRef.current.scrollLeft = _scrollLeft;
     }
-  }, [_scrollTop, _scrollLeft]);
+  }, [_scrollTop]);
 
   if (!context._colGroup || context._colGroup.length < 1) {
     return null;
@@ -142,10 +125,15 @@ const BodyMainPanel: React.FC<IProps> = ({
       onScroll={onScroll}
     >
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
+        <BodyAsidePanel
+          startRowIndex={startRowIndex}
+          endRowIndex={endRowIndex}
+        />
         <BodyTable
           columns={context._colGroup}
           startRowIndex={startRowIndex}
           endRowIndex={endRowIndex}
+          lineNumberColumnWidth={lineNumberColumnWidth}
         />
       </div>
     </div>

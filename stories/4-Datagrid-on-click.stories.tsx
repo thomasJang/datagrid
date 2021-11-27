@@ -11,18 +11,14 @@ import {
   DatagridStatusBar,
 } from "../src";
 
-import OptionBar from "./optionBar/OptionBar";
 export default {
-  title: "datagrid/use-status",
+  title: "datagrid/on-click",
 };
 
-export const UseStatusBar: React.FC = () => {
+export const OnClick: React.FC = () => {
   const columns = [
     { key: "id", label: "ID" },
-    { key: "name", label: "Name" },
-    { key: "name", label: "Name" },
-    { key: "name", label: "Name" },
-    { key: "name", label: "Name" },
+    { key: "name", label: "Name" }
   ];
   const dataSource = [
     { value: { id: "1", name: "tom" } },
@@ -44,10 +40,10 @@ export const UseStatusBar: React.FC = () => {
     { value: { id: "17", name: "seowoo" } },
     { value: { id: "18", name: "seowoo" } },
   ];
-  const [theme, setTheme] = React.useState("normal");
+
+  const helloClickHandler = () => {console.log("hello")}
   return (
     <div>
-      <OptionBar setTheme={setTheme} />
       <Datagrid
         width={500}
         height={400}
@@ -58,7 +54,8 @@ export const UseStatusBar: React.FC = () => {
         data={dataSource}
         dataLength={dataSource.length}
         enableLineNumber
-        theme={theme}
+        enableEditCell ={true}
+        onClick = {helloClickHandler}
       >
         <DatagridHeader />
         <DatagridBody>

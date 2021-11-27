@@ -19,6 +19,10 @@ export enum LayoutContextActionTypes {
 
 type DataItemType = "C" | "U" | "D";
 
+export type PREDEFINED_FORMAT = {
+  double: (args: number) => number;
+};
+
 export interface IDataItem {
   type?: DataItemType;
   value: [] | Record<string, any>;
@@ -42,7 +46,7 @@ export interface IColumn {
   rowSpan?: number;
   colIndex?: number;
   rowIndex?: number;
-  formatter?: number;
+  formatter?: keyof PREDEFINED_FORMAT | ((args: any) => React.ReactNode);
   collector?: number;
   editor?: any;
   _sx?: number;
@@ -73,6 +77,7 @@ export interface IDatagridProps extends IDatagridCommonProps {
   bodyRowHeight?: number;
   bodyAlign?: Direction;
   statusBarHeight?: number;
+  theme?: string;
 
   enableLineNumber?: boolean;
   lineNumberStartAt?: number;
@@ -81,8 +86,14 @@ export interface IDatagridProps extends IDatagridCommonProps {
   frozenColumnIndex?: number;
   frozenRowIndex?: number;
 
+  enableEditCell?: boolean;
   onScroll?: () => void;
-  onClick?: () => void;
+  onClick?: (
+    e?: React.MouseEvent,
+    value?: any,
+    selectedRow?: number,
+    selectedCol?: number
+  ) => void;
 }
 
 export interface IDatagridHeader extends IDatagridCommonProps {}

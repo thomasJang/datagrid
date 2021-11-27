@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useDatagridContext } from "../context/DatagridContext";
 import { IDatagridHeader, LayoutContextActionTypes } from "../@interface";
-import HeaderAsidePanel from "./header/HeaderAsidePanel";
 import HeaderLeftPanel from "./header/HeaderLeftPanel";
 import HeaderMainPanel from "./header/HeaderMainPanel";
 import useIsomorphicLayoutEffect from "../lib/useIsomorphicLayoutEffect";
@@ -35,9 +34,8 @@ const DatagridHeader: React.FC<IDatagridHeader> = (props) => {
 
   return (
     <div ref={containerRef} className="ac-datagrid--header" style={styles}>
-      <HeaderAsidePanel />
       <HeaderLeftPanel />
-      <HeaderMainPanel styleLeft={styleLeft} />
+      <HeaderMainPanel />
       {props.children}
     </div>
   );
