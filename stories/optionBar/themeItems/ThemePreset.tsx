@@ -1,4 +1,4 @@
-const presetItems: String[] = [
+const presetItems: string[] = [
   "normal",
   "dark",
   "orange",
