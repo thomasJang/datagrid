@@ -17,7 +17,6 @@ Use more data intuitively and quickly on the web.
 
 <hr />
 
-<<<<<<< HEAD
 ## Example
 
 http://a-component.github.io/datagrid/
