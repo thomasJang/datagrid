@@ -30,7 +30,7 @@ const ColorSelector: React.FC<IPros> = (props) => {
     >
       <ul className="color_selector__list">
         {(presetItems || []).map((item, index) => (
-          <li onClick={onClick} key={index}>
+          <li className="color_selector__item" onClick={onClick} key={index}>
             {item}
           </li>
         ))}

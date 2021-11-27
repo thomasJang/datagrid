@@ -32,7 +32,7 @@
   top: 39px;
   left: 330px;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 1);
   border: 1px solid #d9d9d9;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -44,10 +44,12 @@
     margin: 10px 0 0 15px;
     list-style: none;
     display: inline-block;
-    width: calc(100% - 40px);
-
-    &:hover {
-      cursor: pointer;
+    width: calc(100%);
+    .color_selector__item {
+      &:hover {
+        cursor: pointer;
+        background: rgba(214, 213, 213, 0.5);
+      }
     }
   }
 }
