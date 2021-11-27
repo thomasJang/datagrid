@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export enum ContextActionTypes {
-  SET_STATE = "SET_STATE"
+  SET_STATE = "SET_STATE",
 }
 
 export enum LayoutContextActionTypes {
@@ -13,10 +13,14 @@ export enum LayoutContextActionTypes {
   SET_BODY_DIMENSION = "SET_BODY_DIMENSION",
   SET_HEADER_HEIGHT = "SET_HEADER_HEIGHT",
   SET_BODY_HEIGHT = "SET_BODY_HEIGHT",
-  SET_STATE = "SET_STATE"
+  SET_STATE = "SET_STATE",
 }
 
 type DataItemType = "C" | "U" | "D";
+
+export type PREDEFINED_FORMAT = {
+  double: (args: number) => number;
+};
 
 export interface IDataItem {
   type?: DataItemType;
@@ -41,7 +45,7 @@ export interface IColumn {
   rowSpan?: number;
   colIndex?: number;
   rowIndex?: number;
-  formatter?: number;
+  formatter?: keyof PREDEFINED_FORMAT | ((args: any) => React.ReactNode);
   collector?: number;
   editor?: any;
   _sx?: number;
@@ -80,8 +84,14 @@ export interface IDatagridProps extends IDatagridCommonProps {
   frozenColumnIndex?: number;
   frozenRowIndex?: number;
 
+  enableEditCell?: boolean;
   onScroll?: () => void;
-  onClick?: () => void;
+  onClick?: (
+    e?: React.MouseEvent,
+    value?: any,
+    selectedRow?: number,
+    selectedCol?: number
+  ) => void;
 }
 
 export interface IDatagridHeader extends IDatagridCommonProps {}
