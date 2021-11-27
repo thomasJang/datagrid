@@ -26,7 +26,7 @@ const OptionBar: React.FC<IPros> = (props) => {
   }, [selectDisplay]);
 
   const onMouseLeave = React.useCallback(() => {
-    //setSelectDisplay((prev) => !prev);
+    setSelectDisplay((prev) => !prev);
   }, []);
 
   return (
