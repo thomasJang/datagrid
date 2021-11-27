@@ -103,7 +103,7 @@ const BodyTableRow: React.FC<IProps> = ({ columns, rowIndex, rowItem }) => {
         ? rowItem.value[Number(col.key)]
         : rowItem.value[String(col.key)];
 
-      let formattedItem: any;
+      let formattedItem: React.ReactNode;
       if (
         typeof col.formatter === "string" &&
         col.formatter in predefinedFormatter

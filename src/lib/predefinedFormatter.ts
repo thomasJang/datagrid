@@ -1,8 +1,6 @@
-interface Iformatter {
-  [key: string]: (args: any) => any;
-}
+import { PREDEFINED_FORMAT } from "../@interface";
 
-const predefinedFormatter: Iformatter = {
+const predefinedFormatter: PREDEFINED_FORMAT = {
   double: (args: any) => {
     return args * 2;
   },
