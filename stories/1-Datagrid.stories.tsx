@@ -8,7 +8,7 @@ import {
   DatagridHorizontalScroller,
   DatagridVerticalScroller,
 } from "../src";
-import OptionBar from "../src/components/optionBar/OptionBar";
+import OptionBar from "./optionBar/OptionBar";
 export default {
   title: "datagrid/basic",
 };
@@ -18,6 +18,7 @@ export const Basic: React.FC = () => {
   const [data, setData] = React.useState<IDataItem[]>([]);
   const [scrollTop, setScrollTop] = React.useState(0);
   const [scrollLeft, setScrollLeft] = React.useState(0);
+  const [theme, setTheme] = React.useState("normal");
 
   const setColumnA = () => {
     setColumns([
@@ -34,7 +35,6 @@ export const Basic: React.FC = () => {
     ]);
   };
 
-  const theme = "custom";
   React.useEffect(() => {
     setColumns([
       { key: "id", label: "ID" },
@@ -63,6 +63,7 @@ export const Basic: React.FC = () => {
 
   return (
     <div>
+      <OptionBar setTheme={setTheme} />
       <Datagrid
         width={500}
         height={400}
@@ -76,7 +77,6 @@ export const Basic: React.FC = () => {
         enableLineNumber
         theme={theme}
       >
-        <OptionBar />
         <DatagridHeader />
         <DatagridBody>
           <DatagridVerticalScroller size={12} />
