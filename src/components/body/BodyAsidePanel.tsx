@@ -6,13 +6,8 @@ import { arrayFromRange } from "../../lib";
 interface IProps {
   startRowIndex: number;
   endRowIndex: number;
-  styleTop: number;
 }
-const BodyAsidePanel: React.FC<IProps> = ({
-  startRowIndex,
-  endRowIndex,
-  styleTop,
-}) => {
+const BodyAsidePanel: React.FC<IProps> = ({ startRowIndex, endRowIndex }) => {
   const context = useDatagridContext();
   const layoutContext = useDatagridLayoutContext();
   const { _bodyHeight: height } = layoutContext;
@@ -22,14 +17,10 @@ const BodyAsidePanel: React.FC<IProps> = ({
     [context.lineNumberStartAt]
   );
 
-  const containerStyle = React.useMemo(
+  const tableStyle = React.useMemo(
     () => ({ width: layoutContext._lineNumberColumnWidth, height }),
     [layoutContext._lineNumberColumnWidth, height]
   );
-
-  const contentContainerStyle = React.useMemo(() => ({ top: styleTop }), [
-    styleTop,
-  ]);
 
   const rowStyle = React.useMemo(() => ({ height: context.bodyRowHeight }), [
     context.bodyRowHeight,
@@ -40,23 +31,22 @@ const BodyAsidePanel: React.FC<IProps> = ({
   }
 
   return (
-    <div className="ac-datagrid--body--aside__panel" style={containerStyle}>
-      <div data-panel={"scroll-content"} style={contentContainerStyle}>
-        <table>
-          <tbody>
-            {arrayFromRange(startRowIndex, endRowIndex).map((rowIndex) => {
-              return (
-                <tr key={rowIndex} style={rowStyle}>
-                  <td>
-                    <span>{lineNumberStartAt + rowIndex}</span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <table
+      style={tableStyle}
+      className="ac-datagrid--body--main__panel--body__aside__table"
+    >
+      <tbody>
+        {arrayFromRange(startRowIndex, endRowIndex).map((rowIndex) => {
+          return (
+            <tr key={rowIndex} style={rowStyle}>
+              <td>
+                <span>{lineNumberStartAt + rowIndex}</span>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 };
 
