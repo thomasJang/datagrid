@@ -11,27 +11,21 @@
 [download-image]: https://img.shields.io/npm/dw/@a-c/datagrid
 [download-url]: https://www.npmjs.com/package/@a-c/datagrid
 
-Data Grid is a library that anyone can easily use large amounts of data as easily and quickly as Excel on the web.
+DataGrid는 누구나 쉽게 대용량 데이터를 엑셀처럼 쉽고 빠르게 활용할 수 있는 라이브러리 입니다.
+
 <br/>
-Use more data intuitively and quickly on the web.
+
+더 많은 데이터를 웹에서 직관적이고 빠르게 사용해보세요.
 
 <hr />
 
-<<<<<<< HEAD
-## Example
-
-http://a-component.github.io/datagrid/
-
-## Install
-=======
-### Installation
->>>>>>> docs
+### 설치방법
 
 ```bash
 npm install @a-c/datagrid --save
 ```
 
-you can try our library by storybook
+스토리북을 활용해 더 쉽고 빠르게 사용해보세요.
 
 ```bash
 npm install
@@ -40,51 +34,18 @@ npm run storybook
 
 <hr />
 
-## Example
+## 예제
 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
 import {
-<<<<<<< HEAD
-    Datagrid,
-    DatagridHeader,
-    DatagridBody,
-    DatagridHorizontalScroller,
-    DatagridVerticalScroller,
-} from '@a-c/datagrid';
-
-const columns = [
-    {key: "id", label: "ID"},
-    {key: "name", label: "Name"},
-];
-const data = [
-    {value: {id: "1", name: "tom"}},
-    {value: {id: "2", name: "seowoo"}},
-    {value: {id: "3", name: "seowoo"}},
-    {value: {id: "4", name: "seowoo"}},
-    {value: {id: "5", name: "seowoo"}},
-    {value: {id: "6", name: "seowoo"}},
-    {value: {id: "7", name: "seowoo"}},
-    {value: {id: "8", name: "seowoo"}},
-    {value: {id: "9", name: "seowoo"}},
-    {value: {id: "10", name: "seowoo"}},
-    {value: {id: "11", name: "seowoo"}},
-    {value: {id: "12", name: "seowoo"}},
-    {value: {id: "13", name: "seowoo"}},
-    {value: {id: "14", name: "seowoo"}},
-    {value: {id: "15", name: "seowoo"}},
-    {value: {id: "16", name: "seowoo"}},
-    {value: {id: "17", name: "seowoo"}},
-];
-=======
   Datagrid,
   DatagridHeader,
   DatagridBody,
   DatagridHorizontalScroller,
   DatagridVerticalScroller,
 } from "@a-c/datagrid";
->>>>>>> docs
 
 ReactDOM.render(
   <Datagrid
@@ -106,7 +67,7 @@ ReactDOM.render(
 );
 ```
 
-You can try to enjoy our library below link
+하단의 링크에서 코드를 경험할 수 있습니다.
 <br />
 https://github.com/a-component/datagrid.git
 
@@ -114,13 +75,13 @@ https://github.com/a-component/datagrid.git
 
 <hr />
 
-## **Patch notes**
+## **업데이트**
 
 [1.0.0 ver](https://www.notion.so/innohack/1-0-0-ver-2021-11-28-e4cdac234ee946489804e06f476ce881)
 
 <hr />
 
-## Documentation
+## 문서
 
 - [Development log](https://medium.com/chequer/react-datagrid-component-%EC%A0%9C%EC%9E%91%EA%B8%B0-with-es6-typescript-4efcbfe1b442)
 
