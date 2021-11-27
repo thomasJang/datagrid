@@ -43,8 +43,16 @@ const HeaderTable: React.FC<IProps> = ({ columns }) => {
         >
           {column == ci ? (
             <>
-              {display % 3 == 1 ? <span>↑</span> : <></>}
-              {display % 3 == 2 ? <span>↓</span> : <></>}
+              {display % 3 == 1 ? (
+                <span className="arrow_icon arrow_icon_down" />
+              ) : (
+                <></>
+              )}
+              {display % 3 == 2 ? (
+                <span className="arrow_icon arrow_icon_up" />
+              ) : (
+                <></>
+              )}
             </>
           ) : null}
           <span>{col.label}</span>
