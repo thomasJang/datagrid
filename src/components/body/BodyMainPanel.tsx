@@ -128,6 +128,7 @@ const BodyMainPanel: React.FC<IProps> = ({
         <BodyAsidePanel
           startRowIndex={startRowIndex}
           endRowIndex={endRowIndex}
+          styleTop={0}
         />
         <BodyTable
           columns={context._colGroup}
