@@ -27,7 +27,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  const { enableLineNumber, /*_totalWidthOfColumns*/ _colGroup = [] } = context;
+  const { enableLineNumber, _colGroup = [] } = context;
   const {
     _hover,
     _bodyWidth = 1,
@@ -45,7 +45,7 @@ const DatagridHorizontalScroller: React.FC<IDatagridHorizontalScroller> = ({
       .reduce((acc, cur) => {
         return acc + cur;
       }, 0);
-  }, [_colGroup]);
+  }, [context._colGroup]);
 
   const styles: React.CSSProperties = React.useMemo(
     () => ({

@@ -10,8 +10,8 @@ import {
   DatagridVerticalScroller,
   DatagridStatusBar,
 } from "../src";
-import OptionBar from "./optionBar/OptionBar";
 
+import OptionBar from "./optionBar/OptionBar";
 export default {
   title: "datagrid/use-status",
 };

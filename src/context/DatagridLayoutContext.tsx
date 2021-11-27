@@ -25,12 +25,10 @@ export type DatagridLayoutContextAction =
     }
   | { type: LayoutContextActionTypes.SET_HEADER_HEIGHT; headerHeight: number };
 
-const DatagridLayoutContext = React.createContext<IDatagridLayoutContext | null>(
-  null
-);
-const DatagridLayoutDispatchContext = React.createContext<React.Dispatch<DatagridLayoutContextAction> | null>(
-  null
-);
+const DatagridLayoutContext =
+  React.createContext<IDatagridLayoutContext | null>(null);
+const DatagridLayoutDispatchContext =
+  React.createContext<React.Dispatch<DatagridLayoutContextAction> | null>(null);
 
 const DatagridLayoutontextReducer = (
   state: IDatagridLayoutContext,

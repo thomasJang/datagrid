@@ -18,9 +18,10 @@ const BodyTable: React.FC<IProps> = ({
 }) => {
   const context = useDatagridContext();
 
-  const tableStyle = React.useMemo(() => ({ left: lineNumberColumnWidth }), [
-    lineNumberColumnWidth,
-  ]);
+  const tableStyle = React.useMemo(
+    () => ({ left: lineNumberColumnWidth }),
+    [lineNumberColumnWidth]
+  );
 
   return (
     <table
@@ -38,7 +39,14 @@ const BodyTable: React.FC<IProps> = ({
           if (context.data) {
             const rowItem = getDataItem(context.data, rowIndex);
             if (rowItem) {
-              return <BodyTableRow key={rowIndex} columns={columns} rowIndex={rowIndex} rowItem={rowItem} />;
+              return (
+                <BodyTableRow
+                  key={rowIndex}
+                  columns={columns}
+                  rowIndex={rowIndex}
+                  rowItem={rowItem}
+                />
+              );
             }
           }
         })}

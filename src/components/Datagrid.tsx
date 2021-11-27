@@ -78,15 +78,12 @@ const Datagrid: React.FC<IDatagridProps> = (props) => {
       context.enableFrozenCell !== nextState.enableFrozenCell ||
       context.frozenColumnIndex !== nextState.frozenColumnIndex
     ) {
-      const {
-        _leftColGroup,
-        _colGroup,
-        _totalWidthOfColumns,
-      } = getCTXDataByColumns(nextState.columns, {
-        containerWidth: nextState.width || 0,
-        enableFrozenCell: nextState.enableFrozenCell,
-        frozenColumnIndex: nextState.frozenColumnIndex,
-      });
+      const { _leftColGroup, _colGroup, _totalWidthOfColumns } =
+        getCTXDataByColumns(nextState.columns, {
+          containerWidth: nextState.width || 0,
+          enableFrozenCell: nextState.enableFrozenCell,
+          frozenColumnIndex: nextState.frozenColumnIndex,
+        });
       nextState._leftColGroup = _leftColGroup;
       nextState._colGroup = _colGroup;
       nextState._totalWidthOfColumns = _totalWidthOfColumns;

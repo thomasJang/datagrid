@@ -1,6 +1,10 @@
 import * as React from "react";
 import { IColumn } from "../../@interface";
-import { useDatagridLayoutContext } from "../../context/DatagridLayoutContext";
+import {
+  useDatagridLayoutContext,
+  useDatagridLayoutDispatch,
+} from "../../context/DatagridLayoutContext";
+import Resizer from "../resizer/Resizer";
 
 interface IProps {
   columns?: IColumn[];
@@ -20,7 +24,6 @@ const HeaderTable: React.FC<IProps> = ({ columns, lineNumberColumnWidth }) => {
     }),
     [height]
   );
-
   const renderColumn = React.useCallback((col: IColumn, ci: number) => {
     return <col key={ci} style={{ width: col._width }} />;
   }, []);
@@ -30,6 +33,7 @@ const HeaderTable: React.FC<IProps> = ({ columns, lineNumberColumnWidth }) => {
       return (
         <td key={ci} style={columnStyle}>
           <span>{col.label}</span>
+          <Resizer index={ci} col={col} />
         </td>
       );
     },
