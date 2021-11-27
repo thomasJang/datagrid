@@ -1,15 +1,17 @@
 import * as React from "react";
 import debounce from "lodash.debounce";
-import {
-  useDatagridLayoutContext,
-  useDatagridLayoutDispatch,
-} from "../../context/DatagridLayoutContext";
-import { SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER } from "constants";
-interface IProps {}
+import { useDatagridDispatch } from "../../context/DatagridContext";
+import { ContextActionTypes } from "../../@interface";
 
-const Resizer: React.FC<IProps> = () => {
-  const [resizerActive, setResizerActive] = React.useState(true);
+interface IProps {
+  index: number;
+}
+
+const Resizer: React.FC<IProps> = ({ index }) => {
+  const [resizerActive, setResizerActive] = React.useState(false);
   const [offsetX, setOffsetX] = React.useState(100);
+  const dispatch = useDatagridDispatch();
+
   const handleActiveResizer: React.MouseEventHandler<HTMLDivElement> = (
     evt
   ) => {
@@ -18,38 +20,30 @@ const Resizer: React.FC<IProps> = () => {
     const startClientX = evt.clientX;
 
     const mouseMove = debounce((evt: MouseEvent) => {
-      //if (!_bodyHeight) return;
-      //console.dir(evt);
+      console.log(resizerActive);
       let newResizerX = offsetX + (evt.clientX - startClientX);
-      setOffsetX(newResizerX);
-      console.log(newResizerX, startClientX);
       // check limit
-      /*if (newResizerX < 0) {
-        newResizerX = 0;
-      } else if (newResizerX + barHeight > _bodyHeight) {
-        newBarY = _bodyHeight - barHeight;
+      if (newResizerX < 0) {
+        newResizerX = offsetX;
       }
-
-      // convertScrollY
-
-      layoutDispatch({
-        type: LayoutContextActionTypes.SET_SCROLL_TOP,
-        scrollTop,
+      setOffsetX(newResizerX);
+      dispatch({
+        type: ContextActionTypes.SET_COLUMN,
+        _width: newResizerX,
+        index,
       });
-      */
     });
     const mouseMoveEnd = () => {
+      setResizerActive(false);
       document.removeEventListener("mousemove", mouseMove);
       document.removeEventListener("mouseup", mouseMoveEnd);
       document.removeEventListener("mouseleave", mouseMoveEnd);
-      //setResizerActive(false);
     };
 
+    setResizerActive(true);
     document.addEventListener("mousemove", mouseMove);
     document.addEventListener("mouseup", mouseMoveEnd);
     document.addEventListener("mouseleave", mouseMoveEnd);
-
-    //setResizerActive(true);
   };
   const resizerStyle = React.useMemo(
     () => ({
@@ -57,9 +51,13 @@ const Resizer: React.FC<IProps> = () => {
     }),
     [offsetX]
   );
+  const resizerClassName = React.useMemo(
+    () => (resizerActive ? "resizer resizer-active" : "resizer"),
+    [resizerActive]
+  );
   return (
     <div
-      className="resizer"
+      className={resizerClassName}
       onMouseDown={handleActiveResizer}
       style={resizerStyle}
     ></div>

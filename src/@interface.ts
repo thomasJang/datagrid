@@ -2,6 +2,7 @@ import * as React from "react";
 
 export enum ContextActionTypes {
   SET_STATE = "SET_STATE",
+  SET_COLUMN = "SET_COLUMN",
 }
 
 export enum FilterContextActionTypes {
