@@ -75,11 +75,25 @@
     border: 0 none;
     border-right: var(--border);
     border-bottom: var(--border);
+    position: relative;
     &:last-child {
       border-right: 0 none;
     }
     > span {
       padding: var(--padding-base);
+    }
+    input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      padding: 0 5px;
+
+      ::placeholder {
+        font-size: 11px;
+      }
     }
   }
 }
@@ -98,3 +112,4 @@
 @import "./scroller";
 @import "./statusBar";
 @import "../../stories/optionBar/style/theme.less";
+@import "./cell.less";
