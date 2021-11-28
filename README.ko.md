@@ -1,10 +1,10 @@
 > Languages
 
-[한국어](https://github.com/a-component/datagrid/blob/docs/README.ko.md)
+[Eng](https://github.com/a-component/datagrid/blob/master/README.md)
 
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/62472550/143730838-2ab6f7f8-10be-489a-89e5-3117b08ae860.png"  width="250" height="250">
+<img src="https://user-images.githubusercontent.com/62472550/143730838-2ab6f7f8-10be-489a-89e5-3117b08ae860.png" width="250" height="250">
 
 </div>
 
@@ -20,15 +20,15 @@
 
 </div>
 
-Data Grid is a library that anyone can easily use large amounts of data as easily and quickly as Excel on the web.
+DataGrid는 누구나 쉽게 대용량 데이터를 엑셀처럼 쉽고 빠르게 활용할 수 있는 라이브러리 입니다.
 
 <br/>
 
-Use more data intuitively and quickly on the web.
+더 많은 데이터를 웹에서 직관적이고 빠르게 사용해보세요.
 
 <hr />
 
-## **⚙️Installation**
+## **⚙️설치방법**
 
 ```bash
 
@@ -36,7 +36,7 @@ npm install @a-c/datagrid --save
 
 ```
 
-you can try our library by storybook
+스토리북을 활용해 더 쉽고 빠르게 사용해보세요.
 
 ```bash
 
@@ -49,16 +49,13 @@ npm run storybook
 <hr />
 <br />
 
-## **🗒Example**
+## **🗒예제**
 
-👇 You can try to enjoy our library below link 👇
+👇 하단의 링크에서 코드를 경험할 수 있습니다. 👇
 
 http://a-component.github.io/datagrid/
 
 <hr />
-<br />
-
-## **Usage**
 
 ```js
 
@@ -68,7 +65,7 @@ import ReactDOM from "react-dom";
 
 import {
 
-Datagrid
+Datagrid,
 
 DatagridHeader,
 
@@ -168,12 +165,12 @@ enableLineNumber
 
 <br />
 
-## **📈Patch notes**
+## 📈**업데이트**
 
 [0.0.1 ver](https://www.notion.so/Patch-notes-d1f6035d286d4e268bd0515c7869ef39)
 
 <hr />
 
-### Documentation
+### 문서
 
-- [Prototype](https://medium.com/chequer/react-datagrid-component-%EC%A0%9C%EC%9E%91%EA%B8%B0-with-es6-typescript-4efcbfe1b442)
+[프로토타입](*https://medium.com/chequer/react-datagrid-component-%EC%A0%9C%EC%9E%91%EA%B8%B0-with-es6-typescript-4efcbfe1b442*)
