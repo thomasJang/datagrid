@@ -4,6 +4,12 @@
 
 [한국어](https://github.com/axis-42/datagrid/blob/docs/README.ko.md)
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/62472550/143730838-2ab6f7f8-10be-489a-89e5-3117b08ae860.png"  width="250" height="250">
+</p>
+
+<div align="center">
+
 [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/@a-c/datagrid
@@ -11,13 +17,15 @@
 [download-image]: https://img.shields.io/npm/dw/@a-c/datagrid
 [download-url]: https://www.npmjs.com/package/@a-c/datagrid
 
+</div>
+
 Data Grid is a library that anyone can easily use large amounts of data as easily and quickly as Excel on the web.
 <br/>
 Use more data intuitively and quickly on the web.
 
 <hr />
 
-### Installation
+## **⚙️Installation**
 
 ```bash
 npm install @a-c/datagrid --save
@@ -32,7 +40,7 @@ npm run storybook
 
 <hr />
 
-## Example
+## **🗒Example**
 
 ```js
 import React from "react";
@@ -73,13 +81,13 @@ https://github.com/a-component/datagrid.git
 
 <hr />
 
-## **Patch notes**
+## **📈Patch notes**
 
 [1.0.0 ver](https://www.notion.so/innohack/1-0-0-ver-2021-11-28-e4cdac234ee946489804e06f476ce881)
 
 <hr />
 
-## Documentation
+### Documentation
 
 - [Development log](https://medium.com/chequer/react-datagrid-component-%EC%A0%9C%EC%9E%91%EA%B8%B0-with-es6-typescript-4efcbfe1b442)
 
