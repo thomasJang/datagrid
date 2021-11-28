@@ -27,6 +27,12 @@ const BodyMainPanel: React.FC<IProps> = ({
   const { _bodyWidth = 1, _bodyHeight = 1, _scrollTop } = layoutContext;
   const { dataLength, bodyRowHeight = 20 } = context;
 
+  const isSmallData = React.useMemo(() => {
+    const displayRowCount = Math.floor(_bodyHeight / bodyRowHeight);
+    const startRowIndex = Math.floor(_scrollTop / bodyRowHeight);
+    return startRowIndex + displayRowCount > dataLength;
+  }, [_bodyHeight, bodyRowHeight, dataLength, _scrollTop]);
+
   const lineNumberColumnWidth = React.useMemo(() => {
     return context.enableLineNumber
       ? layoutContext._lineNumberColumnWidth || 50
@@ -127,7 +133,7 @@ const BodyMainPanel: React.FC<IProps> = ({
       <div data-panel={"scroll-content"} style={contentContainerStyle}>
         <BodyAsidePanel
           startRowIndex={startRowIndex}
-          endRowIndex={endRowIndex}
+          endRowIndex={isSmallData ? endRowIndex - 1 : endRowIndex}
           styleTop={0}
         />
         <BodyTable
