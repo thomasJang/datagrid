@@ -1,8 +1,6 @@
-# DataGrid
+> Languages
 
-#### Languages
-
-[한국어](https://github.com/axis-42/datagrid/blob/docs/README.ko.md)
+- [한국어](https://github.com/axis-42/datagrid/blob/docs/README.ko.md)
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/62472550/143730838-2ab6f7f8-10be-489a-89e5-3117b08ae860.png"  width="250" height="250">
