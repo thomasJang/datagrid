@@ -1,15 +1,22 @@
-# DataGrid
+> Languages
 
-#### Languages
+- [한국어](https://github.com/a-component/datagrid/blob/docs/README.ko.md)
 
-[한국어](https://github.com/axis-42/datagrid/blob/docs/README.ko.md)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/62472550/143730838-2ab6f7f8-10be-489a-89e5-3117b08ae860.png"  width="250" height="250">
+</p>
+
+<div align="center">
 
 [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url]
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 [npm-image]: https://img.shields.io/npm/v/@a-c/datagrid
 [npm-url]: https://www.npmjs.com/package/@a-c/datagrid
 [download-image]: https://img.shields.io/npm/dw/@a-c/datagrid
 [download-url]: https://www.npmjs.com/package/@a-c/datagrid
+
+</div>
 
 Data Grid is a library that anyone can easily use large amounts of data as easily and quickly as Excel on the web.
 <br/>
@@ -17,13 +24,7 @@ Use more data intuitively and quickly on the web.
 
 <hr />
 
-## Example
-
-http://a-component.github.io/datagrid/
-
-
-### Installation
-
+## **⚙️Installation**
 
 ```bash
 npm install @a-c/datagrid --save
@@ -38,51 +39,18 @@ npm run storybook
 
 <hr />
 
-## Example
+## **🗒Example**
 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
 import {
-<<<<<<< HEAD
-    Datagrid,
-    DatagridHeader,
-    DatagridBody,
-    DatagridHorizontalScroller,
-    DatagridVerticalScroller,
-} from '@a-c/datagrid';
-
-const columns = [
-    {key: "id", label: "ID"},
-    {key: "name", label: "Name"},
-];
-const data = [
-    {value: {id: "1", name: "tom"}},
-    {value: {id: "2", name: "seowoo"}},
-    {value: {id: "3", name: "seowoo"}},
-    {value: {id: "4", name: "seowoo"}},
-    {value: {id: "5", name: "seowoo"}},
-    {value: {id: "6", name: "seowoo"}},
-    {value: {id: "7", name: "seowoo"}},
-    {value: {id: "8", name: "seowoo"}},
-    {value: {id: "9", name: "seowoo"}},
-    {value: {id: "10", name: "seowoo"}},
-    {value: {id: "11", name: "seowoo"}},
-    {value: {id: "12", name: "seowoo"}},
-    {value: {id: "13", name: "seowoo"}},
-    {value: {id: "14", name: "seowoo"}},
-    {value: {id: "15", name: "seowoo"}},
-    {value: {id: "16", name: "seowoo"}},
-    {value: {id: "17", name: "seowoo"}},
-];
-=======
   Datagrid,
   DatagridHeader,
   DatagridBody,
   DatagridHorizontalScroller,
   DatagridVerticalScroller,
 } from "@a-c/datagrid";
->>>>>>> docs
 
 ReactDOM.render(
   <Datagrid
@@ -104,22 +72,18 @@ ReactDOM.render(
 );
 ```
 
-You can try to enjoy our library below link
+👇 You can try to enjoy our library below link 👇
 <br />
 https://github.com/a-component/datagrid.git
 
-[![Edit axui-datagrid-ex](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/affectionate-boyd-r3y7r?fontsize=14&hidenavigation=1&theme=dark)
+<hr />
+
+## **📈Patch notes**
+
+[0.0.1 ver](https://www.notion.so/Patch-notes-d1f6035d286d4e268bd0515c7869ef39)
 
 <hr />
 
-## **Patch notes**
+### Documentation
 
-[1.0.0 ver](https://www.notion.so/innohack/1-0-0-ver-2021-11-28-e4cdac234ee946489804e06f476ce881)
-
-<hr />
-
-## Documentation
-
-- [Development log](https://medium.com/chequer/react-datagrid-component-%EC%A0%9C%EC%9E%91%EA%B8%B0-with-es6-typescript-4efcbfe1b442)
-
-- [Commit convention](https://www.notion.so/git-commit-convention-54cf3d86e53840c9b8613df73d067267)
+- [Prototype](https://medium.com/chequer/react-datagrid-component-%EC%A0%9C%EC%9E%91%EA%B8%B0-with-es6-typescript-4efcbfe1b442)
