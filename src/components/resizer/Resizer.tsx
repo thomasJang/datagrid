@@ -1,7 +1,7 @@
 import * as React from "react";
-import debounce from "lodash.debounce";
 import { useDatagridDispatch } from "../../context/DatagridContext";
 import { ContextActionTypes, IColumn } from "../../@interface";
+import { throttle } from "lodash";
 
 interface IProps {
   index: number;
@@ -20,7 +20,7 @@ const Resizer: React.FC<IProps> = ({ index, col }) => {
     evt.preventDefault();
 
     const startClientX = evt.clientX;
-    const mouseMove = debounce((evt: MouseEvent) => {
+    const mouseMove = throttle((evt: MouseEvent) => {
       let newResizerX = offsetX + (evt.clientX - startClientX);
       // check limit
       if (newResizerX < 0) {
@@ -30,7 +30,7 @@ const Resizer: React.FC<IProps> = ({ index, col }) => {
       }
       newResizerPosition = newResizerX;
       setOffsetX(newResizerX);
-    }, 10);
+    }, 30);
     const mouseMoveEnd = () => {
       setResizerActive(false);
       dispatch({
