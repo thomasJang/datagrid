@@ -11,6 +11,7 @@
 <div align="center">
 
 [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url]
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 [npm-image]: https://img.shields.io/npm/v/@a-c/datagrid
 [npm-url]: https://www.npmjs.com/package/@a-c/datagrid

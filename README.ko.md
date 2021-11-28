@@ -11,6 +11,7 @@
 <div align="center">
 
 [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url]
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 [npm-image]: https://img.shields.io/npm/v/@a-c/datagrid
 [npm-url]: https://www.npmjs.com/package/@a-c/datagrid
@@ -76,8 +77,7 @@ ReactDOM.render(
 ```
 
 > 하단의 링크에서 코드를 경험할 수 있습니다.
-> <br />
-> https://github.com/a-component/datagrid.git
+> <br /> > https://github.com/a-component/datagrid.git
 
 [![Edit axui-datagrid-ex](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/affectionate-boyd-r3y7r?fontsize=14&hidenavigation=1&theme=dark)
 
